@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -7,45 +6,74 @@
 
 		<style type="text/css">
 			html {
-				padding: 0px;
 				height: 100%;
 			}
 
 			body {
+				padding: 0px;
 				margin: 0px;
+				background-color: #222;
+			}
+
+			#ramme {
+				border: 0px solid black;
 			}
 
 			h1 {
-				padding: 15px;
+				margin: 0px;
+				padding: 32px 16px 16px 16px;
+				background-color: #ff5722;
+				color: white;
 			}
 
 			#listeProsjekter {
+				border-bottom: 5px solid black;
+				/** /border-left: 5px solid black;
+				border-right: 5px solid black;/**/
+			}
 
+			#listeProsjekter a {
+				text-decoration: none;
 			}
 
 			.prosjekt {
-				background-color: lightgrey;
-				font-size: 32px;
+				background-color: #808080;
+				font-size: 42px;
+				color: white;
 				padding: 15px;
 				border-top: 5px solid black;
 			}
 		</style>
 	</head>
 	<body>
-		<h1> Sigurdos IT-prosjekter / sigurdo.github.io </h1>
+		<div id="ramme">
+			<h1> Sigurdos IT-prosjekter | sigurdo.github.io/index.html </h1>
 
-		<div id="listeProsjekter">
-			<a href="riskDiceRollerMobil.html">
-				<div class="prosjekt">
-					RISK dice roller
-				</div>
-			</a>
+			<div id="listeProsjekter">
+				<a href="riskDiceRollerMobil.html">
+					<div class="prosjekt" style="background-color: #cc0000;">
+						<b> RISK </b> dice roller
+					</div>
+				</a>
 
-			<a href="polynomloserInternalCss.html">
-				<div class="prosjekt">
-					Polynomløser
-				</div>
-			</a>
+				<a href="polynomloserInternalCss.html">
+					<div class="prosjekt">
+						Polynomløser
+					</div>
+				</a>
+
+				<a href="basketSimulator/basketSimulator.html">
+					<div class="prosjekt" style="background-color: darkblue;">
+						Basketsimulator
+					</div>
+				</a>
+
+				<a href="hangman/hangman.html">
+					<div class="prosjekt" style="background-color: white; color: black;">
+						Hangman
+					</div>
+				</a>
+			</div>
 		</div>
 	</body>
 </html>

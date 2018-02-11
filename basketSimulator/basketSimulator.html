@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> </title>
+		<link rel="stylesheet" type="text/css" href="animasjonsStil.css">
+	</head>
+
+	<body>
+		<canvas id="flyBoks"></canvas>
+		<p>
+			tid: <t id="tidsViser"> </t> frames <br>
+			poeng: <t id="poengViser"> </t> poeng <br>
+			baller: <t id="ballerViser"> </t> baller
+		</p>
+
+		<script>
+			//Bruker strict for klasser
+			"use strict"
+
+			function lengde(vektor) {
+				return Math.sqrt(vektor[0] ** 2 + vektor[1] ** 2);
+			}
+
+			function vektorPunkter(startpunkt, sluttpunkt) {
+				return [sluttpunkt[0] - startpunkt[0] , sluttpunkt[1] - startpunkt[1]];
+			}
+
+			function avstand(punkt1, punkt2) {
+				var avstandVektor = vektorPunkter(punkt1, punkt2);
+				var avstand = lengde(avstandVektor);
+				return avstand;
+			}
+
+			function retning(vektor) {
+				function lengde(vektor) {
+					return Math.sqrt(vektor[0] ** 2 + vektor[1] ** 2);
+				}
+
+				if (lengde(vektor) == 0) {
+					return 0;
+				}
+
+				var lengde = lengde(vektor);
+				//console.log(lengde, vektor[0]);
+				var vinkel = Math.asin(vektor[1] / lengde);
+
+				if (vektor[0] < 0 && vektor[1] >= 0) {vinkel = Math.PI - vinkel;}
+				else if (vektor[0] < 0 && vektor[1] < 0) {vinkel = -Math.PI - vinkel;}
+				
+				if (vektor[1] < 0) {vinkel = vinkel + 2 * Math.PI;}
+				return vinkel;
+			}
+
+			function vinkel(vektor1, vektor2) {
+				return retning(vektor2) - retning(vektor1);
+			}
+
+			function vektor(lengde, vinkel) {
+				if (vinkel < Math.PI * 1/2) {
+					var vektor = [lengde * Math.cos(vinkel), lengde * Math.sin(vinkel)];
+				}
+				else if (vinkel < Math.PI * 2/2) {
+					var vektor = [lengde * Math.cos(vinkel), lengde * Math.sin(vinkel)];
+				}
+				else if (vinkel < Math.PI * 3/2) {
+					var vektor = [lengde * Math.cos(vinkel), lengde * Math.sin(vinkel)];
+				}
+				else if (vinkel < Math.PI * 4/2) {
+					var vektor = [lengde * Math.cos(vinkel), lengde * Math.sin(vinkel)];
+				}
+				return vektor;
+			}
+
+			function gjennomsnitt(array) {
+				var sum = 0;
+				for (var i = 0; i < array.length; i++) {
+					if (array[i] === Number(array[i])) {
+						sum += array[i];
+					} else {
+						console.error('Arrayen kan bare ha tall');
+					}
+				}
+				return sum / array.length;
+			}
+	
+			function musBvegelse(e) {
+				posisjon = [e.clientX, e.clientY];
+				//console.log(posisjon);
+			}
+
+			function musNed() {
+				musTrykket = true;
+				//console.log('ned');
+
+				posisjonFor = posisjon;
+				posisjonEtter = posisjon;
+				fart=[0, 0];
+			}
+
+			function musOpp() {
+				musTrykket = false
+				//console.log('opp');
+
+				if(posisjon[0] <= canvas.width / 2) {
+					for (var i = 0; i < baller.length; i++) {
+						if (lengde([posisjon[0] - baller[i].x, posisjon[1] - baller[i].y]) <= 100) {
+							var ballIVeien = true;
+						}
+					}
+
+					//if (!ballIVeien) {
+						var fart2 = [];
+						fart2[0] = 1 * fart[0];
+						fart2[1] = 1 * fart[1];
+						baller.push(new Ball(posisjon[0], posisjon[1], fart2, 0, 'orange', 'hsl('+hue+', 100%, 50%)'));
+						hue += 37;
+					//}
+				}
+			}
+
+			var musTrykket = false;
+			var posisjon = [1, 1];
+			var posisjonFor = [1, 1];
+			var posisjonEtter = [1, 1];
+			var fartSisteFrames = [];
+			for (var i = 0; i < 2; i++) {
+				fartSisteFrames[i] = [0, 0];
+			}
+			var fart = [0, 0];
+			var t = 0; //Forteller hvilket nr. av opptegninger vi er på
+			var poeng = 0;
+			var i = 0; //Til forløkka i animer()
+			var hue = 0;
+			var annenhverTyngdeaksellerasjon = true;
+
+			var bodyEl = document.querySelector('body');
+			var canvas = document.querySelector("#flyBoks");
+			//console.log(canvas.width, canvas.height);
+
+			var ctx = canvas.getContext("2d");
+
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight - 100;
+			canvas.style.height = (window.innerHeight - 100)+'px';
+			
+			bodyEl.addEventListener('mousemove', musBvegelse);
+
+			//Ball har x, y, fart, tegn(), flytt()
+			class Ball {
+				constructor (x, y, fart, tid, farge) {
+					this.x0 = x;
+					this.x = x;
+					this.y0 = y;
+					this.y = y;
+					this.fart = fart;
+					this.tid = tid;
+					this.farge = farge;
+					this.truffet = false;
+					this.kollidertVegg = false; //Om ballen koliderte med veggen forrige frame
+					this.kollidertTakGulv = false;
+					this.kollidertKurvkant = false;
+					this.kollidertBaller = []; //Om ballen kolliderte med ballen med gitt index forrige frame
+					this.skalSlettes = false;
+
+					for (var i = 0; i < baller.length; i++) {
+						if(lengde(vektorPunkter([this.x, this.y], [baller[i].x, baller[i].y])) <= 100) {
+							this.kollidertBaller[i] = true;
+						} else {
+							this.kollidertBaller[i] = false;
+						}
+					}
+				}
+
+				//Tegnemetode
+				tegn() {
+					//Tegner ball
+					ctx.lineWidth = 8;
+					ctx.beginPath();
+					ctx.arc(this.x, this.y, 50, 0, Math.PI*2);
+					ctx.strokeStyle = "black";
+					ctx.stroke();
+					ctx.fillStyle = this.farge;
+					ctx.fill();
+					ctx.closePath();
+				}
+
+				//x-flytt-metode
+				flytt() {
+					if (annenhverTyngdeaksellerasjon) {
+						this.fart[1] += 1.16;
+					}
+					//parabelbane
+					/**/this.x += this.fart[0];// * this.tid) + this.x0;
+					this.y += this.fart[1];// (0.5 * (this.tid**2)) + (this.fart[1] * this.tid) + this.y0;/**/
+
+					if (!annenhverTyngdeaksellerasjon) {
+						this.fart[1] += 1.16;
+					}
+
+					annenhverTyngdeaksellerasjon = !annenhverTyngdeaksellerasjon;
+
+					//console.log(retning(this.fart));
+
+					//sirkel
+					/** /this.x = 200*Math.cos(0.05*this.tid) + 300;
+					this.y = 200*Math.sin(0.05*this.tid) + 300;/**/
+
+					this.tid++;
+
+					//Sjekker om ballen kolliderer med veggene
+					if (this.x <= 0 + 18 || this.x >= canvas.width - 18) {
+						if (!this.kollidertVegg) {
+							this.fart[0] = -0.92 * this.fart[0];
+							this.kollidertVegg = true;
+						}
+					} else  {
+						this.kollidertVegg = false;
+					}
+
+					//Sjekker om den kolliderer med gulvet
+					/** /if (this.y >= canvas.height - 18 || this.y <= 0 + 18) {
+						if (!this.kollidertTakGulv) {
+							this.fart[1] = -1 * this.fart[1];
+							this.kollidertTakGulv = true;
+						}
+					} else {
+						this.kollidertTakGulv = false;
+					}/**/
+					//console.log(this.y, canvas.height, this.fart[1]);
+
+					if (this.y > canvas.height) {
+						if (!this.truffet) {
+							poeng = 0;
+							for (var i = 0; i < baller.length; i++) {
+								//baller[i].skalSlettes = true;
+							}
+						}
+						this.skalSlettes = true; //Kan ikke slette med en gang fordi da funker ikke forløkka i animer()
+					}
+
+					//Sjekker om ballen kolliderer med kurvkanten
+					var kurvkantPos = [canvas.width - 200, 300];
+					var ballPos = [this.x, this.y];
+					var r = vektorPunkter(kurvkantPos, ballPos);
+					var v0 = this.fart;
+					if (lengde(r) <= 75) {
+						if (!this.kollidertKurvkant) {
+							var vVinkel = retning(v0);
+							var v = vektor(0.92 * lengde(v0), (Math.PI + 2*retning(r) - retning(v0)) % (Math.PI * 2));
+							//console.log(vVinkel);
+							this.fart = v;
+							this.kollidertKurvkant = true;
+						}
+					} else {
+						this.kollidertKurvkant = false;
+					}
+
+					//Sjekker om ballen kolliderer med andre baller
+					/** /for (var j = 0; j < baller.length; j++) {
+						//console.log(j);
+
+						var ball2 = baller[j];
+						if (this != ball2) {
+							var ballPos = [this.x, this.y];
+							var ball2Pos = [ball2.x, ball2.y];
+							var r = vektorPunkter(ballPos, ball2Pos);
+
+							if (lengde(r) < 100) {
+								if(!this.kollidertBaller[j]){//&& !baller[j].kollidertBaller[baller.indexOf(this)]) {
+									var v0A = this.fart;
+									var v0B = ball2.fart;
+
+									var v0Ax = lengde(v0A) * Math.cos(vinkel(r, v0A));
+									var v0Ay = lengde(v0A) * Math.sin(vinkel(r, v0A));
+									var v0Bx = lengde(v0B) * Math.cos(vinkel(r, v0B));
+									var v0By = lengde(v0B) * Math.sin(vinkel(r, v0B));
+
+									var k = 0.96;
+
+									var vAx = v0Bx;
+									//var vAx = ((1 / 2 * k) * v0Ax) - ((1 / 2 * k) * v0Bx) + (1 / 2 * v0Ax) + (1 / 2 * v0Bx);
+									//var vAx = (v0Ax + v0Bx - Math.sqrt(((2 * k) * v0Ax**(2)) + ((2 * k) * v0Bx**(2)) - v0Ax**(2) - ((2 * v0Ax) * v0Bx) - v0Bx**(2))) / 2;
+									//console.log(baller.indexOf(this), vAx);
+									var vAy = v0Ay;
+									var vBx = v0Ax;
+									//var vBx = v0Ax + v0Bx - vAx;
+									//var vBx = (v0Ax + v0Bx + Math.sqrt(((2 * k) * v0Ax**(2)) + ((2 * k) * v0Bx**(2)) - v0Ax**(2) - ((2 * v0Ax) * v0Bx) - v0Bx**(2))) / 2;
+									//console.log(vBx);
+									var vBy = v0By;
+
+									var v0Totx = (v0Ax + v0Bx) / 2; //Deler på 2 fordi dette liksom blir gjennomsnittsfarta av de 2 ballene
+									var v0Ax2 = v0Ax - v0Totx;
+									var v0Bx2 = v0Bx - v0Totx;
+
+									vAx = k * v0Bx2;
+									vBx = k * v0Ax2;
+
+									vAx += v0Totx;
+									vBx += v0Totx;
+
+									//console.log(v0Ax+v0Bx, vAx+vBx); //Sjekke om bevegelsesmengden faktisk er bevart
+
+									var vA = [vAx, vAy];
+									var vB = [vBx, vBy];
+
+									var vAVektor = vektor(lengde(vA), (retning(r) + retning(vA)) % (2 * Math.PI));
+									var vBVektor = vektor(lengde(vB), (retning(r) + retning(vB)) % (2 * Math.PI));
+
+									this.fart = vAVektor;
+									ball2.fart = vBVektor;
+							
+									this.kollidertBaller[j] = true;
+									baller[j].kollidertBaller[baller.indexOf(this)] = true;
+								}
+							} else if(lengde(r) > 105) {
+								this.kollidertBaller[j] = false;
+								baller[j].kollidertBaller[baller.indexOf(this)] = false;
+							}
+						}
+					}/**/
+
+					//Lang if-setning sjekker om det er scoring. Denne er ikke perfekt men ganske god, nesten alle reelle treff vil registreres mens noen få ikke reelle treff vil registreres
+					if (this.x >= canvas.width - 200 && this.y > 300 && this.y < 350 && this.fart[1] > 0 && !this.truffet) {
+						this.truffet = true;
+						console.log('hurra');
+						poeng++;
+					}
+				}
+			}
+
+			//lager ball med fart
+			var baller = [];
+			//baller.push(new Ball(0, canvas.height/2, 15, 0));
+
+			//funskjon som repeater
+			function animer() {
+				//fjerner alt i canvas
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+				//Tegner midtstrek
+				ctx.lineWidth = 8;
+				ctx.beginPath();
+				ctx.moveTo(canvas.width / 2, 0);
+				ctx.lineTo(canvas.width / 2, canvas.height);
+				ctx.closePath();
+				ctx.strokeStyle = 'red';
+				ctx.stroke();
+
+				if (musTrykket) {
+					posisjonFor = posisjonEtter;
+					posisjonEtter = posisjon;
+					var fartTemp = vektorPunkter(posisjonFor, posisjonEtter);
+					fart = fartTemp;
+					if (lengde(fartTemp) >= lengde(fart)) {
+						fart = fartTemp;
+					}
+
+					for (var i = 0; i < fartSisteFrames.length - 1; i++) {
+						fartSisteFrames[i] = fartSisteFrames[i + 1];
+					}
+
+					fartSisteFrames[fartSisteFrames.length - 1] = fartTemp;
+					var sumx = 0;
+					var sumy = 0;
+
+					for (var i = 0; i < fartSisteFrames.length; i++) {
+						sumx += fartSisteFrames[i][0];
+						sumy += fartSisteFrames[i][1];
+					}
+
+					fart = [sumx / fartSisteFrames.length, sumy / fartSisteFrames.length];
+
+					if (posisjon[0] < canvas.width / 2) {
+						var holder = new Ball(posisjon[0], posisjon[1], fart, 0, 'orange');
+						baller.push(holder);
+					} /*else {
+						var holder = new Ball(posisjon[0], posisjon[1], fart, 0, 'red');
+					}*/
+					//holder.tegn();
+				}
+
+				for (i = 0; i < baller.length; i++) {
+					if (!(musTrykket && i == baller.length - 1 && posisjon[0] < canvas.width / 2)) {
+						baller[i].flytt();
+					}
+					baller[i].tegn();
+					//console.log(i);
+				}
+
+				//Sletter baller
+				for (var i = 0; i < baller.length; i++) {
+					if (baller[i].skalSlettes) {
+						baller.splice(baller.indexOf(baller[i]), 1);
+					}
+				}
+
+				if (musTrykket && posisjon[0] < canvas.width / 2) {
+					baller.pop();
+				}
+
+				//Tegner kurv
+				ctx.lineWidth = 16;
+				ctx.beginPath();
+				ctx.moveTo(canvas.width, 300);
+				ctx.lineTo(canvas.width-200, 300);
+				ctx.closePath();
+				ctx.strokeStyle = 'grey';
+				ctx.stroke();
+
+				//Skriver ut poeng
+				ctx.fillStyle = 'white';
+				ctx.font = '200px Consolas';
+				if (poeng < 10) {ctx.fillText('0'+poeng, canvas.width - 250, 200);}
+				else {ctx.fillText(poeng, canvas.width - 250, 200);}
+				
+				//Skrive ut tiden
+				document.getElementById("tidsViser").innerHTML = t;
+				document.getElementById('poengViser').innerHTML = poeng;
+				document.getElementById('ballerViser').innerHTML = baller.length;
+				//øke tiden
+				t++;
+
+				//repeat
+				requestAnimationFrame(animer);
+			}
+
+			//Startknappen:
+			requestAnimationFrame(animer);
+
+			function nyBall() {
+				for (var i = 0; i < 1; i++) {
+					baller.push(new Ball(1000, canvas.height/2, 15, 0));
+				}
+			}
+
+
+			//bodyEl.addEventListener('keydown', nyBall);
+
+			
+			bodyEl.addEventListener('mousedown', musNed);
+			bodyEl.addEventListener('mouseup', musOpp);
+		</script>
+	</body>
+</html>

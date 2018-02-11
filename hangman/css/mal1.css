@@ -1,0 +1,76 @@
+html, body {
+	margin: 0px;
+	height: 100%;/*Tillater høydeflexing*/
+}
+
+h1 {
+	margin: 0px;
+	padding: 25px 10px 25px 10px;/*Bytter avstand til padding fordi dette kan ødelegge høydeflexing*/
+}
+
+h2, h3, h4, h5, h6  {
+	margin: 0px;
+	padding: 15px 0px 15px 0px;/*Bytter avstand til padding fordi dette kan ødelegge høydeflexing*/
+}
+
+.ramme {
+	margin: 15px 0px 0px 0px;
+}
+
+#velgLosningsordKnapp {
+	color: white;
+	font-size: 24px;
+	text-align: center;
+	background-color: #3F51B5;
+	padding: 25px;
+	cursor: pointer;
+}
+
+.meny {
+	background-color: #bb6bce;
+}
+
+.meny a { /*Når man lager meny med denne stilen, blir a-tagen selv en block, med standard utseende*/
+			/*Bruk gjerne sammen med class vannrett*/
+	display: block;
+	text-decoration: none;
+	color: white;
+	padding: 25px;
+}
+
+.meny a:hover {
+	background-color: #824a90;
+}
+
+
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+.vannrett { /*Dette vil si at alle med class vannrett i navnet sitt vil flexes vannrett*/
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-flex-wrap: nowrap;
+	flex-wrap: nowrap;
+}
+
+.loddrett { /*Dette vil si at alle med class vannrett i navnet sitt vil flexes vannrett*/
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+	-webkit-justify-content: flex-start;
+	justify-content: flex-start;
+	-webkit-flex-wrap: nowrap;
+	flex-wrap: nowrap;
+}
+
+.nowrap {
+	-webkit-flex-wrap: nowrap;
+	flex-wrap: nowrap;
+}
