@@ -17,17 +17,6 @@ table, th, td {
 	border-collapse: collapse;
 }
 
-[class*=Vannrett] { /*Dette vil si at alle classer med Vannrett i navnet sitt vil flexes vannrett*/
-	display: -webkit-flex;
-	display: flex;
-	-webkit-flex-direction: row;
-	flex-direction: row;
-	-webkit-justify-content: center;
-	justify-content: center;
-	-webkit-flex-wrap: wrap;
-	flex-wrap: wrap;
-}
-
 #boks1 {
 	width: 150px;
 	height: 150px;

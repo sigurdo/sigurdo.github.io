@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> </title>
+		<link rel="stylesheet" type="text/css" href="css/grid.css">
+		<link rel="stylesheet" type="text/css" href="css/mal1.css">
+
+		<script src="js/sigurdsStandardFunksjoner.js"></script><!--Script med noen nyttige funksjoner-->
+	</head>
+
+	<body class="vannrett">
+		<div class="ramme">
+			<div id="result"></div>
+
+			<script type="text/javascript">
+				//"use strict"
+				/**/
+				if (typeof(Storage) !== "undefined") {
+					console.log(typeof(Storage));
+				    // Store
+				    //localStorage.setItem("test1", [4, 2, 18, -1.2]);
+				    // Retrieve
+				    document.getElementById("result").innerHTML = localStorage.getItem("test1");
+				} else {
+				    document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+				}/**/
+
+				class tid {//Dette var min geniale plan for å gjøre det lettere å beregne tid, men det viste seg å være helt unødvendig siden sånne forenklingsmetoder allerede er innebygd i js fra før. Men den funker som den skal og det er jo veldig kult!
+					constructor() {
+						this.tid = new Date();
+
+						var dognTot = this.tid / (1000 * 60 * 60 * 24);
+						var dogn = 0;
+						var ferdig = false;
+						var ar = 1970;
+
+						while (!ferdig) {
+							if (ar % 4 == 0) {
+								if (ar % 100 == 0) {
+									if (ar % 400 == 0) {
+										dogn = 366;
+									} else {
+										dogn = 365;
+									}
+								} else {
+									dogn = 366;
+								}
+							} else {
+								dogn = 365;
+							}
+
+							if (dognTot - dogn >= 0) {
+								dognTot -= dogn;
+								ar++;
+							} else {
+								ferdig = true;
+							}
+						}
+
+						this.ar = ar;
+
+						var antDager = [31, undefined, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+						if (dogn == 365) {antDager[1] = 28;}
+						else if (dogn == 366) {antDager[1] = 29;}
+						var ferdig = false;
+						var maned = 0;
+
+						while (!ferdig) {
+							if (dognTot - antDager[maned] >= 0) {
+								dognTot -= antDager[maned];
+								maned++;
+							} else {
+								ferdig = true;
+							}
+						}
+
+						var manedNavn = ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'August', 'Oktober', 'November', 'Desember'];
+
+						this.maned = manedNavn[maned];
+
+						this.dag = dognTot + 1;
+					}
+				}
+
+				function klokkeslett(dato) {//For å få klokkeslett nå bruk new Date() som argument
+					var h = dato.getHours();
+					if (h < 10) {h = '0'+h;}
+
+					var min = dato.getMinutes();
+					if (min < 10) {min = '0'+min;}
+
+					var s = dato.getSeconds();
+					if (s < 10) {s = '0'+s;}
+
+					var ms = dato.getMilliseconds();
+					if (ms < 100) {
+						ms = '0'+ms;
+						if (ms < 10) {
+							ms = '0'+ms;
+						}
+					}
+
+					return h + ':' + min + ':' + s + '.' + ms;
+				}
+
+				var dato = new Date();
+				console.log(dato)
+				console.log(dato.getTime());
+				console.log(dato.getTime() /(1000));
+
+				var tidNa = new tid();
+				console.log(tidNa.ar, tidNa.maned, tidNa.dag);
+				console.log(dato.getFullYear(), dato.getMonth(), dato.getDate());
+				console.log('Klokka er ' + klokkeslett(new Date()));
+/*
+				var f = "sometextfile.txt";
+
+				writeTextFile(f, "Spoon")
+				writeTextFile(f, "Cheese monkey")
+				writeTextFile(f, "Onion")
+
+				function writeTextFile(afilename, output)
+				{
+				  var txtFile =new File([''], afilename);
+				  txtFile.writeln(output);
+				  txtFile.close();
+				}*/
+			</script>
+		</div>
+	</body>
+</html>
