@@ -59,9 +59,39 @@
 	</head>
 	<body>
 		<div id="ramme">
-			<h1> Sigurdos IT-prosjekter | sigurdo.github.io/index.html </h1>
+			<h1> Sigurdos IT-prosjekter | sigurdo.github.io </h1>
 
 			<div id="listeProsjekter">
+				<a href="littOmDatakomponenter/nettsider/hovedside.html">
+					<div class="prosjekt" style="background-color: black; color: white;">
+						Litt om datakomponenter
+					</div>
+				</a>
+
+				<a href="hagenAuto/hovedside.html">
+					<div class="prosjekt" style="background-color: darkred;">
+						Hagen Auto
+					</div>
+				</a>
+
+				<a href="minStartside/startside.html">
+					<div class="prosjekt" style="background-color: #4d8b71;">
+						Min startside
+					</div>
+				</a>
+
+				<a href="ravioli/meny.html">
+					<div class="prosjekt" style="background-color: #ce409b;">
+						Lær å lage ravioli!
+					</div>
+				</a>
+
+				<a href="epilepsibakgrunn/epilepsi.html">
+					<div class="prosjekt" id="epilepsibakgrunn">
+						Epilepsibakgrunn
+					</div>
+				</a>
+
 				<a href="polynomloserInternalCss.html">
 					<div class="prosjekt" style="background-color: #098E4E; color: white;">
 						Polynomløser
@@ -92,8 +122,14 @@
 					</div>
 				</a>
 
+				<a href="3parad/3parad.html">
+					<div class="prosjekt" style="background-color: white; color: black;">
+						3 på rad
+					</div>
+				</a>
+
 				<a href="basketsimulator/basketsimulator.html">
-					<div class="prosjekt" style="background-color: darkblue; font-family: 'Lucida Console';">
+					<div class="prosjekt" style="background-color: darkblue; font-family: Consolas;">
 						Basketsimulator
 					</div>
 				</a>
@@ -118,6 +154,14 @@
 				<br>
 				Sigurdo
 			</div>
+
+			<script type="text/javascript">
+				byttFarge();
+				function byttFarge() {
+					document.querySelector('#epilepsibakgrunn').style.backgroundColor = 'rgb('+Math.floor(Math.random() * 256)+', '+Math.floor(Math.random() * 256)+', '+Math.floor(Math.random() * 256)+')';
+					setTimeout(byttFarge, 50);
+				}
+			</script>
 		</div>
 	</body>
 </html>

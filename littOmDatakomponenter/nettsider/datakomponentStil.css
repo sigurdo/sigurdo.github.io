@@ -1,0 +1,96 @@
+body {
+	background-color: black;
+	color: white;
+	background-image: url("../bilder/prosessor1.jpg");
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: bottom left;
+}
+
+.meny {
+	display: flex;
+	justify-content: space-around;
+	background-color: orange;
+}
+
+.meny a {
+	width: 1000px; /* Veldig stor fordi menypunktene bare skal ta opp så my plass som mulig*/
+	padding: 15px;
+	color: black;
+	text-decoration: none;
+
+	display: flex;
+	justify-content: space-around;
+}
+
+.meny a:hover {
+	background-color: darkorange;
+}
+
+.om {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	flex-wrap: wrap;
+}
+
+p {
+	background-color: black; /*bakgrunnsfarge, for å gjøre lettleselig*/
+	padding: 10px;
+	font-size: 22px;
+}
+
+.om div {
+	flex: 3;
+	min-width: 300px;
+}
+
+.om figure {
+	flex: 2;
+	min-width: 300px;
+}
+
+figcaption {
+	background-color: yellow;
+	color: black;
+	padding: 10px;
+}
+
+figure img { /*Dette er for å bestemme at alle bilder i figure får bredde bestemt av ytterelementet*/
+	width: 100%;
+}
+
+.merOm {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.avsnittMedOverskrift {
+	margin: 10px;
+	flex: 1;
+}
+
+.youtubeVideo {
+	margin: 0px;
+}
+
+.youtubeVideo iframe {
+	width: 100%;
+	height: 700px;
+}
+
+.kolonne1 {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	max-width: 650px;
+	margin: auto; /*Midtstiller kolonna*/
+}
+
+li {
+	background-color: black;
+	padding: 5px;
+	margin: 5px;
+}

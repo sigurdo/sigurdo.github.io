@@ -1,0 +1,78 @@
+html, body {
+	margin: 0px;
+	height: 100%;/*for å kunne flexe i høyde*/
+}
+
+h1 {
+	margin: 0px;/*Må endre til padding for å flexe riktig i høyde*/
+	padding: 25px 10px 25px 10px;
+}
+
+.ramme {
+	margin: 0px 0% 0px 0%;/*Rekkefølge: over, høyre, under, venstre*/
+}
+
+.velgFarge {
+	padding: 0px;
+}
+
+#bilVelgFarge {
+	background-color: lightgrey;
+}
+
+#randomColorKnapp {
+	width: 50px;
+	border-radius: 25px;
+	cursor: pointer;
+	margin: 25px;
+}
+
+#randomColorKnapp:hover {
+
+}
+
+.header a {
+	text-decoration: none;
+	color: black;
+}
+
+.fargevelger input {
+	width: 5px;
+}
+
+.rgbInntasting input {
+	width: 60px;
+}
+
+.meny {
+	background-color: #990404;
+}
+
+.meny a { /*Når man lager meny med denne stilen, blir a-tagen selv en block, med standard utseende*/
+			/*Bruk gjerne sammen med class vannrett*/
+	display: block;
+	text-decoration: none;
+	color: white;
+	padding: 25px;
+}
+
+.meny a:hover {
+	background-color: #7a0303;
+}
+
+
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+.vannrett { /*Dette vil si at alle med class vannrett i navnet sitt vil flexes vannrett*/
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-flex-wrap: wrap;
+	flex-wrap: wrap;
+}

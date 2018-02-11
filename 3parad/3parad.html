@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> </title>
+		<link rel="stylesheet" type="text/css" href="css/grid.css">
+		<link rel="stylesheet" type="text/css" href="css/mal1.css">
+
+		<script src="js/sigurdsStandardFunksjoner.js"></script><!--Script med noen nyttige funksjoner-->
+	</head>
+
+	<body class="vannrett">
+		<div class="ramme">
+			<script type="text/javascript">
+				function plasserBrikke(e) {
+					var id = e.target.id;
+					console.log(id);
+					var r = id[2];
+					var k = id[3];
+
+					if (trekkNr % 2 == 0) {
+						rader[r][k] = 'X';
+					} else {
+						rader[r][k] = 'O';
+					}
+
+					trekkNr++;
+					oppdaterTabell();
+					sjekkOmFerdig();
+				}
+
+				function oppdaterTabell() {
+					for (var i = 0; i < 3; i++) {
+						for (var j = 0; j < 3; j++) {
+							if (rader[i][j][0] != 't') {
+								var td = document.querySelector('#td'+i+j);
+								td.innerHTML = rader[i][j];
+								td.removeEventListener('click', plasserBrikke);
+								td.style.cursor = 'default';
+							}
+						}
+					}
+				}
+
+				function sjekkOmFerdig() {
+					//Sjekker først vannrett
+					for (var i = 0; i < 3; i++) {
+						if (rader[i][0] == rader[i][1] &&
+							rader[i][0] == rader[i][2]) {
+							ferdigDa(rader[i][0]);
+						}
+					}
+
+					//Og så loddrett
+					for (var i = 0; i < 3; i++) {
+						if (rader[0][i] == rader[1][i] &&
+							rader[0][i] == rader[2][i]) {
+							ferdigDa(rader[0][i]);
+						}
+					}
+
+					//Og til slutt diagonalt
+					if (rader[0][0] == rader[1][1] &&
+						rader[0][0] == rader[2][2]) {
+						ferdigDa(rader[0][0]);
+					}
+
+					if (rader[0][2] == rader[1][1] &&
+						rader[0][2] == rader[2][0]) {
+						ferdigDa(rader[0][2]);
+					}
+				}
+
+				function ferdigDa(vinner) {
+					console.log('ferdig da '+vinner);
+					for (var i = 0; i < 3; i++) {
+						for (var j = 0; j < 3; j++) {
+							var td = document.querySelector('#td'+i+j);
+							td.removeEventListener('click', plasserBrikke);
+							td.style.cursor = 'default';
+						}
+					}
+
+					bodyEl.innerHTML += vinner+' vant';
+				}
+
+				var trekkNr = 0;
+
+				var rader = [];
+
+				for (var i = 0; i < 3; i++) {
+					rader[i] = [];
+					for (var j = 0; j < 3; j++) {
+						rader[i][j] = 'tom'+i+j;
+					}
+				}
+				
+				var bodyEl = document.querySelector('.ramme');
+				var tabellEl = document.createElement('table');
+				bodyEl.appendChild(tabellEl);
+			
+				for (var i = 0; i < 3; i++) {
+					var tr = document.createElement('tr');
+					tabellEl.appendChild(tr);
+					for (var j = 0; j < 3; j++) {
+						var td = document.createElement('td');
+						tr.appendChild(td);
+						td.setAttribute('id', 'td'+i+j);
+						td.addEventListener('click', plasserBrikke);
+					}
+				}
+
+				oppdaterTabell();
+			</script>
+		</div>
+	</body>
+</html>

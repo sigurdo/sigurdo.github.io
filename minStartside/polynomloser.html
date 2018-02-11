@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> </title>
+		<link rel="stylesheet" type="text/css" href="grid.css">
+		<link rel="stylesheet" type="text/css" href="polynomStil.css">
+
+		<script src="getRndInteger.js"></script><!--Legger til tilfeldig heltallsfunksjon-->
+	</head>
+
+	<body>
+		<div class="ramme">
+			<div class="input">
+				<input type="number" id="a" placeholder="a"> x^2 + 
+				<input type="number" id="b" placeholder="b"> x + 
+				<input type="number" id="c" placeholder="c"> = 0 
+				<button onclick="regnUt();"> Regn ut </button>
+			</div>
+			<table>
+				<tr>
+					<th> x_1: </th>
+					<td> <span id="x_1"> - </span> </td>
+				</tr>
+
+				<tr>
+					<th> x_2: </th>
+					<td> <span id="x_2"> - </span> </td>
+				</tr>
+			</table>
+			<script>
+				function regnUt() {
+					//a x^2 + b x + c = 0
+					var a = document.querySelector("#a").value;
+					console.log(a);
+					var b = document.querySelector("#b").value;
+					var c = document.querySelector('#c').value;
+
+					var x_1 = (- b + Math.sqrt(b**2 - 4*a*c)) / (2*a);
+					var x_2 = (- b - Math.sqrt(b**2 - 4*a*c)) / (2*a);
+					console.log('x_1: '+x_1+', x_2: '+x_2);
+
+					document.getElementById('x_1').innerHTML = x_1;
+					document.getElementById('x_2').innerHTML = x_2;
+				}
+			</script>
+		</div>
+	</body>
+</html>

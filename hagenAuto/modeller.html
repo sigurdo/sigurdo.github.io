@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> Bilbutikken Hagen Auto - hovedside </title>
+		<link rel="stylesheet" type="text/css" href="grid.css">
+		<link rel="stylesheet" type="text/css" href="bilStil.css">
+
+		<!--Legger inn nødvendige script her-->
+		<script src="getRndInteger.js"></script><!--Legger til en funksjon for å generere tilfeldige heltall(brukes i random fargegenerator-->
+
+
+	</head>
+
+	<body id="body">
+	<!--- -><script src="epilepsiBakgrunn.js"></script><!----><!--Epilepsibakgrunn-->
+		<div class="ramme">
+			<div class="row header">
+				<a href="hovedside.html">
+					<h1> Hagen Auto </h1>
+				</a>
+			</div>
+
+			<div class="row meny vannrett">
+				<a href=""> Våre forhandlere </a>
+				<a href="modeller.html"> Våre modeller </a>
+			</div>
+
+			<div class="row">
+				<img class="col-6 velgFarge" id="bilVelgFarge" src="media/velgFarge/tesla-model-s.png">
+				<div class="col-6" class="fargevelger">
+					<h3>
+						<select id="modell">
+							<option value="tesla-model-s"> Tesla Model S </option>
+							<option value="toyota-avensis"> Toyota Avensis </option>
+							<option value="hummer"> Hummer </option>
+							<option value="fiat-multipla"> Fiat Multipla </option>
+							<option value="hummer-4"> Hummer 4 </option>
+							<option value="donald-trump"> Donald Trump </option>
+						</select>
+					</h3>
+					<input id="nyFarge" type="color">
+					<button id="angiFarge"> Angi farge </button>
+					<br>
+
+					<p class="rgbInntasting">
+						rgb(
+						<input type="number" id="r" placeholder="rød">,
+						<input type="number" id="g" placeholder="grønn">,
+						<input type="number" id="b" placeholder="blå">
+						)
+						<button id="angiFargeRGB"> Angi farge </button>
+					</p>
+
+					<div>
+						<input type="text" id="nyFargeHTML" placeholder="fargekode">
+						<button id="angiFargeHTML"> Angi farge </button>
+					</div>
+
+					<div><img src="media/randomColor.gif" id="randomColorKnapp"></div>
+				</div>
+
+				<script src="byttmodell.js"></script><!--Bytte modell-->
+				<script src="byttFargeVanlig.js"></script><!--Diverse måter å bytte farge-->
+				<script src="byttFargeRGB.js"></script>
+				<script src="byttFargeHTML.js"></script>
+				<script src="byttFargeRandom.js"></script>
+			</div>
+		</div>
+	</body>
+</html>

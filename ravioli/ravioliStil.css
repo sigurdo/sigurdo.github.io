@@ -1,0 +1,82 @@
+html, body {
+	margin: 0px;
+	/*height: 100%;*/ /*i tilfelle jeg skal flexe i høyde*/
+	background-color: #40ce73;
+	color: #502c90;
+}
+
+.ramme {
+	margin: 0px 0% 0px 0%;
+}
+
+.header {
+	background-color: #ce409b;
+	padding: 25px;
+	color: 	white;
+}
+
+.header h1 {
+	margin: 0px; /*må overstyre margin-top fordi det gir en stygg grønn kant øverst*/
+}
+
+/*Lager ekstra pent utseende for oppskriften*/
+table#oppskrift {
+	font-size: 120%;
+}
+table#oppskrift tr th, table#oppskrift tr td {
+	padding: 15px;
+}
+table#oppskrift tr td img {
+	height: 300px;
+}
+
+#tekstMenyside { /*større skrift på menysideteksten*/
+	font-size: 200%;
+}
+
+#ravioliMenyside { /*Lage border for raviolibildet på menysiden*/
+	border: 15px solid #40ceba;
+	padding: 0px;
+}
+
+#ravioliFarge {
+	background-color: yellow;
+	padding: 0px;
+}
+
+#ravioliUtenFarge {
+	width: 100%;
+}
+
+.meny {
+	background-color: #ce7340;
+}
+
+.meny a { /*Når man lager meny med denne stilen, blir a-tagen selv en block*/
+			/*Bruk gjerne sammen med class vannrett*/
+	display: block;
+	text-decoration: none;
+	color: white;
+	padding: 25px;
+}
+
+.meny a:hover {
+	background-color: #a45c33;
+}
+
+
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+.vannrett { /*Dette vil si at alle med class vannrett i navnet sitt vil flexes vannrett*/
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-flex-wrap: wrap;
+	flex-wrap: wrap;
+}

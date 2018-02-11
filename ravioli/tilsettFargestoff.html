@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> </title>
+		<link rel="stylesheet" type="text/css" href="grid.css">
+		<link rel="stylesheet" type="text/css" href="ravioliStil.css">
+	</head>
+
+	<body>
+		<div class="row">
+			<div class="col-7" id="ravioliFarge">
+				<img id="ravioliUtenFarge" src="media/ravioliUtenFarge.png">
+			</div>
+			<div class="col-5">
+				<input type="color" id="nyFarge">
+				<button id="byttFarge"> Tilsett fargestoff </button>
+
+				<script>//Her er det litt dårlig kommentert, men jeg ble ferdig!
+					var byttFargeEl = document.querySelector("#byttFarge");
+					byttFargeEl.addEventListener("click", byttFargeFunc);
+
+					function byttFargeFunc() {
+						var nyFargeEl = document.querySelector("#nyFarge");
+						var nyFarge = nyFargeEl.value;
+
+						ravioliFarge.style.backgroundColor = nyFarge;
+					}
+				</script>
+			</div>
+		</div>
+	</body>
+</html>
