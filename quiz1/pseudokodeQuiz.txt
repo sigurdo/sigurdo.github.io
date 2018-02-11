@@ -1,0 +1,56 @@
+Starter med å lage alle spørsmålene i hjvert sitt div-element i html
+De får hver sin id: spm1, spm2, spm3 osv
+I starten har alle display: none;, men de settes til block underveis i quizen når de skal vises.
+
+Svar-inputen får id 
+Svarknappene får id send1, send2, send3 osv.
+
+Vi har jo ikke lært det ennå, men jeg kan bruke arrayer til hva som er riktig svar.
+
+tenker å bruke samme funksjon for å sjekke alle spørsmålene, da blir det mindre copy-paste.
+
+function sjekkSvar(e) {
+	spmNr = Number(e.target.id[4]); gir nummeret til spørsmålet som svares på
+	
+	if ( == riktig[spmNr
+	
+	Hmmmmmmmm, den foreløpige planen min funker dårlig med radioknapper...
+}
+
+Nei, ok, da lager jeg heller en funksjon for å sjekke hvert spørsmål
+
+function sjekkSvar1() {
+	if (riktig svar) {tadaaa}
+	else...
+}
+function sjekkSvar2() {
+	if (riktig svar) {tadaaa}
+	else...
+}
+osv...
+
+Dette er en god plan, det blir bare litt mye jobb.
+
+
+
+-------Planlegger spørsmål-------------------------------
+Hva er massen til jorda (+- 0,01 * 10^24 kg)? Riktig: 5,974 * 10^24 kg
+input number.
+
+Hva heter kalium på engelsk? Riktig: potassium
+input text.
+
+Hva står forkortelsen LCD (i LCD-skjermer) for? Riktig: Liquid Crystal Display.
+	Liqud Crystal Display
+	Light Controlled Diode
+	Light and Compact Display
+	Laser Current Diode
+input radioknapper.
+
+Kan fugler fly? Riktig: Begge (pingviner kan ikke fly)
+	Ja
+	Nei
+input checkbox.
+
+Hvilken farge er firebrick i html? Riktig: #B22222/rgb(178, 34, 34)
+input color.

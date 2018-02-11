@@ -1,0 +1,155 @@
+html, body {
+	margin: 0px;
+	height: 100%;/*Tillater høydeflexing*/
+	background-color: hsl(0, 0%, 93%);
+}
+
+body {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.rad {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+#poengrad {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+#spiller_valg {
+	display: inline-flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+#spiller_valg img {
+	cursor: pointer;
+	border: 8px solid transparent;
+	border-radius: 50%;
+	/*transform: rotate(45deg);*/
+}
+
+#tomBoks1 {
+	width: 20%;
+}
+/*
+#maskin_valg {
+	float: right;
+	right: 0px;
+}*/
+
+#maskin_valg img {
+	border: 8px solid transparent;
+	border-radius: 50%;
+}
+
+#spiller_poeng, #maskin_poeng, #antall_runder {
+	text-align: center;
+	padding: 25px;
+	font-size: 32px;
+}
+/*
+#spiller_poeng span, #maskin_poeng span, #antall_runder span {
+	font-size: 100px;
+}
+*/
+#endScreen {
+	position: absolute;
+	display: block;
+/*	font-size: 75px;*/
+	background-color: white;
+	padding: 25px;
+	top: 85px;
+	text-align: center;
+}
+
+#endScreen h1 {
+	font-size: 40px;
+}
+
+#endScreen button {
+	background-color: #4c4cff;
+	color: white;
+	font-size: 35px;
+	padding: 25px;
+	border-radius: 25px;
+	cursor: pointer;
+	border: none;
+}
+
+#settings_icon {
+	height: 40px;
+	float: right;
+	cursor: pointer;
+}
+
+#settings {
+	display: none;
+	position: absolute;
+	top: 100px;
+	background-color: white;
+	padding: 15px;
+}
+
+#bestAvInput {
+	width: 50px;
+}
+
+/*
+#spiller_poeng {
+	float: left;
+}
+#maskin_poeng {
+	float: right;
+}
+#antall_runder {
+	float: right;
+}
+*/
+h1 {
+	margin: 0px;
+	padding: 25px 10px 25px 10px;/*Bytter avstand til padding fordi dette kan ødelegge høydeflexing*/
+}
+
+.ramme {
+	margin: 0px 0px 0px 0px;
+}	
+
+.meny {
+	background-color: #bb6bce;
+}
+
+.meny a { /*Når man lager meny med denne stilen, blir a-tagen selv en block, med standard utseende*/
+			/*Bruk gjerne sammen med class vannrett*/
+	display: block;
+	text-decoration: none;
+	color: white;
+	padding: 25px;
+}
+
+.meny a:hover {
+	background-color: #824a90;
+}
+
+
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+.vannrett { /*Dette vil si at alle med class vannrett i navnet sitt vil flexes vannrett*/
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-flex-wrap: wrap;
+	flex-wrap: wrap;
+}

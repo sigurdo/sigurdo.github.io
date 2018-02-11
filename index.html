@@ -13,6 +13,7 @@
 				padding: 0px;
 				margin: 0px;
 				background-color: #222;
+				color: white;
 			}
 
 			#ramme {
@@ -30,6 +31,7 @@
 				border-bottom: 5px solid black;
 				/** /border-left: 5px solid black;
 				border-right: 5px solid black;/**/
+				background-color: black;
 			}
 
 			#listeProsjekter a {
@@ -43,6 +45,14 @@
 				padding: 15px;
 				border-top: 5px solid black;
 			}
+
+			.prosjekt:hover {
+				opacity: 0.75;
+			}
+
+			#about {
+				padding: 15px;
+			}
 		</style>
 	</head>
 	<body>
@@ -50,20 +60,38 @@
 			<h1> Sigurdos IT-prosjekter | sigurdo.github.io/index.html </h1>
 
 			<div id="listeProsjekter">
+				<a href="polynomloserInternalCss.html">
+					<div class="prosjekt" style="background-color: #098E4E; color: white;">
+						Polynomløser
+					</div>
+				</a>
+
 				<a href="riskDiceRollerMobil.html">
 					<div class="prosjekt" style="background-color: #cc0000;">
 						<b> RISK </b> dice roller
 					</div>
 				</a>
 
-				<a href="polynomloserInternalCss.html">
-					<div class="prosjekt">
-						Polynomløser
+				<a href="steinSaksPapir/steinSaksPapir.html">
+					<div class="prosjekt" style="background-color: lightgrey; color: black;">
+						Stein saks papir
+					</div>
+				</a>
+
+				<a href="knappenSomStikkerAv/knappenSomStikkerAv.html">
+					<div class="prosjekt" style="background-color: white; color: black;">
+						Knappen som stikker av
+					</div>
+				</a>
+
+				<a href="quiz1/quiz.html">
+					<div class="prosjekt" style="background-color: white; color: black; text-decoration: underline; text-decoration-color: darkred;">
+						Quiz 1
 					</div>
 				</a>
 
 				<a href="basketSimulator/basketSimulator.html">
-					<div class="prosjekt" style="background-color: darkblue;">
+					<div class="prosjekt" style="background-color: darkblue; font-family: consolas;">
 						Basketsimulator
 					</div>
 				</a>
@@ -73,6 +101,14 @@
 						Hangman
 					</div>
 				</a>
+			</div>
+
+			<div id="about">
+				Denne nettsida er en samling av alle IT-prosjektene mine som jeg er stolt av å vise fram og alt er laget enten bare for gøy eller som et skoleprosjekt jeg har hatt. <br>
+				<br>
+				Kos deg med det som ligger her alt er gratis og reklamefritt å leke med<br>
+				<br>
+				Sigurdo
 			</div>
 		</div>
 	</body>

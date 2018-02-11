@@ -1,0 +1,72 @@
+h1 {
+	border-bottom: 8px solid firebrick;
+	width: 100%;
+	text-align: center;
+	font-size: 72px;
+}
+
+.spmBoks {
+	margin: 25px;
+	font-size: 32px;
+}
+
+.svar {
+	/*text-align: center;*/
+	margin: 50px;
+}
+
+input[type="number"], input[type="text"] {
+	font-size: 32px;
+	width: 250px;
+}
+
+input[type="radio"], input[type="checkbox"] {
+	height: 16px;
+	width: 16px;
+}
+
+input[type="color"] {
+	height: 100px;
+	width: 100px;
+	border: none;
+	background-color: yellow;
+	padding: 8px;
+	border-radius: 16px;
+	cursor: pointer;
+}
+
+.sendSvar {
+	float: right;
+	font-size: 32px;
+	padding: 10px 25px 10px 25px;
+	border-radius: 32px;
+	border: none;
+	background-color: #a3ff46;
+	cursor: pointer;
+}
+
+#navigasjon {
+	font-size: 24px;
+	padding: 25px;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+#forrige, #neste {
+	font-size: 24px;
+	color: white;
+	padding: 5px 15px 5px 15px;
+	border-radius: 20px;
+	border: none;
+	cursor: pointer;
+}
+
+#forrige {
+	background-color: #81452d;
+}
+
+#neste {
+	background-color: #3232ea;
+}

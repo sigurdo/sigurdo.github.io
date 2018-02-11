@@ -1,0 +1,48 @@
+først lager html-kode med alle elementene bruker skisse til dette
+
+
+Så starter scripting
+
+Henter alle elementene som trengs:
+steinEl
+saksEl
+papirEl
+maskin_vapenEl
+spiller_poengEl
+maskin_poengEl
+
+definerer andre generelle variabler:
+spillerVapen = et tall 0-2 der 0 er stein, 1 saks og 2 papir
+maskinVapen = også et tall
+spillerPoeng, maskinPoeng = 0
+rundeteller = 0;
+bestAv = valgt tall;
+
+//lager lyttere for alle spillervelgerbildene. Alle kjører samme funksjon
+addEventListener('click', 'kjorRunde')
+
+definere runde-kjørings-funksjonen (som kjører en gang pr. runde):
+function kjorRunde(e) {
+spillerVapen = Number(e.target.id[4]);
+//Dette betyr at idene til velgebildene skal ha idene velg0, velg1, og velg2
+//Number(id[4]) betyr at den lager et tall av plass nr. 5 i id-stringen, altså det valgte våpenet
+maskinVapen = getRndInteger(0, 2);
+maskin_vapenEl.src = 'media/maskin_'+maskinVapen+'.png';
+
+jeg sjekker hvem som vant med modulo og tall
+0 slår 1 som slår 2 som slår 0 osv..
+hvis a har 0 og b har 0+1 vil a vinne, og motsatt
+men hvis a har 2 og b har 0, vil også a vinne, dvs a har 2 og b har (2+1) % 3
+
+så øker rundetellervariabelen
+
+så skriver jeg ut antall runder og oppdaterer poengviserene
+
+sjekker om man har kommet til siste
+if (rundeteller == bestAv) {avslutt();}
+}
+
+og definere avsluttfunksjonen:
+function avslutt() {
+bare skrive ut hvem som vant og fjerne lyttere
+}

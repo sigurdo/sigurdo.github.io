@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> </title>
+		<link rel="stylesheet" type="text/css" href="css/grid.css">
+		<link rel="stylesheet" type="text/css" href="css/oppgaver.css">
+		<link rel="stylesheet" type="text/css" href="css/quiz.css">
+
+		<script src="js/sigurdsStandardFunksjoner.js"></script><!--Script med noen nyttige funksjoner-->
+	</head>
+
+	<body class="vannrett">
+		<div class="ramme">
+			<h1> Quiz </h1>
+
+			<div class="spmBoks" id="spm1Boks">
+				<div class="spm">
+					Spørsmål 1: <br>
+					Hva er massen til Jorda? (+/- 0.01 * 10^24 kg)
+				</div>
+
+				<div class="svar">
+					<input type="number" id="inputSpm1"> * 10^24 kg
+				</div>
+
+				<div class="row"><!--button ligger i egen div for å ikke bli liggende utenfor-->
+					<button class="sendSvar" id="sendSvarSpm1"> Send svar </button>
+				</div>
+			</div>
+
+			<div class="spmBoks" id="spm2Boks">
+				<div class="spm">
+					Spørsmål 2: <br>
+					Hva heter kalium (Ka) på engelsk?
+				</div>
+
+				<div class="svar">
+					<input type="text" id="inputSpm2">
+				</div>
+
+				<div class="row"><!--button ligger i egen div for å ikke bli liggende utenfor-->
+					<button class="sendSvar" id="sendSvarSpm2"> Send svar </button>
+				</div>
+			</div>
+
+			<div class="spmBoks" id="spm3Boks">
+				<div class="spm">
+					Spørsmål 3: <br>
+					Hva står forkortelsen LCD (i LCD-skjermer) for?
+				</div>
+
+				<div class="svar">
+					<div id="altASpm3"><input type="radio" name="inputSpm3" id="inputSpm3A"> Light and Compact Display </div>
+					<div id="altBSpm3"><input type="radio" name="inputSpm3" id="inputSpm3B"> Light Controlled Diode </div>
+					<div id="altCSpm3"><input type="radio" name="inputSpm3" id="inputSpm3C"> Liquid Crystal Display </div>
+					<div id="altDSpm3"><input type="radio" name="inputSpm3" id="inputSpm3D"> Laser Current Diode</div>
+				</div>
+
+				<div class="row"><!--button ligger i egen div for å ikke bli liggende utenfor-->
+					<button class="sendSvar" id="sendSvarSpm3"> Send svar </button>
+				</div>
+			</div>
+
+			<div class="spmBoks" id="spm4Boks">
+				<div class="spm">
+					Spørsmål 4: <br>
+					Kan fugler fly?
+				</div>
+
+				<div class="svar">
+					<div id="altASpm4"><input type="checkbox" name="inputSpm4" id="inputSpm4A"> Ja </div>
+					<div id="altBSpm4"><input type="checkbox" name="inputSpm4" id="inputSpm4B"> Nei </div>
+				</div>
+
+				<div class="row"><!--button ligger i egen div for å ikke bli liggende utenfor-->
+					<button class="sendSvar" id="sendSvarSpm4"> Send svar </button>
+				</div>
+			</div>
+
+			<div class="spmBoks" id="spm5Boks">
+				<div class="spm">
+					Spørsmål 5: <br>
+					Hvilken farge er firebrick i html?
+				</div>
+
+				<div class="svar">
+					<input type="color" id="inputSpm5">
+				</div>
+
+				<div class="row"><!--button ligger i egen div for å ikke bli liggende utenfor-->
+					<button class="sendSvar" id="sendSvarSpm5"> Send svar </button>
+				</div>
+			</div>
+
+			<div id="navigasjon">
+				<div>
+					Poeng: <span id="poeng"> ingen ennå </span> &nbsp;<!--Bare lager litt luft til forrige og neste-knappen-->
+				</div>
+				
+				<div>
+					<button id="forrige"> << Forrige </button>
+					<button id="neste"> Neste >> </button>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="js/quiz.js"></script>
+	</body>
+</html>

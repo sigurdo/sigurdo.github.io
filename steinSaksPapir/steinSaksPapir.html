@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> </title>
+		<link rel="stylesheet" type="text/css" href="css/grid.css">
+		<link rel="stylesheet" type="text/css" href="css/steinSaksPapir.css">
+
+		<script src="js/sigurdsStandardFunksjoner.js"></script><!--Script med noen nyttige funksjoner-->
+	</head>
+
+	<body>
+		<div class="ramme">
+			<h1>
+				Stein saks papir
+				<img src="media/settings_icon.png" id="settings_icon">
+			</h1>
+			<div class="rad">
+				<div id="spiller_valg">
+					<img src="media/spiller_stein.png" id="velg0">
+					<img src="media/spiller_saks.png" id="velg1">
+					<img src="media/spiller_papir.png" id="velg2">
+				</div>
+				<div id="tomBoks1"></div>
+				<div id="maskin_valg">
+					<img src="media/maskin_ukjent.png" id="maskin_vapen">
+				</div>
+			</div>
+
+			<div id="poengrad">
+				<div id="spiller_poeng">
+					<p> Spiller poeng: <span></span></p>
+					
+				</div>
+				<div id="antall_runder">
+					<p> Antall runder: <span></span></p>
+					
+				</div>
+				<div id="maskin_poeng">
+					<p> Maskin poeng: <span></span></p>	
+				</div>
+			</div>
+		</div>
+
+		<div id="settings">
+			<h1> Innstillinger </h1>
+			<p>
+				Best av: 
+				<input type="number" id="bestAvInput">
+				<button id="bestAvButton"> Bruk </button>
+			</p>
+			<p>
+				<select>
+					<option> Lett </option>
+					<option> Vanlig </option>
+					<option> Middels </option>
+					<option> Ekstrem </option>
+				</select>
+			</p>
+		</div>
+
+		<script type="text/javascript">
+			//Hente elementer
+			var bodyEl = document.querySelector('body');
+			var steinEl = document.querySelector('#velg0');
+			var saksEl = document.querySelector('#velg1');
+			var papirEl = document.querySelector('#velg2');
+			var spillerVapenerEl = document.querySelectorAll('#spiller_valg img');
+			var maskin_vapenEl = document.querySelector('#maskin_vapen');
+			var spiller_poengEl = document.querySelector('#spiller_poeng span');
+			var maskin_poengEl = document.querySelector('#maskin_poeng span');
+			var antall_runderEl = document.querySelector('#antall_runder span');
+			var settings_iconEl = document.querySelector('#settings_icon');
+
+			//Definere generelle variabler
+			var spillerVapen = 0;
+			var maskinVapen = 0;
+			var spillerPoeng = 0;
+			var maskinPoeng = 0;
+			var rundeteller = 0;
+			var bestAv = 5;
+
+			oppdaterVisere();
+
+			//Lager lyttere
+			steinEl.addEventListener('click', kjorRunde);
+			saksEl.addEventListener('click', kjorRunde);
+			papirEl.addEventListener('click', kjorRunde);
+
+			function kjorRunde(e) {
+				spillerVapen = Number(e.target.id[4]);
+				//spillerVapen = getRndInteger(0, 2);
+				//Dette betyr at idene til velgebildene skal ha idene velg0, velg1, og velg2
+				//Number(id[4]) betyr at den lager et tall av plass nr. 5 i id-stringen, altså det valgte våpenet
+
+				maskinVapen = getRndInteger(0, 2); //vanlig modus
+				//maskinVapen = (spillerVapen + 2) % 3; //drittsekkmodus
+				//maskinVapen = (spillerVapen + 1) % 3; //selvtillitsmodus
+				//maskinVapen = spillerVapen; //uavgjortmodus
+
+				//maskinVapen = (spillerVapen + 1) % 3; spillerVapen = (maskinVapen + 1) % 3; //superdustemodus
+
+				maskin_vapenEl.src = 'media/maskin_'+maskinVapen+'.png';
+				//console.log(maskinVapen);
+
+				//Lager grønn ring rundt valgt våpen. Må fjerne ringene først
+				steinEl.style.border = '8px solid transparent';
+				saksEl.style.border = '8px solid transparent';
+				papirEl.style.border = '8px solid transparent';
+
+				document.querySelector('#velg'+spillerVapen).style.border = '8px solid magenta';
+
+				//Så kommer modulo-ifsetningene som er forklart i pseudokoden
+				if ((spillerVapen + 1) % 3 == maskinVapen) {
+					spillerPoeng++;
+					var fargeSpiller = 'lime';
+					var fargeMaskin = 'red'
+				}
+				else if ((maskinVapen + 1) % 3 == spillerVapen) {
+					maskinPoeng++;
+					var fargeSpiller = 'red';
+					var fargeMaskin = 'lime';
+				}
+				else {
+					var fargeSpiller = 'yellow';
+					var fargeMaskin = 'yellow';
+				}
+
+				steinEl.style.backgroundColor = 'transparent';
+				saksEl.style.backgroundColor = 'transparent';
+				papirEl.style.backgroundColor = 'transparent';
+
+				document.querySelector('#velg'+spillerVapen).style.backgroundColor = fargeSpiller;
+				//document.querySelector('#maskin_vapen').style.backgroundColor = fargeMaskin;
+
+				rundeteller++;
+				//console.log(maskinVapen, spillerPoeng);
+
+				//Oppdaterer poeng-og-runde-visere
+				oppdaterVisere();
+
+				//Sjekker om spillet er over
+				if (bestAv == rundeteller) {
+					steinEl.removeEventListener('click', kjorRunde);
+					saksEl.removeEventListener('click', kjorRunde);
+					papirEl.removeEventListener('click', kjorRunde);
+
+					if (spillerPoeng > maskinPoeng) {endScreen('Gratulerer! Du vant');}
+					else if (maskinPoeng > spillerPoeng) {endScreen('Maskinen vant');}
+					else {endScreen('Det ble uavgjort');}
+					
+				}
+			}
+
+			function oppdaterVisere() {
+				spiller_poengEl.innerHTML = spillerPoeng;
+				maskin_poengEl.innerHTML = maskinPoeng;
+				antall_runderEl.innerHTML = rundeteller+'/'+bestAv;
+			}
+
+			function endScreen(tekst) {
+				for (var i = 0; i < spillerVapenerEl.length; i++) {
+					spillerVapenerEl[i].style.cursor = 'default';
+				}
+				var endScreenEl = document.createElement('div');
+				endScreenEl.setAttribute('id', 'endScreen');
+				var vinnerEl = document.createElement('h1');
+				vinnerEl.innerHTML = tekst;
+				endScreenEl.appendChild(vinnerEl);
+				var spillIgjenKnappEl = document.createElement('button');
+				spillIgjenKnappEl.innerHTML = 'Spill igjen';
+				endScreenEl.appendChild(spillIgjenKnappEl);
+				bodyEl.appendChild(endScreenEl);
+				spillIgjenKnappEl.addEventListener('click', reload);
+			}
+
+			function reload() {location.reload();}
+
+			//Prøver meg på snurrende settings-icon
+			settings_iconEl.addEventListener('mouseover', snurr);
+			settings_iconEl.addEventListener('mouseout', ikkeSnurr);
+
+			var snurring = true;
+			var rotasjon = 0;
+
+			function snurr() {
+				var fart = 0;
+				var aksellerasjon = 0.25;
+				snurring = true;
+				function animer() {
+					if (!snurring) {aksellerasjon = -0.25;}
+					//console.log(fart);
+					rotasjon += fart;
+					fart += aksellerasjon;
+					//console.log(fart);
+					if (fart > 5) {aksellerasjon = 0;}
+					if (fart < 0) {fart = 0; return}
+					settings_iconEl.style.transform = 'rotate('+rotasjon+'deg)';
+					/*if (retning == 'W') {settings_iconEl.style.transform = 'translate(0px, -'+rotasjon+'px)';}
+					if (retning == 'A') {settings_iconEl.style.transform = 'translate(-'+rotasjon+'px, 0px)';}
+					if (retning == 'S') {settings_iconEl.style.transform = 'translate(0px, '+rotasjon+'px)';}
+					if (retning == 'D') {settings_iconEl.style.transform = 'translate('+rotasjon+'px, 0px)';}
+					*/
+					
+					requestAnimationFrame(animer);
+				}
+				requestAnimationFrame(animer);
+			}
+
+			function ikkeSnurr() {
+				snurring = false;
+			}
+
+			//Prøver å lage spill
+			/*var retning = '';
+
+			bodyEl.addEventListener('keydown', byttRetning);
+			function byttRetning(e) {
+				retning = String.fromCharCode(e.keyCode);
+			}*/
+
+
+			var settingsEl = document.querySelector('#settings');
+			var bestAvInputEl = document.querySelector('#bestAvInput');
+			var bestAvButtonEl = document.querySelector('#bestAvButton');
+
+			settings_iconEl.addEventListener('click', openSettings);
+
+			function openSettings() {
+				settingsEl.style.display = 'block';
+				bestAvInputEl.setAttribute('value', bestAv);
+
+				settings_iconEl.removeEventListener('click', openSettings);
+				settings_iconEl.addEventListener('click', closeSettings);
+				//settings_iconEl.src = 'media/exit_button.png';
+			}
+
+			function closeSettings() {
+				settingsEl.style.display = 'none';
+				settings_iconEl.removeEventListener('click', closeSettings);
+				settings_iconEl.addEventListener('click', openSettings);
+			}
+
+			bestAvButtonEl.addEventListener('click', endreBestAv);
+
+			function endreBestAv() {
+				bestAv = bestAvInputEl.value;
+				oppdaterVisere();
+			}
+
+			//setInterval(kjorRunde, 1);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> </title>
+		<link rel="stylesheet" type="text/css" href="css/grid.css">
+		<link rel="stylesheet" type="text/css" href="css/mal1.css">
+
+		<script src="js/sigurdsStandardFunksjoner.js"></script><!--Script med noen nyttige funksjoner-->
+	</head>
+
+	<body class="vannrett">
+		<div class="ramme">
+			<div id="registreringssone">
+				<div id="knapp">
+					<img src="media/settings_icon.png">	
+				</div>
+			</div>
+
+			<script type="text/javascript">
+				var bodyEl = document.querySelector('body');
+				var registreringssoneEl = document.querySelector('#registreringssone');
+				var knappEl = document.querySelector('#knapp');
+
+				//Må sette en startverdi for  registreringssona jeg kjenner i scriptet
+				var h = window.innerHeight;
+				var w = window.innerWidth;
+				console.log(h, w);
+				var r = [310, 300];//r er posisjonsvektor for registreringssona
+
+				//Må også sette en bredde som er kjent i scriptet
+				var rWidth = 300;
+				var rHeight = rWidth;
+				registreringssoneEl.style.width = rWidth+'px';
+				registreringssoneEl.style.height = rHeight+'px';
+
+				var rX = getRndInteger(0, w - rWidth);
+				var rY = getRndInteger(0, h - rHeight);
+				r = [rX, rY];
+
+				//Så kan jeg sette posisjonsvektor for sentrum
+				var s = [r[0] + (rWidth / 2), r[1] + (rHeight / 2)]; //s er posisjonsvektor for sentrum til knappen
+
+				var t = 75000; //t er en skalar som styrer forholdet mellom aksellerasjon og avstand (a = t / d)
+
+				oppdaterPosisjon();
+
+				function oppdaterPosisjon() {
+					registreringssoneEl.style.left = r[0]+'px';
+					registreringssoneEl.style.top = r[1]+'px';
+				}
+
+				registreringssoneEl.addEventListener('mousemove', stikkAv);
+				knappEl.addEventListener('click', hurra);
+
+				function hurra() {
+					console.log('hurra');
+				}
+
+				function loggKoordinater(e) {
+					var mX = e.clientX;
+					var mY = e.clientY;
+					console.log(mX, mY);
+				}
+
+				function stikkAv(e) {
+					var m = [e.clientX, e.clientY];//m er posisjonsvektor for musepekeren
+					var d = [s[0] - m[0], s[1] - m[1]];//d står for delta, differansevektor fra mus til sentrum
+
+					var lengdeD = lengde(d);
+					var lengdeA = t / (lengdeD ** 2);
+					
+					var retningD = retning(d);
+					var retningA = retningD;
+
+					var a = vektor(lengdeA, retningA);
+					//console.log(a);
+
+					if (lengdeD < rWidth / 2) {
+						s = [s[0] + a[0], s[1] + a[1]];
+						r = [s[0] - rWidth / 2, s[1] - rHeight / 2];
+					}
+					oppdaterPosisjon();
+
+					function vektor(lengde, vinkel) {
+						if (vinkel < Math.PI * 1/2) {
+							var vektor = [lengde * Math.cos(vinkel), lengde * Math.sin(vinkel)];
+						}
+						else if (vinkel < Math.PI * 2/2) {
+							var vektor = [lengde * Math.cos(vinkel), lengde * Math.sin(vinkel)];
+						}
+						else if (vinkel < Math.PI * 3/2) {
+							var vektor = [lengde * Math.cos(vinkel), lengde * Math.sin(vinkel)];
+						}
+						else if (vinkel < Math.PI * 4/2) {
+							var vektor = [lengde * Math.cos(vinkel), lengde * Math.sin(vinkel)];
+						}
+						return vektor;
+					}
+
+					function lengde(vektor) {
+						return Math.sqrt(vektor[0] ** 2 + vektor[1] ** 2);
+					}
+
+					function retning(vektor) {
+						function lengde(vektor) {
+							return Math.sqrt(vektor[0] ** 2 + vektor[1] ** 2);
+						}
+
+						var lengde = lengde(vektor);
+						//console.log(lengde, vektor[0]);
+						var vinkel = Math.asin(vektor[1] / lengde);
+
+						if (vektor[0] < 0 && vektor[1] > 0) {vinkel = Math.PI - vinkel;}
+						else if (vektor[0] < 0 && vektor[1] < 0) {vinkel = -Math.PI - vinkel;}
+						
+						if (vektor[1] < 0) {vinkel = vinkel + 2 * Math.PI;}
+						return vinkel;
+					}
+					/*
+					function oppdaterPosisjon() {
+						registreringssoneEl.style.left = r[0]+'px';
+						registreringssoneEl.style.top = r[1]+'px';
+					}*/
+				}
+				//console.log(registreringssoneEl.xpos)
+			</script>
+
+			<script type="text/javascript">
+				//Epilepsi!!!!
+				//byttBgFargeRandom();
+
+				function byttBgFargeRandom() {
+					var r = getRndInteger(0, 255);
+					var g = getRndInteger(0, 255);
+					var b = getRndInteger(0, 255);
+
+					var bodyEl = document.querySelector('body');
+					bodyEl.style.backgroundColor = "rgb("+r+","+g+","+b+")";
+					setTimeout(byttBgFargeRandom, 50);
+				}
+			</script>
+
+			<script type="text/javascript">
+				//Prøver snurring i tillegg
+				var rotasjon = 0;
+				//snurr();
+
+				function snurr() {
+					var fart = 4;
+					snurring = true;
+					function animer() {
+						rotasjon += fart;
+						knappEl.style.transform = 'rotate('+rotasjon+'deg)';
+						
+						requestAnimationFrame(animer);
+					}
+					requestAnimationFrame(animer);
+				}
+			</script>
+		</div>
+	</body>
+</html>
