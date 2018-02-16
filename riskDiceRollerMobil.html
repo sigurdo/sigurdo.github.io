@@ -568,9 +568,8 @@
 				blitzKnapp.style.cursor = 'pointer';
 				blitzKnapp.innerHTML = 'Blitz';
 				blitzKnapp.addEventListener('click', function () {
-					var minAngripere = document.querySelector('#minAngripere').value;
-					var ventetid = document.querySelector('#ventetid').value;
-					console.log(ventetid);
+					var minAngripere = Number(document.querySelector('#minAngripere').value);
+					var ventetid = Number(document.querySelector('#ventetid').value);
 					//var ventetid = document.querySelector('#ventetidId').value;
 					bodyEl.removeChild(sporBlitzEl);
 					stoppEl.style.display = 'block';
@@ -770,7 +769,7 @@
 				var antFforst = antall[1];
 
 				function ferdig() {
-					console.log(antAforst, antall[0]);
+					//console.log(antAforst, antall[0]);
 
 					var diffA = antall[0] - antAforst;
 					var diffF = antall[1] - antFforst;
@@ -793,7 +792,6 @@
 				function runde() {
 					if (antall[0] > minAngripere + 1 && antall[1] > 0 && blitzing) {
 						angrip();
-						console.log(ventetid);
 						setTimeout(runde, ventetid);
 					} else {
 						ferdig();
