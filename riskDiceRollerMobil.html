@@ -486,7 +486,7 @@
 				sporBlitzEl.style.padding = '50px';
 				sporBlitzEl.style.backgroundColor = 'white';
 				sporBlitzEl.style.fontSize = '75px';
-				sporBlitzEl.innerHTML = 'Minimum angripere igjen: <br><br>';
+				sporBlitzEl.innerHTML = 'Minimum angripere igjen: <br>';
 
 				var minAngripereEl = document.createElement('select');
 				minAngripereEl.id = 'minAngripere';
@@ -505,7 +505,7 @@
 				}
 				sporBlitzEl.appendChild(minAngripereEl);
 
-				sporBlitzEl.innerHTML += '<br><br> Ventetid per angrep: <br><br>';
+				sporBlitzEl.innerHTML += '<br><br> Ventetid per angrep: <br>';
 				var ventetidEl = document.createElement('select');
 				ventetidEl.id = 'ventetid';
 				ventetidEl.style.width = '750px';
@@ -536,6 +536,7 @@
 				sporBlitzEl.appendChild(ventetidEl);
 
 				document.querySelector('#minAngripere').value = '3';
+				if (antall[0] < 3) {document.querySelector('#minAngripere').value = '1';}
 				document.querySelector('#ventetid').value = '1000';
 
 				sporBlitzEl.appendChild(document.createElement('br'));
