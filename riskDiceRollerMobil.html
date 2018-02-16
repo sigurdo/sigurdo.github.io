@@ -494,10 +494,10 @@
 				minAngripereEl.style.height = '250px';
 				minAngripereEl.style.fontSize = '200px';
 
-				for (var i = 1; i <= antall[0] + 1; i++) {
+				for (var i = 0; i <= antall[0]; i++) {
 					var alternativEl = document.createElement('option');
 					alternativEl.value = i;
-					alternativEl.innerHTML = i;
+					alternativEl.innerHTML = i + 1;
 					alternativEl.style.width = '400px';
 					alternativEl.style.height = '250px';
 					alternativEl.style.textAlign = 'center';
@@ -535,8 +535,8 @@
 
 				sporBlitzEl.appendChild(ventetidEl);
 
-				document.querySelector('#minAngripere').value = '3';
-				if (antall[0] < 3) {document.querySelector('#minAngripere').value = '1';}
+				document.querySelector('#minAngripere').value = 2;
+				if (antall[0] < 2) {document.querySelector('#minAngripere').value = 0;}
 				document.querySelector('#ventetid').value = '1000';
 
 				sporBlitzEl.appendChild(document.createElement('br'));
