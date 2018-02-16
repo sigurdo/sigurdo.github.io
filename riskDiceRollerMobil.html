@@ -791,7 +791,7 @@
 				}
 
 				function runde() {
-					if (antall[0] > minAngripere && antall[1] > 0 && blitzing) {
+					if (antall[0] > minAngripere + 1 && antall[1] > 0 && blitzing) {
 						angrip();
 						console.log(ventetid);
 						setTimeout(runde, ventetid);
