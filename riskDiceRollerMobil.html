@@ -127,6 +127,23 @@
 				border-radius: 17px;
 			}
 
+			#stoppRamme {
+				position: absolute;
+				bottom: 50px;
+				width: 100%;
+			}
+
+			#stopp {
+				border-radius: 50px;
+				background-color: #ff3232;
+				cursor: pointer;
+
+				font-size: 1000%;
+				color: white;
+				text-align: center;
+				padding: 50px;
+			}
+
 			#angripRamme {
 				position: absolute;
 				bottom: 120px;
@@ -348,11 +365,12 @@
 		</div>
 
 		<div class="vannrett" id="angripRamme"><div id="angrip" onclick="angrip();"> Angrip </div></div>
-		<div class="vannrett" id="angripBlitzRamme"><div id="angripBlitz" onclick="angripBlitz();"> Blitz </div></div>
+		<div class="vannrett" id="angripBlitzRamme"><div id="angripBlitz" onclick="sporBlitz();"> Blitz </div></div>
+		<div class="vannrett" id="stoppRamme"><div id="stopp" onclick="stopp();" style="display: none;"> STOPP </div></div>
 		<div id="varslinger"></div>
 
-		<!--- ->
-		<audio controls autoplay id="bakgrunnsmusikk">
+		<!---->
+		<audio id="bakgrunnsmusikk">
 			<source src="https://vocaroo.com/media_command.php?media=s0zHKBKsCPTK&command=download_mp3" type="audio/mpeg">
 		</audio>
 		<!---->
@@ -415,6 +433,8 @@
 				if (antall[type] > antallFor[type] || antallTerninger > antall[type]) {//Tanken her er at i slag skal man ikke trenge velge terninger på nytt, men den skal likevel prøve å velge maks antall når man plotter inn nye soldater. Derfor sjekker ifen om man soldatmengden har økt eller sunket
 					oppdaterTerningvelger(type);
 				}
+
+				//sporBlitz();
 			}
 
 			function visAntall() {
@@ -454,7 +474,111 @@
 				var b = 0 .toFixed(0);
 				return "rgb("+r+", "+g+", "+b+")";
 			}
-			
+
+			function sporBlitz() {
+				var sporBlitzEl = document.createElement('div');
+				bodyEl.appendChild(sporBlitzEl);
+				sporBlitzEl.id = 'sporBlitz';
+				sporBlitzEl.style.position = 'fixed';
+				sporBlitzEl.style.top = '0px';
+				sporBlitzEl.style.width = '100%';
+				sporBlitzEl.style.height = '100%';
+				sporBlitzEl.style.padding = '50px';
+				sporBlitzEl.style.backgroundColor = 'white';
+				sporBlitzEl.style.fontSize = '75px';
+				sporBlitzEl.innerHTML = 'Minimum angripere igjen: <br><br>';
+
+				var minAngripereEl = document.createElement('select');
+				minAngripereEl.id = 'minAngripere';
+				minAngripereEl.style.width = '400px';
+				minAngripereEl.style.height = '250px';
+				minAngripereEl.style.fontSize = '200px';
+
+				for (var i = 1; i <= antall[0] + 1; i++) {
+					var alternativEl = document.createElement('option');
+					alternativEl.value = i;
+					alternativEl.innerHTML = i;
+					alternativEl.style.width = '400px';
+					alternativEl.style.height = '250px';
+					alternativEl.style.textAlign = 'center';
+					minAngripereEl.appendChild(alternativEl);
+				}
+				sporBlitzEl.appendChild(minAngripereEl);
+
+				sporBlitzEl.innerHTML += '<br><br> Ventetid per angrep: <br><br>';
+				var ventetidEl = document.createElement('select');
+				ventetidEl.id = 'ventetid';
+				ventetidEl.style.width = '750px';
+				ventetidEl.style.height = '250px';
+				ventetidEl.style.fontSize = '200px';
+
+				var ventetidAlternativer = [
+					{navn: 'Ingen', ms: 0},
+					{navn: 'Kort', ms: 250},
+					{navn: 'Middels', ms: 500},
+					{navn: 'Lang', ms: 1000},
+					{navn: 'Episk', ms: 2000}
+				];
+
+				for (var i = 0; i < ventetidAlternativer.length; i++) {
+					var alternativEl = document.createElement('option');
+					alternativEl.style.width = '750px';
+					alternativEl.style.height = '250px';
+					alternativEl.innerHTML = ventetidAlternativer[i].navn;
+					alternativEl.value = ventetidAlternativer[i].ms;
+					//console.log(Number(alternativEl.value));
+					ventetidEl.appendChild(alternativEl);
+				}
+
+				//console.log(ventetidEl.value);
+				//ventetidEl.value = 500;
+
+				sporBlitzEl.appendChild(ventetidEl);
+
+				document.querySelector('#minAngripere').value = '3';
+				document.querySelector('#ventetid').value = '1000';
+
+				sporBlitzEl.appendChild(document.createElement('br'));
+				sporBlitzEl.appendChild(document.createElement('br'));
+
+				var avbrytKnapp = document.createElement('button');
+				avbrytKnapp.style.fontSize = '150px';
+				avbrytKnapp.style.margin = '15px';
+				avbrytKnapp.style.padding = '25px';
+				/*avbrytKnapp.style.color = 'white';
+				avbrytKnapp.style.backgroundColor = '#ff5722';*/
+				avbrytKnapp.style.borderRadius = '35px';
+				avbrytKnapp.style.border = 'none';
+				avbrytKnapp.style.cursor = 'pointer';
+				avbrytKnapp.innerHTML = 'Avbryt';
+				avbrytKnapp.addEventListener('click', function () {
+					bodyEl.removeChild(sporBlitzEl);
+				});
+				sporBlitzEl.appendChild(avbrytKnapp);
+
+				var blitzKnapp = document.createElement('button');
+				blitzKnapp.style.fontSize = '150px';
+				blitzKnapp.style.margin = '15px';
+				blitzKnapp.style.padding = '25px';
+				blitzKnapp.style.color = 'white';
+				blitzKnapp.style.backgroundColor = '#ff5722';
+				blitzKnapp.style.borderRadius = '35px';
+				blitzKnapp.style.border = 'none';
+				blitzKnapp.style.cursor = 'pointer';
+				blitzKnapp.innerHTML = 'Blitz';
+				blitzKnapp.addEventListener('click', function () {
+					var minAngripere = document.querySelector('#minAngripere').value;
+					var ventetid = document.querySelector('#ventetid').value;
+					console.log(ventetid);
+					//var ventetid = document.querySelector('#ventetidId').value;
+					bodyEl.removeChild(sporBlitzEl);
+					stoppEl.style.display = 'block';
+					angripBlitz(minAngripere, ventetid);
+				});
+				sporBlitzEl.appendChild(blitzKnapp);
+
+			}
+
 			function angrip32() {
 				var a = [terning(), terning(), terning()];		//angrepsterninger
 				var f = [terning(), terning()];					//forsvarsterninger
@@ -592,6 +716,11 @@
 				if(a[0] > f[0]) {juster(1, -1);} else {juster(0, -1);}
 			}
 
+			function stopp() {
+				blitzing = false;
+				stoppEl.style.display = 'none';
+			}
+
 			function angrip() {
 				if(antall[0]>0 && antall[1]>0) {
 					tomVarslinger();
@@ -627,20 +756,20 @@
 				else {document.getElementById('varslinger').innerHTML = 'Det er ikke nok folk';}
 			}
 
-			function angripBlitz() {
-				var minAngripereString = prompt("Minimum angripere igjen:", 1);
-				var minAngripere = Number(minAngripereString);
+			function angripBlitz(minAngripere, ventetid) {
+				//var minAngripereString = prompt("Minimum angripere igjen:", 1);
+				//var minAngripere = Number(minAngripereString);
 				//console.log(minAngripereString);
 
-				if (minAngripereString != null) {//Dette sjekker om man svarte ok på blitzing dersom promtet avbrytes returneres null, men hvis det svares 0 returneres 0
-					var antAforst = antall[0];
-					var antFforst = antall[1];
-					
-					//console.log(minAngripere);
+				var bakgrunnsmusikkEl = document.querySelector('#bakgrunnsmusikk');
+				bakgrunnsmusikkEl.currentTime = 38.3;
+				bakgrunnsmusikkEl.play();
 
-					while (antall[0] > minAngripere && antall[1] > 0) {
-						angrip();
-					}
+				var antAforst = antall[0];
+				var antFforst = antall[1];
+
+				function ferdig() {
+					console.log(antAforst, antall[0]);
 
 					var diffA = antall[0] - antAforst;
 					var diffF = antall[1] - antFforst;
@@ -650,13 +779,37 @@
 					document.getElementById('sisteA').style.backgroundColor = farge(diffA / (diffA+diffF));
 					//console.log(diffA / (diffA+diffF), farge(diffA / (diffA+diffF)));
 					document.getElementById('sisteF').style.backgroundColor = farge(diffF / (diffA+diffF));
+					blitzing = true;
+					stoppEl.style.display = 'none';
+					if (bakgrunnsmusikkEl.currentTime < 104.5) {
+						bakgrunnsmusikkEl.currentTime = 104.5;
+					}
+					/*setTimeout(function () {
+						bakgrunnsmusikkEl.pause();
+					}, );*/
 				}
+
+				function runde() {
+					if (antall[0] > minAngripere && antall[1] > 0 && blitzing) {
+						angrip();
+						console.log(ventetid);
+						setTimeout(runde, ventetid);
+					} else {
+						ferdig();
+					}
+				}
+
+				runde();
 			}
 		</script>
 		<script type="text/javascript">//Dette scriptet er hovedscriptet som starter alt
 			var antall = [0, 0]; //Antall angripere og forsvarere som array (angripere er nr. 0 og forsvar nr. 1)
 			var terninger = [3, 2];
 			var d = ["ikke_i_bruk", "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Dice-1-b.svg/557px-Dice-1-b.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Dice-2-b.svg/557px-Dice-2-b.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Dice-3-b.svg/557px-Dice-3-b.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Dice-4-b.svg/557px-Dice-4-b.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Dice-5-b.svg/557px-Dice-5-b.svg.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Dice-6a-b.svg/557px-Dice-6a-b.svg.png"];
+			var blitzing = true;
+			var bodyEl = document.querySelector('body');
+			var stoppEl = document.querySelector('#stopp');
+
 			visAntall();
 			oppdaterTerningvelger();
 		</script>
