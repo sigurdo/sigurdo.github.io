@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> </title>
+		<link rel="stylesheet" type="text/css" href="css/grid.css">
+		<link rel="stylesheet" type="text/css" href="css/riskFordeleTerritorier.css">
+
+		<script src="js/sigurdsStandardFunksjoner.js"></script><!--Script med noen nyttige funksjoner-->
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			var array = [];
+
+			var territorier = [
+				'Vestlandet',
+				'Innlandet',
+				'Akershus',
+				'Telemark',
+				'Sørlandet',
+				'Dalarna',
+				'Värmland',
+				'Stockholm',
+				'Västergötaland',
+				'Östergötaland',
+				'Kalmar',
+				'Skåne',
+				'Nord-Jylland',
+				'Sør-Jylland',
+				'Fyn og Sjælland',
+				'Irland',
+				'Nord-Irland',
+				'Skottland',
+				'Wales',
+				'Nord-England',
+				'Sentral-England',
+				'Sør-England',
+				'Normandie',
+				'Champagne',
+				'Paris',
+				'Alsace-Lorraine',
+				'Aquitaine',
+				'Rhône-Alpes',
+				'Rivieraen',
+				'Belgia',
+				'Nederland',
+				'Luxembourg',
+				'Vest-Pommern',
+				'Niedersachsen',
+				'Brandenburg',
+				'Vestfalen',
+				'Baden-Württemdberg',
+				'Bayern',
+				'Sveits',
+				'Tirol',
+				'Piemonte',
+				'Lombardia',
+				'Veneto',
+				'Øst-Pommern',
+				'Mazovia',
+				'Stor-Polen',
+				'Lesser-Polen',
+				'Bohemia',
+				'Moravia',
+				'Slovakia',
+				'Østerrike',
+				'Slovenia',
+				'Transdanubia',
+				'Puszta'
+			];
+
+			var spillere = [
+				'Lavran',
+				'Henrik',
+				'Konrad',
+				'Sigurd'
+			];
+
+			var spillerTerritorier = [];
+			for (var i = 0; i < spillere.length; i++) {
+				spillerTerritorier[i] = [];
+			}
+
+			territorier = ssf.shuffle(territorier);
+			spillere = ssf.shuffle(spillere);
+
+			for (var i = 0; i < territorier.length; i++) {
+				spillerTerritorier[i % spillere.length][Math.floor(i / spillere.length)] = territorier[i];
+			}
+
+			/** /for (var i = 0; i < spillere.length; i++) {
+				console.log('-------------'+spillere[i]+':-------------');
+				for (var j = 0; j < spillerTerritorier[i].length; j++) {
+					console.log(spillerTerritorier[i][j]);
+				}
+			}/**/
+
+			for (var i = 0; i < spillere.length; i++) {
+				document.write('<h2>'+spillere[i]+':</h2><ul>');
+				for (var j = 0; j < spillerTerritorier[i].length; j++) {
+					document.write('<li>'+spillerTerritorier[i][j]+'</li>');
+				}
+				document.write('</ul>');
+			}
+		</script>
+	</body>
+</html>
