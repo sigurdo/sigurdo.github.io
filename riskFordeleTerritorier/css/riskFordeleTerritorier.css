@@ -1,6 +1,7 @@
 html, body {
 	margin: 0px;
-	padding: 5px;
+	padding: 0px;
+	font-size: 24px;
 	height: 100%;/*Tillater høydeflexing*/
 }
 
@@ -12,6 +13,14 @@ h1 {
 h2, h3, h4, h5, h6  {
 	margin: 0px;
 	padding: 15px 0px 15px 0px;/*Bytter avstand til padding fordi dette kan ødelegge høydeflexing*/
+}
+
+.velgKart {
+	flex: 1;
+	display: block;
+	padding: 16px;
+	font-size: 32px;
+	cursor: pointer;
 }
 
 #ramme {/*Hvis man putter et div-element med id="ramme" i body, og gir body class="vannrett" blir hele nettsida midtstilt*/
@@ -45,8 +54,8 @@ table, th, td {
 	display: flex;
 	-webkit-flex-direction: row;
 	flex-direction: row;
-	-webkit-justify-content: center;
-	justify-content: center;
+	/** /-webkit-justify-content: center;
+	justify-content: center;/**/
 	-webkit-flex-wrap: wrap;
 	flex-wrap: wrap;
 }

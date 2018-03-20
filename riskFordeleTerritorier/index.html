@@ -10,98 +10,55 @@
 	</head>
 
 	<body>
+		<div id="skrivHer" class="vannrett"></div>
+
+		<script type="text/javascript" src="js/kartTerritorier.js"></script>
 		<script type="text/javascript">
-			var array = [];
+			function kartValgt(e) {
+				skrivHer.innerHTML = '';
+				var temp = prompt('Spillere: (bruk komma (,) til å skille)');
 
-			var territorier = [
-				'Vestlandet',
-				'Innlandet',
-				'Akershus',
-				'Telemark',
-				'Sørlandet',
-				'Dalarna',
-				'Värmland',
-				'Stockholm',
-				'Västergötaland',
-				'Östergötaland',
-				'Kalmar',
-				'Skåne',
-				'Nord-Jylland',
-				'Sør-Jylland',
-				'Fyn og Sjælland',
-				'Irland',
-				'Nord-Irland',
-				'Skottland',
-				'Wales',
-				'Nord-England',
-				'Sentral-England',
-				'Sør-England',
-				'Normandie',
-				'Champagne',
-				'Paris',
-				'Alsace-Lorraine',
-				'Aquitaine',
-				'Rhône-Alpes',
-				'Rivieraen',
-				'Belgia',
-				'Nederland',
-				'Luxembourg',
-				'Vest-Pommern',
-				'Niedersachsen',
-				'Brandenburg',
-				'Vestfalen',
-				'Baden-Württemdberg',
-				'Bayern',
-				'Sveits',
-				'Tirol',
-				'Piemonte',
-				'Lombardia',
-				'Veneto',
-				'Øst-Pommern',
-				'Mazovia',
-				'Stor-Polen',
-				'Lesser-Polen',
-				'Bohemia',
-				'Moravia',
-				'Slovakia',
-				'Østerrike',
-				'Slovenia',
-				'Transdanubia',
-				'Puszta'
-			];
+				var territorier = kartTerritorier[e.target.id];
+				var spillere = temp.split(',');
 
-			var spillere = [
-				'Lavran',
-				'Henrik',
-				'Konrad',
-				'Sigurd'
-			];
+				var spillerTerritorier = [];
+				for (var i = 0; i < spillere.length; i++) {
+					spillerTerritorier[i] = [];
+				}
 
-			var spillerTerritorier = [];
-			for (var i = 0; i < spillere.length; i++) {
-				spillerTerritorier[i] = [];
+				territorier = ssf.shuffle(territorier);
+				spillere = ssf.shuffle(spillere);
+
+				for (var i = 0; i < territorier.length; i++) {
+					spillerTerritorier[i % spillere.length][Math.floor(i / spillere.length)] = territorier[i];
+				}
+
+				/*I konsollen i steden:* /
+				for (var i = 0; i < spillere.length; i++) {
+					console.log('-------------'+spillere[i]+':-------------');
+					for (var j = 0; j < spillerTerritorier[i].length; j++) {
+						console.log(spillerTerritorier[i][j]);
+					}
+				}/**/
+
+				for (var i = 0; i < spillere.length; i++) {
+					var liste = ('<div style="padding: 5px; border: 1px solid black; flex: 1;"><h2>'+spillere[i]+':</h2><ul>');
+					for (var j = 0; j < spillerTerritorier[i].length; j++) {
+						liste += ('<li>'+spillerTerritorier[i][j]+'</li>');
+					}
+					liste += ('</ul></div>');
+					skrivHer.innerHTML += liste;
+				}
 			}
 
-			territorier = ssf.shuffle(territorier);
-			spillere = ssf.shuffle(spillere);
+			var skrivHer = document.querySelector('#skrivHer');
 
-			for (var i = 0; i < territorier.length; i++) {
-				spillerTerritorier[i % spillere.length][Math.floor(i / spillere.length)] = territorier[i];
+			for (var i in kartTerritorier) {
+				skrivHer.innerHTML += '<div class="velgKart" id="'+i+'" style="background-color: '+ssf.randFarge()+';"> '+i+' </div>';
 			}
 
-			/** /for (var i = 0; i < spillere.length; i++) {
-				console.log('-------------'+spillere[i]+':-------------');
-				for (var j = 0; j < spillerTerritorier[i].length; j++) {
-					console.log(spillerTerritorier[i][j]);
-				}
-			}/**/
-
-			for (var i = 0; i < spillere.length; i++) {
-				document.write('<h2>'+spillere[i]+':</h2><ul>');
-				for (var j = 0; j < spillerTerritorier[i].length; j++) {
-					document.write('<li>'+spillerTerritorier[i][j]+'</li>');
-				}
-				document.write('</ul>');
+			for (var i in kartTerritorier) {
+				var temp = document.querySelector('#'+i).addEventListener('click', kartValgt);
 			}
 		</script>
 	</body>
