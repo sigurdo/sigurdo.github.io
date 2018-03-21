@@ -16,11 +16,19 @@ h2, h3, h4, h5, h6  {
 }
 
 .velgKart {
-	flex: 1;
+	/*flex: 1;*/
+	width: 100%;
 	display: block;
-	padding: 16px;
-	font-size: 32px;
+	padding: 48px;
+	font-size: 64px;
 	cursor: pointer;
+}
+
+.territorierListe {
+	padding: 5px;
+	border: 1px solid black;
+	flex: 1;
+	min-width: 200px;
 }
 
 #ramme {/*Hvis man putter et div-element med id="ramme" i body, og gir body class="vannrett" blir hele nettsida midtstilt*/
