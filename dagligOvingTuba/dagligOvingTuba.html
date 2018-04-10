@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> </title>
+		<link rel="stylesheet" type="text/css" href="css/grid.css">
+		<link rel="stylesheet" type="text/css" href="css/dagligOvingTuba.css">
+
+		<script src="js/sigurdsStandardFunksjoner.js"></script><!--Script med noen nyttige funksjoner-->
+	</head>
+
+	<body>
+		<div id="navbar" class="vannrett">
+			<div id="forrige" onclick="byttOvelse(aktivOvelse - 1);"> Forrige </div>
+			<div id="neste" onclick="byttOvelse(aktivOvelse + 1);"> Neste </div>
+		</div>
+
+		<audio id="klikk">
+			<source src="media/metronomslag.mp3" type="">
+		</audio>
+
+		<div class="del" id="ovelse0">
+			<h1> Pusteøvelse 1 </h1>
+
+			<p>
+				Metronom: 72 bpm
+			</p>
+
+			<p>
+				Pust inn på 4 slag og slipp alt ut etterpå
+			</p>
+		</div>
+
+		<div class="del" id="ovelse1">
+			<h1> Pusteøvelse 2 </h1>
+
+			<p>
+				Metronom: 72 bpm
+			</p>
+
+			<ul>
+				<li>
+					Inn på 1, ut på 4
+				</li>
+
+				<li>
+					Inn på 1, ut på 8
+				</li>
+
+				<li>
+					Inn på 1, ut på 16
+				</li>
+			</ul>
+		</div>
+
+		<div class="del" id="ovelse2">
+			<h1> Pusteøvelse 3.1 </h1>
+
+			<p>
+				Metronom: 72 bpm
+			</p>
+
+			<p>
+				Inn på 1, ut på 3 8-deler, repeter 4-6 ganger og bruk opptakt
+			</p>
+		</div>
+
+		<div class="del" id="ovelse3">
+			<h1> Pusteøvelse 3.2 </h1>
+
+			<p>
+				Metronom: 92 bpm
+			</p>
+
+			<p>
+				Inn på 1, ut på 5 8-deler, repeter 4-6 ganger og bruk opptakt
+			</p>
+		</div>
+
+		<div class="del" id="ovelse4">
+			<h1> Pusteøvelse 3.3 </h1>
+
+			<p>
+				Metronom: 112 bpm
+			</p>
+
+			<p>
+				Inn på 1, ut på 7 8-deler, repeter 4-6 ganger og bruk opptakt
+			</p>
+		</div>
+
+		<div class="del" id="ovelse5">
+			<h1> Pusteøvelse 4 </h1>
+
+			<p>
+				Metronom: 72 bpm
+			</p>
+
+			<p>
+				Lungene har 6 fylthetsgrader. Fyll opp lungene til angitte nivåer i rekkefølge med ett slag pause mellom hvert
+			</p>
+
+			<div class="vannrett" id="nivaer">
+				<div class="niva"></div>
+				<div class="niva"></div>
+				<div class="niva"></div>
+				<div class="niva"></div>
+				<div class="niva"></div>
+				<div class="niva"></div>
+
+				<div id="nyeNivaer" onclick="nyeNivaer();">
+					<img src="media/oppdater.png">
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="js/dagligOvingTuba.js"></script>
+	</body>
+</html>

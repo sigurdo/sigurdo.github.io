@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> </title>
+		<link rel="stylesheet" type="text/css" href="css/grid.css">
+		<link rel="stylesheet" type="text/css" href="css/test.css">
+
+		<script src="js/sigurdsStandardFunksjoner.js"></script><!--Script med noen nyttige funksjoner-->
+	</head>
+
+	<body>
+		<div class="vannrett">
+			Hvordan spille: 1,5s på hvert spørsmål. Enter for riktig og backspace for feil. Ta så mange som muglig på rad. Lykke til!
+		</div>
+
+		<div class="vannrett">
+			<div>
+				<div id="stykke">
+					stykke
+				</div>
+
+				<div id="gameOver">
+					
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			function knappNed(e) {
+				if (e.keyCode == 8) {
+					svar = false;
+					sjekkSvar();
+				}
+				else if (e.keyCode == 13) {
+					svar = true;
+					sjekkSvar();
+				}
+			}
+
+			function sjekkSvar() {
+				if (svar == fasit) {
+					nyttStykke();
+				}
+
+				else {
+					slutt('feil');
+				}
+			}
+
+			function nyttStykke() {
+				oppgnr++;
+
+				tall1 = ssf.randInt(1, 29);
+				tall2 = ssf.randInt(1, 9);
+
+				fasit = tall1 + tall2;
+				sum = fasit;
+
+				if (Math.random() < 0.5) {
+					while (sum == fasit) {
+						sum = fasit + ssf.randInt(Math.floor(-0.2 * fasit), Math.floor(0.2 * fasit));
+					}
+				}
+
+				fasit = sum == fasit;
+
+				stykkeEl.innerHTML = tall1+' + '+tall2+' = '+sum;
+				//console.log(fasit);
+
+				if (oppgnr > 1) {
+					sjekkTidUte(oppgnr);
+				}
+			}
+
+			function sjekkTidUte(nr) {
+				setTimeout(function() {
+					if (nr == oppgnr && !gameOver) {
+						slutt('tid');
+					}
+				}, 1500);
+			}
+
+			function slutt(grunn) {
+				gameOver = true;
+				var tekst = 'game over';
+				if (grunn == 'feil') {tekst = 'Feil';}
+				if (grunn == 'tid') {tekst = 'Tida er ute';}
+				gameOverEl.innerHTML = tekst+'<br> score: '+(oppgnr - 1);
+				bodyEl.removeEventListener('keydown', knappNed);
+			}
+
+
+			var gameOver = false;
+			var oppgnr = 0;
+			var svar = true;
+			var tall1 = 0;
+			var tall2 = 0;
+			var fasit = 0;
+			var sum = 0;
+
+
+			var bodyEl = document.querySelector('body');
+			var stykkeEl = document.querySelector('#stykke');
+			var gameOverEl = document.querySelector('#gameOver');
+
+
+			bodyEl.addEventListener('keydown', knappNed);
+
+
+			nyttStykke();
+		</script>
+	</body>
+</html>
