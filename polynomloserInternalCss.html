@@ -85,17 +85,17 @@ h1 {
 	background-color: white;
 }
 
-table {
+table, #eksakt {
 	margin: 25px;
 }
 
-table, th, td {
+table, th, td, #eksakt {
 	background-color: white;
 	border: 1px solid black;
 	border-collapse: collapse;
 }
 
-th, td {
+th, td, #eksakt {
 	padding: 25px;
 	font-size: 50px;
 
@@ -143,6 +143,9 @@ button {
 					<td> <span id="x_2"> - </span> </td>
 				</tr>
 			</table>
+
+			<div id="eksakt"></div>
+
 			<script>
 				function regnUt() {
 					//a x^2 + b x + c = 0
@@ -157,6 +160,10 @@ button {
 
 					document.getElementById('x_1').innerHTML = x_1;
 					document.getElementById('x_2').innerHTML = x_2;
+
+					var eksakt = "Eksakt: (-"+b+" +/- sqrt("+(b**2-4*a*c)+"))/("+(2*a)+")";
+					document.getElementById('eksakt').innerHTML = eksakt;
+
 				}
 			</script>
 		</div>
