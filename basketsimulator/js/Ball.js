@@ -66,7 +66,7 @@ class Ball {
 
 		if (this.y > canvas.height) {
 			if (!this.truffet) {
-				poeng = 0;
+				endStreak();
 				for (var i = 0; i < baller.length; i++) {
 					//baller[i].skalSlettes = true;
 				}

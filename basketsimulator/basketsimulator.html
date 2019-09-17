@@ -13,6 +13,7 @@
 		<p>
 			tid: <t id="tidsViser"> </t> frames <br>
 			poeng: <t id="poengViser"> </t> poeng <br>
+			rekord: <t id="rekordViser"> </t> poeng <br>
 			baller: <t id="ballerViser"> </t> baller
 		</p>
 		<script type="text/javascript" src="js/Ball.js"></script> <!--Inkluderer klassen Ball-->
@@ -57,21 +58,33 @@
 			}
 
 			function checkHighScore(poeng) {
+				//console.log("checkHighScore funker ikke"); return
+
 				//Sjekker om det er highscore
-				console.log("checkHighScore funker ikke");
-				return
-				$.post('localhost/test.php', {
+				$.post('highscore.php', {
 					score: poeng
 				}, function(data, status) {
 					if (data == "success") {
 						console.log("Ny highscore!");
+						getGlobalHighScore();
 					}
 					else if (data == "fail") {
 						console.log("Ikke ny highscore");
 					}
 					else {
-						console.log("Fikk hverken success eller fail fra highscore.php");
+						console.log("highscore.php returnerte hverken success eller fail");
+						console.log("highscore.php returnerte", data);
 					}
+				});
+			}
+
+			function endStreak() {
+				poeng = 0;
+			}
+
+			function getGlobalHighScore() {//OBS!!! Denne returnerer ikke global high score, men vil bare terminere og oppdatere variabelen highscore nå den får svar fra serveren
+				$.get('highscore.php', function(data, status) {
+					highscore = Number(data);
 				});
 			}
 
@@ -86,6 +99,8 @@
 			var fart = [0, 0];
 			var t = 0; //Forteller hvilket nr. av opptegninger vi er på
 			var poeng = 0;
+			var highscore = 0;
+			getGlobalHighScore();
 			var i = 0; //Til forløkka i animer()
 			var hue = 0;
 			var annenhverTyngdeaksellerasjon = true;
@@ -190,6 +205,7 @@
 				//Skrive ut tiden
 				document.getElementById("tidsViser").innerHTML = t;
 				document.getElementById('poengViser').innerHTML = poeng;
+				document.getElementById("rekordViser").innerHTML = highscore;
 				document.getElementById('ballerViser').innerHTML = baller.length;
 				//øke tiden
 				t++;
