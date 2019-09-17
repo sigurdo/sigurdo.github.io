@@ -15,9 +15,9 @@
 			poeng: <t id="poengViser"> </t> poeng <br>
 			baller: <t id="ballerViser"> </t> baller
 		</p>
-		<script type="text/javascript" src="js/Ball.js"></script>
-		<script type="text/javascript" src="js/vektorFunksjoner.js"></script>
-		<script type="text/javascript" src="js/diverseFunksjoner.js"></script>
+		<script type="text/javascript" src="js/Ball.js"></script> <!--Inkluderer klassen Ball-->
+		<script type="text/javascript" src="js/vektorFunksjoner.js"></script> <!--Inkluderer en haug med generelle vektorfunksjoner-->
+		<script type="text/javascript" src="js/diverseFunksjoner.js"></script> <!--Inkluderer noen diverse andre funksjoner-->
 
 		<script>
 			//Bruker strict for klasser
@@ -48,13 +48,11 @@
 						}
 					}
 
-					//if (!ballIVeien) {
-						var fart2 = [];
-						fart2[0] = 1 * fart[0];
-						fart2[1] = 1 * fart[1];
-						baller.push(new Ball(posisjon[0], posisjon[1], fart2, 0, 'orange', 'hsl('+hue+', 100%, 50%)'));
-						hue += 37;
-					//}
+					var fart2 = [];
+					fart2[0] = 1 * fart[0];
+					fart2[1] = 1 * fart[1];
+					baller.push(new Ball(posisjon[0], posisjon[1], fart2, 0, 'orange', 'hsl('+hue+', 100%, 50%)'));
+					hue += 37;
 				}
 			}
 
@@ -109,7 +107,6 @@
 
 			//lager ball med fart
 			var baller = [];
-			//baller.push(new Ball(0, canvas.height/2, 15, 0));
 
 			//funskjon som repeater
 			function animer() {
@@ -203,16 +200,6 @@
 
 			//Startknappen:
 			requestAnimationFrame(animer);
-
-			function nyBall() {
-				for (var i = 0; i < 1; i++) {
-					baller.push(new Ball(1000, canvas.height/2, 15, 0));
-				}
-			}
-
-
-			//bodyEl.addEventListener('keydown', nyBall);
-
 			
 			bodyEl.addEventListener('mousedown', musNed);
 			bodyEl.addEventListener('mouseup', musOpp);
