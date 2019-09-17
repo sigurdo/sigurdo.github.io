@@ -15,77 +15,14 @@
 			poeng: <t id="poengViser"> </t> poeng <br>
 			baller: <t id="ballerViser"> </t> baller
 		</p>
+		<script type="text/javascript" src="js/Ball.js"></script>
+		<script type="text/javascript" src="js/vektorFunksjoner.js"></script>
+		<script type="text/javascript" src="js/diverseFunksjoner.js"></script>
 
 		<script>
 			//Bruker strict for klasser
 			"use strict"
 
-			function lengde(vektor) {
-				return Math.sqrt(vektor[0] ** 2 + vektor[1] ** 2);
-			}
-
-			function vektorPunkter(startpunkt, sluttpunkt) {
-				return [sluttpunkt[0] - startpunkt[0] , sluttpunkt[1] - startpunkt[1]];
-			}
-
-			function avstand(punkt1, punkt2) {
-				var avstandVektor = vektorPunkter(punkt1, punkt2);
-				var avstand = lengde(avstandVektor);
-				return avstand;
-			}
-
-			function retning(vektor) {
-				function lengde(vektor) {
-					return Math.sqrt(vektor[0] ** 2 + vektor[1] ** 2);
-				}
-
-				if (lengde(vektor) == 0) {
-					return 0;
-				}
-
-				var lengde = lengde(vektor);
-				//console.log(lengde, vektor[0]);
-				var vinkel = Math.asin(vektor[1] / lengde);
-
-				if (vektor[0] < 0 && vektor[1] >= 0) {vinkel = Math.PI - vinkel;}
-				else if (vektor[0] < 0 && vektor[1] < 0) {vinkel = -Math.PI - vinkel;}
-				
-				if (vektor[1] < 0) {vinkel = vinkel + 2 * Math.PI;}
-				return vinkel;
-			}
-
-			function vinkel(vektor1, vektor2) {
-				return retning(vektor2) - retning(vektor1);
-			}
-
-			function vektor(lengde, vinkel) {
-				if (vinkel < Math.PI * 1/2) {
-					var vektor = [lengde * Math.cos(vinkel), lengde * Math.sin(vinkel)];
-				}
-				else if (vinkel < Math.PI * 2/2) {
-					var vektor = [lengde * Math.cos(vinkel), lengde * Math.sin(vinkel)];
-				}
-				else if (vinkel < Math.PI * 3/2) {
-					var vektor = [lengde * Math.cos(vinkel), lengde * Math.sin(vinkel)];
-				}
-				else if (vinkel < Math.PI * 4/2) {
-					var vektor = [lengde * Math.cos(vinkel), lengde * Math.sin(vinkel)];
-				}
-				return vektor;
-			}
-
-			function gjennomsnitt(array) {
-				var sum = 0;
-				for (var i = 0; i < array.length; i++) {
-					if (array[i] === Number(array[i])) {
-						sum += array[i];
-					} else {
-						console.error('Arrayen kan bare ha tall');
-					}
-				}
-				return sum / array.length;
-			}
-	
 			function musBvegelse(e) {
 				posisjon = [e.clientX, e.clientY];
 				//console.log(posisjon);
@@ -169,108 +106,6 @@
 			var rodStrekPos = canvas.width - 600;
 			
 			bodyEl.addEventListener('mousemove', musBvegelse);
-
-			//Ball har x, y, fart, tegn(), flytt()
-			class Ball {
-				constructor (x, y, fart, tid, farge) {
-					this.x0 = x;
-					this.x = x;
-					this.y0 = y;
-					this.y = y;
-					this.fart = fart;
-					this.tid = tid;
-					this.farge = farge;
-					this.truffet = false;
-					this.kollidertVegg = false; //Om ballen koliderte med veggen forrige frame
-					this.kollidertTakGulv = false;
-					this.kollidertKurvkant = false;
-					this.kollidertBaller = []; //Om ballen kolliderte med ballen med gitt index forrige frame
-					this.skalSlettes = false;
-
-					for (var i = 0; i < baller.length; i++) {
-						if(lengde(vektorPunkter([this.x, this.y], [baller[i].x, baller[i].y])) <= 100) {
-							this.kollidertBaller[i] = true;
-						} else {
-							this.kollidertBaller[i] = false;
-						}
-					}
-				}
-
-				//Tegnemetode
-				tegn() {
-					//Tegner ball
-					ctx.lineWidth = 8;
-					ctx.beginPath();
-					ctx.arc(this.x, this.y, 50, 0, Math.PI*2);
-					ctx.strokeStyle = "black";
-					ctx.stroke();
-					ctx.fillStyle = this.farge;
-					ctx.fill();
-					ctx.closePath();
-				}
-
-				//x-flytt-metode
-				flytt() {
-					if (annenhverTyngdeaksellerasjon) {
-						this.fart[1] += 1.16;
-					}
-					//parabelbane
-					/**/this.x += this.fart[0];// * this.tid) + this.x0;
-					this.y += this.fart[1];// (0.5 * (this.tid**2)) + (this.fart[1] * this.tid) + this.y0;/**/
-
-					if (!annenhverTyngdeaksellerasjon) {
-						this.fart[1] += 1.16;
-					}
-
-					annenhverTyngdeaksellerasjon = !annenhverTyngdeaksellerasjon;
-
-					this.tid++;
-
-					//Sjekker om ballen kolliderer med veggene
-					if (this.x <= 0 + 18 || this.x >= canvas.width - 18) {
-						if (!this.kollidertVegg) {
-							this.fart[0] = -0.92 * this.fart[0];
-							this.kollidertVegg = true;
-						}
-					} else  {
-						this.kollidertVegg = false;
-					}
-
-					if (this.y > canvas.height) {
-						if (!this.truffet) {
-							poeng = 0;
-							for (var i = 0; i < baller.length; i++) {
-								//baller[i].skalSlettes = true;
-							}
-						}
-						this.skalSlettes = true; //Kan ikke slette med en gang fordi da funker ikke forløkka i animer()
-					}
-
-					//Sjekker om ballen kolliderer med kurvkanten
-					var ballPos = [this.x, this.y];
-					var r = vektorPunkter(kurvkantPos, ballPos);
-					var v0 = this.fart;
-					if (lengde(r) <= 75) {
-						if (!this.kollidertKurvkant) {
-							var vVinkel = retning(v0);
-							var v = vektor(0.92 * lengde(v0), (Math.PI + 2*retning(r) - retning(v0)) % (Math.PI * 2));
-							//console.log(vVinkel);
-							this.fart = v;
-							this.kollidertKurvkant = true;
-						}
-					} else {
-						this.kollidertKurvkant = false;
-					}
-
-					//Lang if-setning sjekker om det er scoring. Denne er ikke perfekt men ganske god, nesten alle reelle treff vil registreres mens noen få ikke reelle treff vil registreres
-					if (this.x >= canvas.width - 200 && this.y > 300 && this.y < 350 && this.fart[1] > 0 && !this.truffet) {
-						this.truffet = true;
-						console.log('hurra');
-						poeng++;
-						checkHighScore(poeng);
-					}
-				}
-			}
 
 			//lager ball med fart
 			var baller = [];
