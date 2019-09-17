@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<meta charset="utf-8">
 		<title> </title>
 		<link href='https://fonts.googleapis.com/css?family=Share Tech Mono' rel='stylesheet'>
@@ -103,7 +104,7 @@
 				musTrykket = false
 				//console.log('opp');
 
-				if(posisjon[0] <= canvas.width / 2) {
+				if(posisjon[0] <= rodStrekPos) {
 					for (var i = 0; i < baller.length; i++) {
 						if (lengde([posisjon[0] - baller[i].x, posisjon[1] - baller[i].y]) <= 100) {
 							var ballIVeien = true;
@@ -118,6 +119,25 @@
 						hue += 37;
 					//}
 				}
+			}
+
+			function checkHighScore(poeng) {
+				//Sjekker om det er highscore
+				console.log("checkHighScore funker ikke");
+				return
+				$.post('localhost/test.php', {
+					score: poeng
+				}, function(data, status) {
+					if (data == "success") {
+						console.log("Ny highscore!");
+					}
+					else if (data == "fail") {
+						console.log("Ikke ny highscore");
+					}
+					else {
+						console.log("Fikk hverken success eller fail fra highscore.php");
+					}
+				});
 			}
 
 			var musTrykket = false;
@@ -144,6 +164,9 @@
 			canvas.width = window.innerWidth;
 			canvas.height = window.innerHeight - 100;
 			canvas.style.height = (window.innerHeight - 100)+'px';
+
+			var kurvkantPos = [canvas.width - 200, 300];
+			var rodStrekPos = canvas.width - 600;
 			
 			bodyEl.addEventListener('mousemove', musBvegelse);
 
@@ -201,12 +224,6 @@
 
 					annenhverTyngdeaksellerasjon = !annenhverTyngdeaksellerasjon;
 
-					//console.log(retning(this.fart));
-
-					//sirkel
-					/** /this.x = 200*Math.cos(0.05*this.tid) + 300;
-					this.y = 200*Math.sin(0.05*this.tid) + 300;/**/
-
 					this.tid++;
 
 					//Sjekker om ballen kolliderer med veggene
@@ -219,17 +236,6 @@
 						this.kollidertVegg = false;
 					}
 
-					//Sjekker om den kolliderer med gulvet
-					/** /if (this.y >= canvas.height - 18 || this.y <= 0 + 18) {
-						if (!this.kollidertTakGulv) {
-							this.fart[1] = -1 * this.fart[1];
-							this.kollidertTakGulv = true;
-						}
-					} else {
-						this.kollidertTakGulv = false;
-					}/**/
-					//console.log(this.y, canvas.height, this.fart[1]);
-
 					if (this.y > canvas.height) {
 						if (!this.truffet) {
 							poeng = 0;
@@ -241,7 +247,6 @@
 					}
 
 					//Sjekker om ballen kolliderer med kurvkanten
-					var kurvkantPos = [canvas.width - 200, 300];
 					var ballPos = [this.x, this.y];
 					var r = vektorPunkter(kurvkantPos, ballPos);
 					var v0 = this.fart;
@@ -257,75 +262,12 @@
 						this.kollidertKurvkant = false;
 					}
 
-					//Sjekker om ballen kolliderer med andre baller
-					/** /for (var j = 0; j < baller.length; j++) {
-						//console.log(j);
-
-						var ball2 = baller[j];
-						if (this != ball2) {
-							var ballPos = [this.x, this.y];
-							var ball2Pos = [ball2.x, ball2.y];
-							var r = vektorPunkter(ballPos, ball2Pos);
-
-							if (lengde(r) < 100) {
-								if(!this.kollidertBaller[j]){//&& !baller[j].kollidertBaller[baller.indexOf(this)]) {
-									var v0A = this.fart;
-									var v0B = ball2.fart;
-
-									var v0Ax = lengde(v0A) * Math.cos(vinkel(r, v0A));
-									var v0Ay = lengde(v0A) * Math.sin(vinkel(r, v0A));
-									var v0Bx = lengde(v0B) * Math.cos(vinkel(r, v0B));
-									var v0By = lengde(v0B) * Math.sin(vinkel(r, v0B));
-
-									var k = 0.96;
-
-									var vAx = v0Bx;
-									//var vAx = ((1 / 2 * k) * v0Ax) - ((1 / 2 * k) * v0Bx) + (1 / 2 * v0Ax) + (1 / 2 * v0Bx);
-									//var vAx = (v0Ax + v0Bx - Math.sqrt(((2 * k) * v0Ax**(2)) + ((2 * k) * v0Bx**(2)) - v0Ax**(2) - ((2 * v0Ax) * v0Bx) - v0Bx**(2))) / 2;
-									//console.log(baller.indexOf(this), vAx);
-									var vAy = v0Ay;
-									var vBx = v0Ax;
-									//var vBx = v0Ax + v0Bx - vAx;
-									//var vBx = (v0Ax + v0Bx + Math.sqrt(((2 * k) * v0Ax**(2)) + ((2 * k) * v0Bx**(2)) - v0Ax**(2) - ((2 * v0Ax) * v0Bx) - v0Bx**(2))) / 2;
-									//console.log(vBx);
-									var vBy = v0By;
-
-									var v0Totx = (v0Ax + v0Bx) / 2; //Deler på 2 fordi dette liksom blir gjennomsnittsfarta av de 2 ballene
-									var v0Ax2 = v0Ax - v0Totx;
-									var v0Bx2 = v0Bx - v0Totx;
-
-									vAx = k * v0Bx2;
-									vBx = k * v0Ax2;
-
-									vAx += v0Totx;
-									vBx += v0Totx;
-
-									//console.log(v0Ax+v0Bx, vAx+vBx); //Sjekke om bevegelsesmengden faktisk er bevart
-
-									var vA = [vAx, vAy];
-									var vB = [vBx, vBy];
-
-									var vAVektor = vektor(lengde(vA), (retning(r) + retning(vA)) % (2 * Math.PI));
-									var vBVektor = vektor(lengde(vB), (retning(r) + retning(vB)) % (2 * Math.PI));
-
-									this.fart = vAVektor;
-									ball2.fart = vBVektor;
-							
-									this.kollidertBaller[j] = true;
-									baller[j].kollidertBaller[baller.indexOf(this)] = true;
-								}
-							} else if(lengde(r) > 105) {
-								this.kollidertBaller[j] = false;
-								baller[j].kollidertBaller[baller.indexOf(this)] = false;
-							}
-						}
-					}/**/
-
 					//Lang if-setning sjekker om det er scoring. Denne er ikke perfekt men ganske god, nesten alle reelle treff vil registreres mens noen få ikke reelle treff vil registreres
 					if (this.x >= canvas.width - 200 && this.y > 300 && this.y < 350 && this.fart[1] > 0 && !this.truffet) {
 						this.truffet = true;
 						console.log('hurra');
 						poeng++;
+						checkHighScore(poeng);
 					}
 				}
 			}
@@ -342,8 +284,8 @@
 				//Tegner midtstrek
 				ctx.lineWidth = 8;
 				ctx.beginPath();
-				ctx.moveTo(canvas.width / 2, 0);
-				ctx.lineTo(canvas.width / 2, canvas.height);
+				ctx.moveTo(rodStrekPos, 0);
+				ctx.lineTo(rodStrekPos, canvas.height);
 				ctx.closePath();
 				ctx.strokeStyle = 'red';
 				ctx.stroke();
@@ -372,21 +314,17 @@
 
 					fart = [sumx / fartSisteFrames.length, sumy / fartSisteFrames.length];
 
-					if (posisjon[0] < canvas.width / 2) {
+					if (posisjon[0] < rodStrekPos) {
 						var holder = new Ball(posisjon[0], posisjon[1], fart, 0, 'orange');
 						baller.push(holder);
-					} /*else {
-						var holder = new Ball(posisjon[0], posisjon[1], fart, 0, 'red');
-					}*/
-					//holder.tegn();
+					}
 				}
 
 				for (i = 0; i < baller.length; i++) {
-					if (!(musTrykket && i == baller.length - 1 && posisjon[0] < canvas.width / 2)) {
+					if (!(musTrykket && i == baller.length - 1 && posisjon[0] < rodStrekPos)) {
 						baller[i].flytt();
 					}
 					baller[i].tegn();
-					//console.log(i);
 				}
 
 				//Sletter baller
@@ -396,7 +334,7 @@
 					}
 				}
 
-				if (musTrykket && posisjon[0] < canvas.width / 2) {
+				if (musTrykket && posisjon[0] < rodStrekPos) {
 					baller.pop();
 				}
 
@@ -414,6 +352,8 @@
 				ctx.font = '200px Consolas';
 				if (poeng < 10) {ctx.fillText('0'+poeng, canvas.width - 250, 200);}
 				else {ctx.fillText(poeng, canvas.width - 250, 200);}
+
+				
 				
 				//Skrive ut tiden
 				document.getElementById("tidsViser").innerHTML = t;
