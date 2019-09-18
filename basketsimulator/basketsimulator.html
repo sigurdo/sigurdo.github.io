@@ -52,7 +52,13 @@
 					var fart2 = [];
 					fart2[0] = 1 * fart[0];
 					fart2[1] = 1 * fart[1];
-					baller.push(new Ball(posisjon[0], posisjon[1], fart2, 0, 'orange', 'hsl('+hue+', 100%, 50%)'));
+					baller.push(new Ball({
+						pos: posisjon,
+						fart: fart2,
+						farge: 'orange',
+						kollisjonsVegger: [false, true, false , false],
+						kollisjonsPunkter: [kurvkantPos]
+					}));
 					hue += 37;
 				}
 			}
@@ -116,7 +122,7 @@
 			canvas.style.height = (window.innerHeight - 100)+'px';
 
 			var kurvkantPos = [canvas.width - 200, 300];
-			var rodStrekPos = canvas.width - 600;
+			const rodStrekPos = canvas.width - 600;
 			
 			bodyEl.addEventListener('mousemove', musBvegelse);
 
@@ -162,7 +168,11 @@
 					fart = [sumx / fartSisteFrames.length, sumy / fartSisteFrames.length];
 
 					if (posisjon[0] < rodStrekPos) {
-						var holder = new Ball(posisjon[0], posisjon[1], fart, 0, 'orange');
+						var holder = new Ball({
+							pos: posisjon,
+							fart: fart, 
+							farge: 'orange'
+						});
 						baller.push(holder);
 					}
 				}

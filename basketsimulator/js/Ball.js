@@ -1,27 +1,43 @@
-//Ball har x, y, fart, tegn(), flytt()
-class Ball {
-	constructor (x, y, fart, tid, farge) {
-		this.x0 = x;
-		this.x = x;
-		this.y0 = y;
-		this.y = y;
-		this.fart = fart;
-		this.tid = tid;
-		this.farge = farge;
-		this.truffet = false;
-		this.kollidertVegg = false; //Om ballen koliderte med veggen forrige frame
-		this.kollidertTakGulv = false;
-		this.kollidertKurvkant = false;
-		this.kollidertBaller = []; //Om ballen kolliderte med ballen med gitt index forrige frame
-		this.skalSlettes = false;
+/*
+Litt om abstraksjonen Ball:
+En Ball er en rund ting som beveger seg med tyngdeaksellerasjon i et koordinatsystem med en rekke
+spesifiserte statiske punkter den kan kollidere med og opptil 4 vegger den kan kollidere med.
 
-		for (var i = 0; i < baller.length; i++) {
-			if(lengde(vektorPunkter([this.x, this.y], [baller[i].x, baller[i].y])) <= 100) {
-				this.kollidertBaller[i] = true;
-			} else {
-				this.kollidertBaller[i] = false;
+Sletting av baller skal flyttes ut av Ball-klassen, men håndteres 100% av interfacet rundt
+Det samme gjelder deteksjon av scoring
+
+Kall Ball.flytt() for å bevege ballen en frame
+Kall Ball.tegn() for å tegne opp ballen i det globale canvaset, men denne bør fjernes
+*/
+class Ball {
+	constructor (options) {
+		let defaultOptions = {
+			pos: [0, 0],
+			fart: [0, 0],
+			farge: "white",
+			kollisjonsVegger: [false, false, false, false],
+			kollisjonsPunkter: []
+		}
+		for (let index in defaultOptions) {
+			if (!options[index]) {
+				options[index] = defaultOptions[index];
 			}
 		}
+
+		this.pos = options.pos;
+		this.x = options.pos[0];
+		this.y = options.pos[1];
+		this.fart = options.fart;
+		this.farge = options.farge;
+		this.kollisjonsVegger = options.kollisjonsVegger;
+		this.kollisjonsPunkter = {
+			punkter: options.kollisjonsPunkter,
+			kollidert: new Array(options.kollisjonsPunkter.length).fill(false) //Om ballen kolliderte med punktet med gitt index forrige frame
+		};
+		this.truffet = false;
+		this.kollidertVegg = false; //Om ballen koliderte med veggen forrige frame
+		this.kollidertTakGulv = false; //Om ballen koliderte med tak/gulv forrige frame
+		this.skalSlettes = false;
 	}
 
 	//Tegnemetode
@@ -42,9 +58,9 @@ class Ball {
 		if (annenhverTyngdeaksellerasjon) {
 			this.fart[1] += 1.16;
 		}
-		//parabelbane
-		/**/this.x += this.fart[0];// * this.tid) + this.x0;
-		this.y += this.fart[1];// (0.5 * (this.tid**2)) + (this.fart[1] * this.tid) + this.y0;/**/
+		
+		this.x += this.fart[0];
+		this.y += this.fart[1];
 
 		if (!annenhverTyngdeaksellerasjon) {
 			this.fart[1] += 1.16;
@@ -52,10 +68,8 @@ class Ball {
 
 		annenhverTyngdeaksellerasjon = !annenhverTyngdeaksellerasjon;
 
-		this.tid++;
-
 		//Sjekker om ballen kolliderer med veggene
-		if (this.x <= 0 + 18 || this.x >= canvas.width - 18) {
+		if ((this.kollisjonsVegger[3] && this.x <= 0 + 18) || (this.kollisjonsVegger[1] && this.x >= canvas.width - 18)) {
 			if (!this.kollidertVegg) {
 				this.fart[0] = -0.92 * this.fart[0];
 				this.kollidertVegg = true;
@@ -64,30 +78,40 @@ class Ball {
 			this.kollidertVegg = false;
 		}
 
+		//Sjekker om ballen kolliderer med tak/gulv
+		if ((this.kollisjonsVegger[0] && this.y <= 0 + 18) || (this.kollisjonsVegger[2] && this.y >= canvas.height - 18)) {
+			if (!this.kollidertTakGulv) {
+				this.fart[1] = -0.92 * this.fart[1];
+				this.kollidertTakGulv = true;
+			}
+		} else  {
+			this.kollidertTakGulv = false;
+		}
+
 		if (this.y > canvas.height) {
 			if (!this.truffet) {
 				endStreak();
-				for (var i = 0; i < baller.length; i++) {
-					//baller[i].skalSlettes = true;
-				}
 			}
 			this.skalSlettes = true; //Kan ikke slette med en gang fordi da funker ikke forløkka i animer()
 		}
 
-		//Sjekker om ballen kolliderer med kurvkanten
-		var ballPos = [this.x, this.y];
-		var r = vektorPunkter(kurvkantPos, ballPos);
-		var v0 = this.fart;
-		if (lengde(r) <= 75) {
-			if (!this.kollidertKurvkant) {
-				var vVinkel = retning(v0);
-				var v = vektor(0.92 * lengde(v0), (Math.PI + 2*retning(r) - retning(v0)) % (Math.PI * 2));
-				//console.log(vVinkel);
-				this.fart = v;
-				this.kollidertKurvkant = true;
+		//Sjekker om ballen kolliderer med kurvkanten (generelt alle punkter)
+		for (let i = 0; i < this.kollisjonsPunkter.punkter.length; i++) {
+			let punkt = this.kollisjonsPunkter.punkter[i];
+			var ballPos = [this.x, this.y];
+			var r = vektorPunkter(punkt, ballPos);
+			var v0 = this.fart;
+			if (lengde(r) <= 75) {
+				if (!this.kollisjonsPunkter.kollidert[i]) {
+					var vVinkel = retning(v0);
+					var v = vektor(0.92 * lengde(v0), (Math.PI + 2*retning(r) - retning(v0)) % (Math.PI * 2));
+					//console.log(vVinkel);
+					this.fart = v;
+					this.kollisjonsPunkter.kollidert[i] = true;
+				}
+			} else {
+				this.kollisjonsPunkter.kollidert[i] = false;
 			}
-		} else {
-			this.kollidertKurvkant = false;
 		}
 
 		//Lang if-setning sjekker om det er scoring. Denne er ikke perfekt men ganske god, nesten alle reelle treff vil registreres mens noen få ikke reelle treff vil registreres
