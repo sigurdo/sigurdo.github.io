@@ -8,6 +8,9 @@ Det samme gjelder deteksjon av scoring
 
 Kall Ball.flytt() for å bevege ballen en frame
 Kall Ball.tegn() for å tegne opp ballen i det globale canvaset, men denne bør fjernes
+	Ball skal fortsatt holde en farge, men det er bare for å forenkle administrasjon på utsiden
+	Eller, hmmmm, kanskje ikke... Når man kan sende ctx referanse som argument til tegn er det litt aktuelt å ta vare på den faktisk
+	Jo, Ball-klassen skal være en såpass generell abstraksjon av et beveglig objekt at det bare blir rotete med grafikk-rammeverk-spesifikke tegnemetoder
 */
 class Ball {
 	constructor (options) {
@@ -41,7 +44,7 @@ class Ball {
 	}
 
 	//Tegnemetode
-	tegn() {
+	tegn(ctx) {
 		//Tegner ball
 		ctx.lineWidth = 8;
 		ctx.beginPath();
