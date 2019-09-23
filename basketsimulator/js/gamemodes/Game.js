@@ -38,6 +38,14 @@ class Game {
 		antijuks = (antijuks + 113) % 42;
 	}
 
+	onThrow(index) {
+		//Ingenting her i basic game
+	}
+
+	onDelete(index) {
+		//Ingenting her i basic game
+	}
+
 	initFrame() {
 		this.drawer.clear(); //fjerner alt i canvas
 		this.mouse.nextFrame();
@@ -56,6 +64,8 @@ class Game {
 				basket: this.basket,
 				treff: () => this.treff()
 			}));
+
+			this.onThrow(this.throws.length - 1);
 		}
 	}
 	
@@ -105,7 +115,8 @@ class Game {
 		//Sletter baller
 		for (let i = 0; i < this.throws.length; i++) {
 			if (this.throws[i].ball.getPos()[1] > this.canvasEl.height) {
-				this.throws.splice(this.throws.indexOf(this.throws[i]), 1);
+				this.onDelete(i);
+				this.throws.splice(i, 1);
 			}
 		}
 	}

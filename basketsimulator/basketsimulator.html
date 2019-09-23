@@ -17,221 +17,44 @@
 			baller: <t id="ballerViser"> </t> baller
 		</p>
 		<script type="text/javascript" src="js/Ball.js"></script> <!--Inkluderer klassen Ball-->
+		<script type="text/javascript" src="js/Basket.js"></script>
 		<script type="text/javascript" src="js/Throw.js"></script> <!--Inkluderer klassen Throw-->
-		<script type="text/javascript" src="js/Streakgame.js"></script> <!--Inkluderer klassen Throw-->
+		<script type="text/javascript" src="js/gamemodes/Game.js"></script>
+		<script type="text/javascript" src="js/gamemodes/Streakgame.js"></script>
+		<script type="text/javascript" src="js/gamemodes/CountPointsGame.js"></script>
+		<script type="text/javascript" src="js/gamemodes/BestOfNGame.js"></script>
+		<script type="text/javascript" src="js/MouseTracker.js"></script>
+		<script type="text/javascript" src="js/CanvasDrawer.js"></script>
 		<script type="text/javascript" src="js/vektorFunksjoner.js"></script> <!--Inkluderer en haug med generelle vektorfunksjoner-->
 		<script type="text/javascript" src="js/diverseFunksjoner.js"></script> <!--Inkluderer noen diverse andre funksjoner-->
 
 		<script>
 			//Bruker strict for klasser
 			"use strict"
+			let antijuks = 0;
+			//$.
 
-			function musBvegelse(e) {
-				console.log('mousemove');
-				posisjon = [e.clientX, e.clientY];
-				//console.log(posisjon);
-			}
-
-			function musNed() {
-				musTrykket = true;
-				//console.log('ned');
-
-				posisjonFor = posisjon;
-				posisjonEtter = posisjon;
-				fart=[0, 0];
-			}
-
-			function musOpp() {
-				musTrykket = false
-				//console.log('opp');
-
-				if(posisjon[0] <= rodStrekPos) {
-					for (var i = 0; i < baller.length; i++) {
-						if (lengde([posisjon[0] - baller[i].x, posisjon[1] - baller[i].y]) <= 100) {
-							var ballIVeien = true;
-						}
-					}
-
-					var fart2 = [];
-					fart2[0] = 1 * fart[0];
-					fart2[1] = 1 * fart[1];
-					baller.push(new Ball({
-						pos: posisjon,
-						fart: fart2,
-						farge: 'orange',
-						kollisjonsVegger: [false, true, false , false],
-						kollisjonsPunkter: [kurvkantPos, [kurvkantPos[0] + 200, kurvkantPos[1]]]
-					}));
-					hue += 37;
-				}
-			}
-
-			function checkHighScore(poeng) {
-				//console.log("checkHighScore funker ikke"); return
-
-				//Sjekker om det er highscore
-				$.post('highscore.php', {
-					score: poeng
-				}, function(data, status) {
-					if (data == "success") {
-						console.log("Ny highscore!");
-						getGlobalHighScore();
-					}
-					else if (data == "fail") {
-						console.log("Ikke ny highscore");
-					}
-					else {
-						console.log("highscore.php returnerte hverken success eller fail");
-						console.log("highscore.php returnerte", data);
-					}
-				});
-			}
-
-			function endStreak() {
-				poeng = 0;
-			}
-
-			function getGlobalHighScore() {//OBS!!! Denne returnerer ikke global high score, men vil bare terminere og oppdatere variabelen highscore nå den får svar fra serveren
-				$.get('highscore.php', function(data, status) {
-					highscore = Number(data);
-				});
-			}
-
-			var musTrykket = false;
-			var posisjon = [1, 1];
-			var posisjonFor = [1, 1];
-			var posisjonEtter = [1, 1];
-			var fartSisteFrames = [];
-			for (var i = 0; i < 2; i++) {
-				fartSisteFrames[i] = [0, 0];
-			}
-			var fart = [0, 0];
-			var t = 0; //Forteller hvilket nr. av opptegninger vi er på
-			var poeng = 0;
-			var highscore = 0;
-			getGlobalHighScore();
-			var i = 0; //Til forløkka i animer()
-			var hue = 0;
-			var annenhverTyngdeaksellerasjon = true;
-
-			var bodyEl = document.querySelector('body');
-			var canvas = document.querySelector("#flyBoks");
-			//console.log(canvas.width, canvas.height);
-
-			var ctx = canvas.getContext("2d");
-
+			let canvas = document.querySelector('#flyBoks');
 			canvas.width = window.innerWidth;
-			canvas.height = window.innerHeight - 100;
-			canvas.style.height = (window.innerHeight - 100)+'px';
+			canvas.height = window.innerHeight;
+			canvas.style.height = (window.innerHeight)+'px';
 
-			var kurvkantPos = [canvas.width - 200, 300];
-			const rodStrekPos = canvas.width - 600;
-			
-			canvas.addEventListener('mousemove', musBvegelse);
+			let game = new BestOfNGame({
+				canvasTag: '#flyBoks'
+			});
 
-			//lager ball med fart
-			var baller = [];
+			let t = 0;
 
-			//funskjon som repeater
 			function animer() {
-				//fjerner alt i canvas
-				ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-				//Tegner midtstrek
-				ctx.lineWidth = 8;
-				ctx.beginPath();
-				ctx.moveTo(rodStrekPos, 0);
-				ctx.lineTo(rodStrekPos, canvas.height);
-				ctx.closePath();
-				ctx.strokeStyle = 'red';
-				ctx.stroke();
-
-				if (musTrykket) {
-					posisjonFor = posisjonEtter;
-					posisjonEtter = posisjon;
-					var fartTemp = vektorPunkter(posisjonFor, posisjonEtter);
-					fart = fartTemp;
-					if (lengde(fartTemp) >= lengde(fart)) {
-						fart = fartTemp;
-					}
-
-					for (var i = 0; i < fartSisteFrames.length - 1; i++) {
-						fartSisteFrames[i] = fartSisteFrames[i + 1];
-					}
-
-					fartSisteFrames[fartSisteFrames.length - 1] = fartTemp;
-					var sumx = 0;
-					var sumy = 0;
-
-					for (var i = 0; i < fartSisteFrames.length; i++) {
-						sumx += fartSisteFrames[i][0];
-						sumy += fartSisteFrames[i][1];
-					}
-
-					fart = [sumx / fartSisteFrames.length, sumy / fartSisteFrames.length];
-
-					if (posisjon[0] < rodStrekPos) {
-						var holder = new Ball({
-							pos: posisjon,
-							fart: fart, 
-							farge: 'orange'
-						});
-						baller.push(holder);
-					}
-				}
-
-				for (i = 0; i < baller.length; i++) {
-					if (!(musTrykket && i == baller.length - 1 && posisjon[0] < rodStrekPos)) {
-						baller[i].flytt();
-					}
-					baller[i].tegn(ctx);
-				}
-
-				//Sletter baller
-				for (var i = 0; i < baller.length; i++) {
-					if (baller[i].skalSlettes) {
-						baller.splice(baller.indexOf(baller[i]), 1);
-					}
-				}
-
-				if (musTrykket && posisjon[0] < rodStrekPos) {
-					baller.pop();
-				}
-
-				//Tegner kurv
-				ctx.lineWidth = 16;
-				ctx.beginPath();
-				ctx.moveTo(canvas.width, 300);
-				ctx.lineTo(canvas.width-200, 300);
-				ctx.closePath();
-				ctx.strokeStyle = 'grey';
-				ctx.stroke();
-
-				//Skriver ut poeng
-				ctx.fillStyle = 'white';
-				ctx.font = '200px Consolas';
-				if (poeng < 10) {ctx.fillText('0'+poeng, canvas.width - 250, 200);}
-				else {ctx.fillText(poeng, canvas.width - 250, 200);}
-
+				game.nextFrame();
 				
-				
-				//Skrive ut tiden
-				document.getElementById("tidsViser").innerHTML = t;
-				document.getElementById('poengViser').innerHTML = poeng;
-				document.getElementById("rekordViser").innerHTML = highscore;
-				document.getElementById('ballerViser').innerHTML = baller.length;
-				//øke tiden
-				t++;
+				document.getElementById("tidsViser").innerHTML = t; //Skrive ut tiden
+				t++; //øke tiden
 
-				//repeat
 				requestAnimationFrame(animer);
 			}
 
-			//Startknappen:
 			requestAnimationFrame(animer);
-			
-			canvas.addEventListener('mousedown', musNed);
-			canvas.addEventListener('mouseup', musOpp);
 		</script>
 	</body>
 </html>

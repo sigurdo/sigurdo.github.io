@@ -16,6 +16,7 @@ class Ball {
 	constructor (options) {
 		let defaultOptions = {
 			pos: [0, 0],
+			radius: 30,
 			fart: [0, 0],
 			farge: "white",
 			kollisjonsVegger: [false, false, false, false],
@@ -30,6 +31,7 @@ class Ball {
 		this.pos = options.pos;
 		this.x = options.pos[0];
 		this.y = options.pos[1];
+		this.radius = options.radius;
 		this.fart = options.fart;
 		this.farge = options.farge;
 		this.kollisjonsVegger = options.kollisjonsVegger;
@@ -92,13 +94,6 @@ class Ball {
 			this.kollidertTakGulv = false;
 		}
 
-		if (this.y > canvas.height) {
-			if (!this.truffet) {
-				endStreak();
-			}
-			this.skalSlettes = true; //Kan ikke slette med en gang fordi da funker ikke forløkka i animer()
-		}
-
 		//Sjekker om ballen kolliderer med kurvkanten (generelt alle punkter)
 		for (let i = 0; i < this.kollisjonsPunkter.punkter.length; i++) {
 			let punkt = this.kollisjonsPunkter.punkter[i];
@@ -118,12 +113,26 @@ class Ball {
 			}
 		}
 
-		//Lang if-setning sjekker om det er scoring. Denne er ikke perfekt men ganske god, nesten alle reelle treff vil registreres mens noen få ikke reelle treff vil registreres
-		if (this.x >= canvas.width - 200 && this.y > 300 && this.y < 350 && this.fart[1] > 0 && !this.truffet) {
-			this.truffet = true;
-			console.log('hurra');
-			poeng++;
-			checkHighScore(poeng);
-		}
+		this.pos = [this.x, this.y];
+	}
+
+	getPos() {
+		return JSON.parse(JSON.stringify(this.pos));
+	}
+
+	getX() {
+		return this.pos[0];
+	}
+
+	getY() {
+		return this.pos[1];
+	}
+
+	getRadius() {
+		return this.radius;
+	}
+
+	getColor() {
+		return this.farge;
 	}
 }
