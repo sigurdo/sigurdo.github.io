@@ -19,30 +19,41 @@ class StreakGame extends Game {
 		this.poeng++;
 	}
 
+	onThrow(index) {
+		for (let i = 0; i < this.throws.length; i++) {
+			if (i != index) {
+				this.onDelete(i);
+				this.throws.splice(i, 1);
+			}
+		}
+	}
+
+	onDelete(index) {
+		if (this.throws[index].status == 'none') {
+			this.poeng = 0;
+		}
+	}
+
 	drawAll() {
 		this.drawLine();
 		this.drawBalls();
-		if (this.throws.length == 0) {
-			this.drawHolder();
-		}
+		this.drawHolder();
 		this.drawBasket();
 	}
 
 	nextFrame() {
 		this.initFrame();
 
-		if (this.throws.length == 0) {
-			this.newBall();
-		}
+		this.newBall();
 
 		this.moveBalls();
 
 		//Sjekker om en ball har havna utafor uten å ha truffet
-		for (let i = 0; i < this.throws.length; i++) {
+		/*for (let i = 0; i < this.throws.length; i++) {
 			if (this.throws[i].ball.getY() > this.canvasEl.height && this.throws[i].status == 'none') {
 				this.poeng = 0;
 			}
-		}
+		}*/
 
 		this.deleteBalls();
 
