@@ -19,7 +19,9 @@
 		<script type="text/javascript" src="js/Ball2.js"></script> <!--Inkluderer klassen Ball-->
 		<script type="text/javascript" src="js/Basket.js"></script>
 		<script type="text/javascript" src="js/Throw.js"></script> <!--Inkluderer klassen Throw-->
-		<script type="text/javascript" src="js/Streakgame.js"></script> <!--Inkluderer klassen Throw-->
+		<script type="text/javascript" src="js/Game.js"></script>
+		<script type="text/javascript" src="js/Streakgame.js"></script>
+		<script type="text/javascript" src="js/CountPointsGame.js"></script>
 		<script type="text/javascript" src="js/MouseTracker.js"></script>
 		<script type="text/javascript" src="js/CanvasDrawer.js"></script>
 		<script type="text/javascript" src="js/vektorFunksjoner.js"></script> <!--Inkluderer en haug med generelle vektorfunksjoner-->
@@ -36,7 +38,7 @@
 			canvas.height = window.innerHeight;
 			canvas.style.height = (window.innerHeight)+'px';
 
-			let game = new Streakgame({
+			let game = new CountPointsGame({
 				canvasTag: '#flyBoks'
 			});
 

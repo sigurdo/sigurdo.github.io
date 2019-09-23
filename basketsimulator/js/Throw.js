@@ -55,9 +55,6 @@ class Throw {
 		 && this.status == "none"
 		) {
 			this.status = "hit";
-			console.log('hurra');
-			//poeng++;
-			//checkHighScore(poeng);
 			this.treff();
 		}
 	}
