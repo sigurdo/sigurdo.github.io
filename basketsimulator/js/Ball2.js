@@ -92,13 +92,6 @@ class Ball {
 			this.kollidertTakGulv = false;
 		}
 
-		if (this.y > canvas.height) {
-			if (!this.truffet) {
-				endStreak();
-			}
-			this.skalSlettes = true; //Kan ikke slette med en gang fordi da funker ikke forløkka i animer()
-		}
-
 		//Sjekker om ballen kolliderer med kurvkanten (generelt alle punkter)
 		for (let i = 0; i < this.kollisjonsPunkter.punkter.length; i++) {
 			let punkt = this.kollisjonsPunkter.punkter[i];
@@ -118,12 +111,6 @@ class Ball {
 			}
 		}
 
-		//Lang if-setning sjekker om det er scoring. Denne er ikke perfekt men ganske god, nesten alle reelle treff vil registreres mens noen få ikke reelle treff vil registreres
-		if (this.x >= canvas.width - 200 && this.y > 300 && this.y < 350 && this.fart[1] > 0 && !this.truffet) {
-			this.truffet = true;
-			console.log('hurra');
-			poeng++;
-			checkHighScore(poeng);
-		}
+		this.pos = [this.x, this.y];
 	}
 }

@@ -9,3 +9,7 @@ function gjennomsnitt(array) {
 	}
 	return sum / array.length;
 }
+
+function copy(variable) {
+	return JSON.parse(JSON.stringify(variable));
+}

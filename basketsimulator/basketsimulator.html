@@ -17,6 +17,8 @@
 			baller: <t id="ballerViser"> </t> baller
 		</p>
 		<script type="text/javascript" src="js/Ball.js"></script> <!--Inkluderer klassen Ball-->
+		<script type="text/javascript" src="js/Throw.js"></script> <!--Inkluderer klassen Throw-->
+		<script type="text/javascript" src="js/Streakgame.js"></script> <!--Inkluderer klassen Throw-->
 		<script type="text/javascript" src="js/vektorFunksjoner.js"></script> <!--Inkluderer en haug med generelle vektorfunksjoner-->
 		<script type="text/javascript" src="js/diverseFunksjoner.js"></script> <!--Inkluderer noen diverse andre funksjoner-->
 
@@ -25,6 +27,7 @@
 			"use strict"
 
 			function musBvegelse(e) {
+				console.log('mousemove');
 				posisjon = [e.clientX, e.clientY];
 				//console.log(posisjon);
 			}
@@ -124,7 +127,7 @@
 			var kurvkantPos = [canvas.width - 200, 300];
 			const rodStrekPos = canvas.width - 600;
 			
-			bodyEl.addEventListener('mousemove', musBvegelse);
+			canvas.addEventListener('mousemove', musBvegelse);
 
 			//lager ball med fart
 			var baller = [];
@@ -227,8 +230,8 @@
 			//Startknappen:
 			requestAnimationFrame(animer);
 			
-			bodyEl.addEventListener('mousedown', musNed);
-			bodyEl.addEventListener('mouseup', musOpp);
+			canvas.addEventListener('mousedown', musNed);
+			canvas.addEventListener('mouseup', musOpp);
 		</script>
 	</body>
 </html>
