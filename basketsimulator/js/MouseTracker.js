@@ -39,6 +39,14 @@ class MouseTracker {
 		//console.log('Kopi: ', this.pos, this.x, this.y);
 		return JSON.parse(JSON.stringify(this.pos));
 	}
+
+	getX() {
+		return this.pos[0];
+	}
+
+	getY() {
+		return this.pos[1];
+	}
 }
 
 /*

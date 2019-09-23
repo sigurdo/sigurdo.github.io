@@ -16,6 +16,7 @@ class Ball {
 	constructor (options) {
 		let defaultOptions = {
 			pos: [0, 0],
+			radius: 30,
 			fart: [0, 0],
 			farge: "white",
 			kollisjonsVegger: [false, false, false, false],
@@ -30,6 +31,7 @@ class Ball {
 		this.pos = options.pos;
 		this.x = options.pos[0];
 		this.y = options.pos[1];
+		this.radius = options.radius;
 		this.fart = options.fart;
 		this.farge = options.farge;
 		this.kollisjonsVegger = options.kollisjonsVegger;
@@ -112,5 +114,17 @@ class Ball {
 		}
 
 		this.pos = [this.x, this.y];
+	}
+
+	getPos() {
+		return JSON.parse(JSON.stringify(this.pos));
+	}
+
+	getRadius() {
+		return this.radius;
+	}
+
+	getColor() {
+		return this.farge;
 	}
 }

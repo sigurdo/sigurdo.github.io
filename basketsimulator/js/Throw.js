@@ -7,12 +7,11 @@ class Throw {
 	constructor(options) {
 		let defaultOptions = {
 			ballPos: [0, 0],
+			ballRadius: 30,
 			ballFart: [0, 0],
 			ballFarge: "white",
 			kollisjonsVegger: [false, true, false, true],
-			kurvPos: [0, 0],
-			kurvWidth: 100,
-			kurvHeight: 100,
+			basket: undefined,
 			treff: function() {
 				console.log("Treff registrert med default treff() funksjon");
 			}
@@ -24,16 +23,18 @@ class Throw {
 			}
 		}
 
+		this.basket = options.basket;
+		this.kurvPos = this.basket.getPos();
+		this.kurvWidth = this.basket.getWidth();
+		this.kurvHeight = this.basket.getHeight();
 		this.ball = new Ball({
 			pos: options.ballPos,
+			radius: options.ballRadius,
 			fart: options.ballFart,
 			farge: options.ballFarge,
 			kollisjonsVegger: options.kollisjonsVegger,
-			kollisjonsPunkter: [options.kurvPos, [options.kurvPos[0] + options.kurvWidth, options.kurvPos[1]]]
+			kollisjonsPunkter: [this.kurvPos, [this.kurvPos[0] + this.kurvWidth, this.kurvPos[1]]]
 		});
-		this.kurvPos = options.kurvPos;
-		this.kurvWidth = options.kurvWidth;
-		this.kurvHeight = options.kurvHeight;
 		this.treff = options.treff;
 		this.status = "none"; //Status er "none" hvis den ikke har truffet kurven, og "hit" hvis den har truffet kurven
 	}
