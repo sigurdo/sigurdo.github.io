@@ -20,7 +20,7 @@
 		<script type="text/javascript" src="js/Basket.js"></script>
 		<script type="text/javascript" src="js/Throw.js"></script> <!--Inkluderer klassen Throw-->
 		<script type="text/javascript" src="js/gamemodes/Game.js"></script>
-		<script type="text/javascript" src="js/gamemodes/Streakgame.js"></script>
+		<script type="text/javascript" src="js/gamemodes/StreakGame.js"></script>
 		<script type="text/javascript" src="js/gamemodes/CountPointsGame.js"></script>
 		<script type="text/javascript" src="js/gamemodes/BestOfNGame.js"></script>
 		<script type="text/javascript" src="js/MouseTracker.js"></script>
@@ -28,18 +28,21 @@
 		<script type="text/javascript" src="js/vektorFunksjoner.js"></script> <!--Inkluderer en haug med generelle vektorfunksjoner-->
 		<script type="text/javascript" src="js/diverseFunksjoner.js"></script> <!--Inkluderer noen diverse andre funksjoner-->
 
+		
+
 		<script>
 			//Bruker strict for klasser
 			"use strict"
 			let antijuks = 0;
-			//$.
 
 			let canvas = document.querySelector('#flyBoks');
 			canvas.width = window.innerWidth;
 			canvas.height = window.innerHeight;
 			canvas.style.height = (window.innerHeight)+'px';
 
-			let game = new BestOfNGame({
+			let game = new <?php
+				echo(array_key_exists("gamemode", $_GET) ? $_GET["gamemode"] : "CountPointsGame");
+			?> ({
 				canvasTag: '#flyBoks'
 			});
 
