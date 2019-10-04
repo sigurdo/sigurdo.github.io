@@ -82,7 +82,7 @@ class CanvasDrawer {
 		const height = options.basket.height;
 
 		//Tegner kurv
-		for (let i = 0; i < width; i += 25) {
+		/**/for (let i = 0; i < width; i += 25) {
 			this.ctx.lineWidth = 5;
 			this.ctx.strokeStyle = 'white';
 			this.ctx.beginPath();
@@ -92,7 +92,7 @@ class CanvasDrawer {
 			this.ctx.lineTo(pos[0] + i + 25, pos[1]);
 			this.ctx.closePath();
 			this.ctx.stroke();
-		}
+		}/**/
 
 		this.ctx.lineWidth = options.thickness;
 		this.ctx.strokeStyle = options.color;

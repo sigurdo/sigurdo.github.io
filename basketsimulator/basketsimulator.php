@@ -25,6 +25,7 @@
 		<script type="text/javascript" src="js/gamemodes/BestOfNGame.js"></script>
 		<script type="text/javascript" src="js/MouseTracker.js"></script>
 		<script type="text/javascript" src="js/CanvasDrawer.js"></script>
+		<script type="text/javascript" src="js/FpsCounter.js"></script>
 		<script type="text/javascript" src="js/vektorFunksjoner.js"></script> <!--Inkluderer en haug med generelle vektorfunksjoner-->
 		<script type="text/javascript" src="js/diverseFunksjoner.js"></script> <!--Inkluderer noen diverse andre funksjoner-->
 

@@ -10,7 +10,7 @@
 
 	<body>
 		<canvas id="flyBoks" style="background-color: darkblue;"></canvas>
-		<p>
+		<p style="display: none;">
 			tid: <t id="tidsViser"> </t> frames <br>
 			poeng: <t id="poengViser"> </t> poeng <br>
 			rekord: <t id="rekordViser"> </t> poeng <br>
@@ -25,6 +25,7 @@
 		<script type="text/javascript" src="js/gamemodes/BestOfNGame.js"></script>
 		<script type="text/javascript" src="js/MouseTracker.js"></script>
 		<script type="text/javascript" src="js/CanvasDrawer.js"></script>
+		<script type="text/javascript" src="js/FpsCounter.js"></script>
 		<script type="text/javascript" src="js/vektorFunksjoner.js"></script> <!--Inkluderer en haug med generelle vektorfunksjoner-->
 		<script type="text/javascript" src="js/diverseFunksjoner.js"></script> <!--Inkluderer noen diverse andre funksjoner-->
 
@@ -44,14 +45,11 @@
 				canvasTag: '#flyBoks'
 			});
 
-			let t = 0;
+			let ctx = canvas.getContext('2d')
 
 			function animer() {
 				game.nextFrame();
 				
-				document.getElementById("tidsViser").innerHTML = t; //Skrive ut tiden
-				t++; //øke tiden
-
 				requestAnimationFrame(animer);
 			}
 
