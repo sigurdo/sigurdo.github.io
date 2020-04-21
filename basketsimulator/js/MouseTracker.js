@@ -15,6 +15,10 @@ class MouseTracker {
 		this.el.addEventListener('mousemove', e => this.musBevegelse(e));
 		this.el.addEventListener('mousedown', e => this.musNed(e));
 		this.el.addEventListener('mouseup', e => this.musOpp(e));
+        // this.mc = new Hammer.Manager(this.el);
+        // this.mc.add(new Hammer.Pan({ threshold: 0, pointers: 0 }));
+        // this.mc.on("panstart panmove", e => this.onPan(e));
+        // this.mc.on('hammer.input', e => { if (e.isFinal) this.resetElement(); });
 	}
 
 	musBevegelse(e) {
@@ -32,6 +36,17 @@ class MouseTracker {
 	}
 
 	musOpp(e) {
+		this.down = false;
+	}
+
+	onPan(e) {
+		this.down = true;
+		this.pos = [e.srcEvent.clientX, e.srcEvent.clientY];
+		this.x = this.pos[0];
+		this.y = this.pos[1];
+	}
+
+	resetElement() {
 		this.down = false;
 	}
 

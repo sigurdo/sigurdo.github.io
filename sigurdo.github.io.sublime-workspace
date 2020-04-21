@@ -1,0 +1,826 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"aktiv",
+				"aktivSpiller"
+			],
+			[
+				"ina",
+				"inaktivSpiller"
+			],
+			[
+				"toA",
+				"toAsciiArt"
+			],
+			[
+				"newC",
+				"newCards2"
+			],
+			[
+				"newCar",
+				"newCards2"
+			],
+			[
+				"new",
+				"newCards2"
+			],
+			[
+				"surp",
+				"surpompNr"
+			],
+			[
+				"dronn",
+				"dronningMap"
+			],
+			[
+				"halv",
+				"halvtrekkKlokke"
+			],
+			[
+				"lgg",
+				"loggLinjerMatrise"
+			],
+			[
+				"app",
+				"appendLogg"
+			],
+			[
+				"halvt",
+				"halvtrekkNr"
+			],
+			[
+				"hakv",
+				"halvtrekkNr"
+			],
+			[
+				"provT",
+				"provTrekk2"
+			],
+			[
+				"promo",
+				"lovligePromotions"
+			],
+			[
+				"set",
+				"set_skill_level"
+			],
+			[
+				"ho",
+				"hoydeRute"
+			],
+			[
+				"asciiAr",
+				"asciiArtTallMap"
+			],
+			[
+				"hoyde",
+				"hoydeBokstav"
+			],
+			[
+				"asci",
+				"asciiMapW"
+			],
+			[
+				"asciiArtMa",
+				"asciiArtBokstavMap"
+			],
+			[
+				"finn",
+				"finnBrikkeTil"
+			],
+			[
+				"er",
+				"er_det_i_mulige_trekk"
+			],
+			[
+				"lovl",
+				"lovligeKolonner"
+			],
+			[
+				"lovli",
+				"lovligeRader"
+			],
+			[
+				"very",
+				"veryLow"
+			],
+			[
+				"fps",
+				"fps"
+			],
+			[
+				"baller",
+				"ballerViser"
+			],
+			[
+				"kollisjons",
+				"kollisjonsPunkter"
+			],
+			[
+				"kollisjon",
+				"kollisjonsPunkter"
+			],
+			[
+				"ku",
+				"kuTing"
+			],
+			[
+				"test",
+				"testIngrediens"
+			],
+			[
+				"con",
+				"consoleLog"
+			],
+			[
+				"st",
+				"style\tTag"
+			],
+			[
+				"tra",
+				"transition\tproperty"
+			],
+			[
+				"full",
+				"fullscreenIcon"
+			],
+			[
+				"ba",
+				"background-color\tproperty"
+			],
+			[
+				"json",
+				"json_obj"
+			],
+			[
+				"js",
+				"json_obj"
+			],
+			[
+				"tim",
+				"timeStr"
+			],
+			[
+				"jso",
+				"json_encode"
+			],
+			[
+				"json_",
+				"json_encode"
+			],
+			[
+				"Krasj",
+				"KrasjDager"
+			],
+			[
+				"Kras",
+				"KrasjDager"
+			],
+			[
+				"valgt",
+				"valgtManed"
+			],
+			[
+				"endre",
+				"endreManed"
+			],
+			[
+				"fo",
+				"font-size\tproperty"
+			],
+			[
+				"se",
+				"select\tTag"
+			],
+			[
+				"in",
+				"input\tTag"
+			],
+			[
+				"ant",
+				"antall_MS"
+			],
+			[
+				"che",
+				"checking"
+			],
+			[
+				"Lu",
+				"Luftfuktighet"
+			],
+			[
+				"Te",
+				"Temperatur"
+			],
+			[
+				"va",
+				"valgtManed"
+			],
+			[
+				"valg",
+				"valgtAr"
+			],
+			[
+				"Fu",
+				"Fugler_IR"
+			],
+			[
+				"Tem",
+				"TemperaturDager"
+			],
+			[
+				"Fug",
+				"Fugler_MS"
+			],
+			[
+				"Fugler",
+				"Fugler_MS"
+			],
+			[
+				"val",
+				"valgtManed"
+			],
+			[
+				"F",
+				"Fugler_IR"
+			],
+			[
+				"data",
+				"dataSortert"
+			],
+			[
+				"for",
+				"for\tfor (…) {…}"
+			],
+			[
+				"sca",
+				"scaleX"
+			],
+			[
+				"fill",
+				"fillText"
+			],
+			[
+				"scale",
+				"scaleY"
+			],
+			[
+				"sc",
+				"scaleY"
+			],
+			[
+				"lin",
+				"lineTo"
+			],
+			[
+				"h",
+				"h"
+			],
+			[
+				"c",
+				"console"
+			],
+			[
+				"strok",
+				"strokeStyle"
+			],
+			[
+				"bo",
+				"bolder\tfont-weight"
+			],
+			[
+				"meny",
+				"menySmal"
+			],
+			[
+				"s",
+				"scaleY()\ttransform"
+			],
+			[
+				"mar",
+				"margin\tproperty"
+			],
+			[
+				"scroll",
+				"scrolling"
+			],
+			[
+				"me",
+				"meta\tTag"
+			],
+			[
+				"write",
+				"writeHead"
+			],
+			[
+				"bac",
+				"background-position\tproperty"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "basketsimulator/basketsimulator.html",
+			"settings":
+			{
+				"buffer_size": 2271,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "basketsimulator/js/gamemodes/Game.js",
+			"settings":
+			{
+				"buffer_size": 2951,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "basketsimulator/js/MouseTracker.js",
+			"settings":
+			{
+				"buffer_size": 2763,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/xampp/htdocs/sigurdo.github.io",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/js",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/js/gamemodes",
+		"/C/xampp/htdocs/sigurdo.github.io/tvungenYatzy",
+		"/C/xampp/htdocs/sigurdo.github.io/tvungenYatzy/js",
+		"/C/xampp/htdocs/sigurdo.github.io/tvungenYatzy/media"
+	],
+	"file_history":
+	[
+		"/C/xampp/htdocs/sigurdo.github.io/tvungenYatzy/index.html",
+		"/C/xampp/htdocs/sigurdo.github.io/tvungenYatzy/sw.js",
+		"/C/xampp/htdocs/sigurdo.github.io/riskDiceRollerMobil/sw.js",
+		"/C/xampp/htdocs/sigurdo.github.io/tvungenYatzy/manifest.json",
+		"/C/xampp/htdocs/sigurdo.github.io/riskDiceRollerMobil/sw-gammel.js",
+		"/Y/fugl.xyz/test1.php",
+		"/C/Users/Sigurd/Desktop/begrunnelseDatdig.html",
+		"/C/xampp/htdocs/cacheTest/sw.js",
+		"/C/Users/Sigurd/Documents/GitHub/stockfish/stockfish/models.py",
+		"/C/Users/Sigurd/OneDrive - NTNU/elsys/semester2/c++/2019-12-18_kortkrig/kortkrig/main.cpp",
+		"/C/Users/Sigurd/Desktop/test.py",
+		"/C/Users/Sigurd/Desktop/test2.py",
+		"/C/Users/Sigurd/Desktop/test3.py",
+		"/C/Users/Sigurd/Documents/GitHub/lavransjakk/sjakk_3.0.py",
+		"/C/Program Files (x86)/Steam/steamapps/common/Unturned/Servers/brunJulebrus/Config.json",
+		"/C/Program Files (x86)/Steam/steamapps/common/Unturned/Servers/brunJulebrus/Server/Commands.dat",
+		"/C/Users/Sigurd/Documents/GitHub/lavransjakk/aiVSs0.txt",
+		"/C/Users/Sigurd/Documents/GitHub/lavransjakk/.gitignore",
+		"/C/Users/Sigurd/Documents/GitHub/lavransjakk/logg6.json",
+		"/C/Users/Sigurd/AppData/Roaming/.minecraft/resourcepacks/hemsedahls/ting/1.15/assets/minecraft/models/item/potion.json",
+		"/C/Users/Sigurd/AppData/Roaming/.minecraft/resourcepacks/hemsedahls/ting/1.15/assets/minecraft/lang/en_us.json",
+		"/C/Users/Sigurd/AppData/Roaming/.minecraft/resourcepacks/hemsedahls/pack.mcmeta",
+		"/C/Users/Sigurd/AppData/Roaming/.minecraft/versions/1.15/1.15.json",
+		"/C/Users/Sigurd/Desktop/gittest/tekst.txt",
+		"/C/Users/Sigurd/Documents/GitHub/gittest/tekst.txt",
+		"/C/Users/Sigurd/logg.json",
+		"/C/Users/Sigurd/logg.txt",
+		"/C/Users/Sigurd/Documents/GitHub/lavransjakk/logg.json",
+		"/C/Users/Sigurd/Documents/GitHub/lavransjakk/logg.txt",
+		"/C/Users/Sigurd/Documents/GitHub/lavransjakk/gamemode.txt",
+		"/C/Users/Sigurd/Documents/GitHub/lavransjakk/brett.fen",
+		"/C/Users/Sigurd/Documents/GitHub/lavransjakk/logg5.json",
+		"/C/Users/Sigurd/Documents/GitHub/lavransjakk/brett.json",
+		"/C/Users/Sigurd/Documents/GitHub/lavransjakk/logg4.json",
+		"/C/Users/Sigurd/Documents/GitHub/lavransjakk/logg3.json",
+		"/C/Users/Sigurd/Documents/GitHub/lavransjakk/langLogg.txt",
+		"/C/Users/Sigurd/Documents/GitHub/lavransjakk/carlsenCaruanaLogg.txt",
+		"/C/Users/Sigurd/Documents/GitHub/lavransjakk/loggTabbe.txt",
+		"/C/Users/Sigurd/Desktop/test4.py",
+		"/C/Users/Sigurd/Documents/GitHub/stockfish/stockfish/__init__.py",
+		"/C/Users/Sigurd/Documents/GitHub/lavransjakk/farger.txt",
+		"/C/Users/Sigurd/Documents/GitHub/lavransjakk/tur.txt",
+		"/C/Users/Sigurd/Documents/GitHub/lavransjakk/logg2.json",
+		"/C/Users/Sigurd/Desktop/get-pip.py",
+		"/C/Users/Sigurd/OneDrive - NTNU/korps/taktlause/julekalenderLuke4-2019.txt",
+		"/C/Users/Sigurd/Desktop/asciiSjakk.txt",
+		"/C/Users/Sigurd/Downloads/sjakktest.py",
+		"/C/Users/Sigurd/Documents/GitHub/sigurdo.github.io/.gitignore",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/js/gamemodes/Game.js",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/basketsimulator.php",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/basketsimulator.html",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/js/FpsCounter.js",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/js/MouseTracker.js",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/js/gamemodes/BestOfNGame.js",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/js/gamemodes/Streakgame.js",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/js/CanvasDrawer.js",
+		"/C/Users/Sigurd/riskLAN/index.js",
+		"/C/Users/Sigurd/riskLAN/.gitignore",
+		"/C/Users/Sigurd/riskLAN/package-lock.json",
+		"/C/Users/Sigurd/Documents/GitHub/fysikklab/.gitignore",
+		"/C/Users/Sigurd/Documents/mcServer/LANmedGUTTA/server.properties",
+		"/C/Users/Sigurd/Downloads/ting.html",
+		"/C/Users/Sigurd/Documents/mcServer/test3_1.14.4/server.properties",
+		"/C/Users/Sigurd/Documents/GitHub/fysikklab/main.py",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/js/BallGammel.js",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/js/diverseFunksjoner.js",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/js/Ball2.js",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/basketsimulator2.html",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/js/Throw.js",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/js/Basket.js",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/js/CountPointsGame.js",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/js/Streakgame.js",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/js/Game.js",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/js/Ball.js",
+		"/C/xampp/htdocs/sigurdo.github.io/pdfReader/index.html",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/highscore.txt",
+		"/C/xampp/htdocs/sigurdo.github.io/basketsimulator/highscore.php",
+		"/Z/basketsimulator/basketsimulator.html",
+		"/C/Users/Sigurd/OneDrive - NTNU/diverse/vevcom/sendPost.html",
+		"/C/Users/Sigurd/Documents/GitHub/sigurdo.github.io/basketsimulator/js/Ball.js",
+		"/C/Users/Sigurd/Documents/GitHub/sigurdo.github.io/basketsimulator/js/vektorFunksjoner.js",
+		"/C/Users/Sigurd/Documents/GitHub/sigurdo.github.io/basketsimulator/js/diverseFunksjoner.js",
+		"/C/Users/Sigurd/Documents/GitHub/sigurdo.github.io/basketsimulator/basketsimulator.html",
+		"/C/xampp/htdocs/basketsimulator2/basketsimulator.html",
+		"/C/xampp/htdocs/indexIkkeibruk.php",
+		"/C/xampp/htdocs/test.html",
+		"/C/xampp/htdocs/basketsimulator/highscore.php",
+		"/C/xampp/htdocs/test.php",
+		"/C/xampp/htdocs/basketsimulator/basketsimulator.html",
+		"/C/xampp/htdocs/test.txt",
+		"/C/Users/Sigurd/Documents/GitHub/sigurdo.github.io/oppskriftBiblo/index.html",
+		"/C/Users/Sigurd/Documents/GitHub/sigurdo.github.io/oppskriftBiblo/oppskriftData.js",
+		"/C/Users/Sigurd/Documents/mcServer/test2_1.14.3/server.properties",
+		"/C/Users/Sigurd/Documents/DNVGL fuelfighter/nettside/home.html",
+		"/C/Users/Sigurd/Documents/mcServer/test2/server.properties",
+		"/C/Users/Sigurd/Desktop/pakkeliste.html",
+		"/C/Users/Sigurd/Desktop/test1.html",
+		"/C/Users/Sigurd/Documents/mcServer/test2/ops.json",
+		"/C/Users/Sigurd/Documents/DNVGL fuelfighter/nettside/ffWebsiteFargepalettGammel.html",
+		"/C/Users/Sigurd/Documents/mcServer/test1/server.properties",
+		"/C/Users/Sigurd/Documents/DNVGL fuelfighter/nettside/bareHeader.html",
+		"/C/Users/Sigurd/Documents/DNVGL fuelfighter/nettside/bareHeaderHome.html",
+		"/C/Users/Sigurd/Documents/DNVGL fuelfighter/nettside/sponsors/sponsortekster.txt",
+		"/C/Users/Sigurd/Documents/DNVGL fuelfighter/nettside/test2.html",
+		"/D/Skole/Dokumenter Vg3/IT-2/06_canvas+cssAnimasjoner/2018-03-16_sigurdsFargepalett/css/sigurdsFargepalett.css",
+		"/C/Users/Sigurd/Documents/GitHub/sigurdo.github.io/index.html",
+		"/C/Users/Sigurd/Documents/DNVGL fuelfighter/nettside/blod.jpg",
+		"/C/Users/Sigurd/Documents/vevcom/sendPost.html",
+		"/C/Users/Sigurd/Documents/test.html",
+		"/C/Users/Sigurd/Documents/GitHub/sigurdo.github.io/riskDiceRollerMobil/index.html",
+		"/C/Users/Sigurd/Documents/skole/semester2/c++/testprosjekter/kompileringFraKommandolinje/ting.cpp",
+		"/C/Users/Sigurd/Desktop/test.html",
+		"/C/Users/Sigurd/Documents/mcServer/test1/whitelist.json",
+		"/Z/fuglekrasj/refresh-data.php",
+		"/Z/fuglekrasj/save-data.php",
+		"/Z/fuglekrasj/uplinks.txt",
+		"/Z/fuglekrasj/testDato.txt",
+		"/Z/fuglekrasj/uplinksGammel.txt",
+		"/Z/fuglekrasj/Nettisden/index.html",
+		"/C/Users/Sigurd/Documents/GitHub/sigurdo.github.io/riskDiceRollerMobil/css/riskDiceRoller.css",
+		"/Z/fuglekrasj/Nettisden/grafFunksjoner.js",
+		"/Z/fuglekrasj/Nettisden/statistikk.php",
+		"/Z/fuglekrasj/save-dataGammel.php",
+		"/Z/fuglekrasj/test2.php",
+		"/C/Users/Sigurd/Documents/GitHub/sigurdo.github.io/riskDiceRollerMobil/js/oppstart.js",
+		"/Z/fuglekrasj/Nettisden/kontakt_oss.html",
+		"/Z/fuglekrasj/save-data2.php",
+		"/Z/fuglekrasj/testDato2.txt"
+	],
+	"find":
+	{
+		"height": 41.0
+	},
+	"find_in_files":
+	{
+		"height": 107.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"brikkerMap",
+			"def spill",
+			"def tur",
+			"tur",
+			"fargekodeM",
+			"stockfish",
+			"dronningMap",
+			"rikkerMap",
+			"spillere",
+			"hvite_brikk",
+			"spillerfargeMap",
+			"spillerFargeMap",
+			"provTrekk",
+			"provTrekkLogg",
+			"res",
+			"lesFEN",
+			"gjorTrekk",
+			"logg",
+			"hentSpillFraLogg",
+			"lesFEN",
+			"hentSpill",
+			"gjorTrekk",
+			"rokade[4]",
+			"tur3",
+			"tur¨3",
+			"tall[0]",
+			"sjakk",
+			"tall",
+			"lovligePromotions",
+			"brikkerMap",
+			"stock",
+			"stockfish",
+			"import",
+			"tur",
+			"rokade",
+			"kort_rokade_mulig",
+			"patt",
+			"#    ",
+			"return",
+			"sjakkmatt",
+			"mulige_trekk",
+			"er_det_i_mulige_trekk",
+			"tur",
+			"canvasEl",
+			"ctx",
+			"rodStrekPos",
+			"this.throws",
+			"mus",
+			"posisjonFor",
+			"rodStre",
+			"ctx",
+			"kurvkant",
+			"tegn",
+			"truffet",
+			"Ball2",
+			"kollidertBaller",
+			"kollidertKurvkant",
+			"kollidertKurvkant'",
+			"kollidertKurvkant",
+			"new Ball",
+			"tid",
+			"y0",
+			"this.x0",
+			"changeHighScore",
+			"canvas.width / 2",
+			"console.log",
+			"sitat",
+			"con",
+			"C",
+			"data",
+			"560ms",
+			"button",
+			"div",
+			"header",
+			"bred",
+			"user-scalable",
+			"h1",
+			";",
+			"\";\n",
+			"Home",
+			"ead",
+			"1",
+			"15px",
+			"a",
+			"link",
+			"font",
+			"weight",
+			";\n",
+			"luftBakMeny"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "basketsimulator/basketsimulator.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2271,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1794,
+								1794
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 284.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "basketsimulator/js/gamemodes/Game.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2951,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 960.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "basketsimulator/js/MouseTracker.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2763,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								573,
+								573
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 160.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 29.0
+	},
+	"input":
+	{
+		"height": 41.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "sigurdo.github.io.sublime-project",
+	"replace":
+	{
+		"height": 54.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"C:\\xampp\\htdocs\\touch\\touch.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 204.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
