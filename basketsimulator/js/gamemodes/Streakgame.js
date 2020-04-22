@@ -8,7 +8,7 @@ Museposisjoner må også sendes inn som argumenter i nextFrame() utenifra klasse
 
 DENNE KLASSEN ER VELDIG IKKE FERDIG
 */
-class StreakGame extends Game {
+class StreakGame extends OneBallGame {
 	constructor(options) {
 		super(options);
 
@@ -17,15 +17,6 @@ class StreakGame extends Game {
 
 	treff() {
 		this.poeng++;
-	}
-
-	onThrow(index) {
-		for (let i = 0; i < this.throws.length; i++) {
-			if (i != index) {
-				this.onDelete(i);
-				this.throws.splice(i, 1);
-			}
-		}
 	}
 
 	onDelete(index) {
@@ -43,8 +34,6 @@ class StreakGame extends Game {
 
 	nextFrame() {
 		this.initFrame();
-
-		this.newBall();
 
 		this.moveBalls();
 

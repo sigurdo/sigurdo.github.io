@@ -58,4 +58,22 @@ class Throw {
 			this.treff();
 		}
 	}
+
+	setBallPos(pos) {
+		this.ball.x = pos[0];
+		this.ball.y = pos[1];
+		this.ball.pos = pos;
+	}
+
+	setBallFart(fart) {
+		this.ball.fart = fart;
+	}
+
+	setStatus(status) {
+		this.status = status;
+	}
+
+	resetStatus() {
+		this.status = 'none';
+	}
 }

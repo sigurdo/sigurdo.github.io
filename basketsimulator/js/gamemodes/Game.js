@@ -19,7 +19,8 @@ class Game {
 		this.canvasEl = document.querySelector(this.canvasTag);
 		this.drawer = new CanvasDrawer(this.canvasTag);
 
-		this.mouse = new MouseSpeedTracker(this.canvasTag);
+		this.touchTracker = new TouchTracker(this.canvasTag);
+		this.touchTracker.slipp = (pos, speed) => this.createNewBall(pos, speed);
 		this.rodStrekPos = this.canvasEl.width - 600;
 
 		this.basket = new Basket({
@@ -29,8 +30,6 @@ class Game {
 		});
 
 		this.throws = [];
-
-		this.mousedownLast = this.mouse.down;
 	}
 
 	treff() {
@@ -48,25 +47,22 @@ class Game {
 
 	initFrame() {
 		this.drawer.clear(); //fjerner alt i canvas
-		this.mouse.nextFrame();
 		this.rodStrekPos = this.canvasEl.width - 600; //Litt jalla juksesikring
 	}
 
-	newBall() {//Oppretter en ny ball hvis venstreklikk nettopp ble sluppet
-		//Sjekker om det nettopp har blitt sluppet en ball
-		if (!this.mouse.down && this.mousedownLast && this.mouse.getX() < this.rodStrekPos) {
-			this.throws.push(new Throw({
-				ballPos: this.mouse.getPos(),
-				ballRadius: 50,
-				ballFart: this.mouse.getSpeed(),
-				ballFarge: 'orange',
-				kollisjonsVegger: [false, true, false, true],
-				basket: this.basket,
-				treff: () => this.treff()
-			}));
+	createNewBall(pos, speed) {
+		if (pos[0] > this.rodStrekPos && pos[1] < 300) return;
+		this.throws.push(new Throw({
+			ballPos: pos,
+			ballRadius: 50,
+			ballFart: speed,
+			ballFarge: 'orange',
+			kollisjonsVegger: [false, true, false, true],
+			basket: this.basket,
+			treff: () => this.treff()
+		}));
 
-			this.onThrow(this.throws.length - 1);
-		}
+		this.onThrow(this.throws.length - 1);
 	}
 	
 	drawLine() {
@@ -90,12 +86,11 @@ class Game {
 
 	drawHolder() {
 		//Tegner holde-ball
-		if (this.mouse.down) {
-			if (this.mouse.getPos()[0] < this.rodStrekPos) {
+		if (this.touchTracker.pressed) {
+			if (this.touchTracker.pos[0] < this.rodStrekPos || this.touchTracker.pos[1] > 300) {
 				let holder = new Ball({
-					pos: this.mouse.getPos(),
+					pos: this.touchTracker.copyPos(),
 					radius: 50,
-					fart: this.mouse.getSpeed(), 
 					farge: 'orange'
 				});
 				
@@ -122,7 +117,6 @@ class Game {
 	}
 
 	endFrame() {
-		this.mousedownLast = this.mouse.down;
 	}
 
 	drawAll() {
@@ -133,7 +127,6 @@ class Game {
 	}
 
 	calcAll() {
-		this.newBall();
 		this.moveBalls();
 		this.deleteBalls();
 	}
