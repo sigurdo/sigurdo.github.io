@@ -27,6 +27,7 @@
 	</head>
 
 	<body>
+		<img src="media/basketball.png" style="display: none;">
 		<canvas id="flyBoks" style="background-color: darkblue;"></canvas>
 		<p style="display: none;">
 			tid: <t id="tidsViser"> </t> frames <br>
@@ -62,7 +63,7 @@
 			canvas.height = window.innerHeight;
 			canvas.style.height = (window.innerHeight)+'px';
 
-			let game = new BestOfNGame ({
+			let game = new CountPointsGame ({
 				canvasTag: '#flyBoks'
 			});
 

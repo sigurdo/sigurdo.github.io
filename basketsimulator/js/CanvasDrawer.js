@@ -51,14 +51,25 @@ class CanvasDrawer {
 		}
 
 		//Tegner ball
-		this.ctx.lineWidth = options.lineWidth;
+		/* this.ctx.lineWidth = options.lineWidth;
 		this.ctx.beginPath();
 		this.ctx.arc(options.ball.getPos()[0], options.ball.getPos()[1], options.ball.getRadius(), 0, Math.PI*2);
 		this.ctx.strokeStyle = options.borderColor;
 		this.ctx.stroke();
 		this.ctx.fillStyle = options.ball.getColor();
 		this.ctx.fill();
-		this.ctx.closePath();
+		this.ctx.closePath();*/
+
+		let img = document.querySelector('img');
+		let r = options.ball.getRadius();
+		let x = options.ball.getPos()[0];//-options.ball.getRadius();
+		let y = options.ball.getPos()[1]//;-options.ball.getRadius();
+		let t = options.ball.vinkel;
+		this.ctx.translate(x, y)
+		this.ctx.rotate(t);
+		this.ctx.drawImage(img, -r, -r);
+		this.ctx.rotate(-t);
+		this.ctx.translate(-x, -y);
 	}
 
 	drawBasket(options) {

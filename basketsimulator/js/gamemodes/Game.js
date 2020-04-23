@@ -24,8 +24,8 @@ class Game {
 		this.rodStrekPos = this.canvasEl.width - 600;
 
 		this.basket = new Basket({
-			pos: [this.canvasEl.width - 200, 300],
-			width: 200,
+			pos: [this.canvasEl.width - 175, 300],
+			width: 175,
 			height: 35
 		});
 

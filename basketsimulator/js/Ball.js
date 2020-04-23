@@ -18,6 +18,8 @@ class Ball {
 			pos: [0, 0],
 			radius: 30,
 			fart: [0, 0],
+			vinkel: 0,
+			vinkelfart: 0,
 			farge: "white",
 			kollisjonsVegger: [false, false, false, false],
 			kollisjonsPunkter: []
@@ -33,6 +35,8 @@ class Ball {
 		this.y = options.pos[1];
 		this.radius = options.radius;
 		this.fart = options.fart;
+		this.vinkel = options.vinkel;
+		this.vinkelfart = options.vinkelfart;
 		this.farge = options.farge;
 		this.kollisjonsVegger = options.kollisjonsVegger;
 		this.kollisjonsPunkter = {
@@ -67,6 +71,7 @@ class Ball {
 		
 		this.x += this.fart[0];
 		this.y += this.fart[1];
+		this.vinkel += this.vinkelfart;
 
 		if (!annenhverTyngdeaksellerasjon) {
 			this.fart[1] += 1.16;
@@ -78,6 +83,7 @@ class Ball {
 		if ((this.kollisjonsVegger[3] && this.x <= 0 + 18) || (this.kollisjonsVegger[1] && this.x >= canvas.width - 18)) {
 			if (!this.kollidertVegg) {
 				this.fart[0] = -0.92 * this.fart[0];
+				this.vinkelfart = this.fart[1] / this.radius;
 				this.kollidertVegg = true;
 			}
 		} else  {
@@ -94,18 +100,20 @@ class Ball {
 			this.kollidertTakGulv = false;
 		}
 
+
 		//Sjekker om ballen kolliderer med kurvkanten (generelt alle punkter)
 		for (let i = 0; i < this.kollisjonsPunkter.punkter.length; i++) {
 			let punkt = this.kollisjonsPunkter.punkter[i];
 			var ballPos = [this.x, this.y];
 			var r = vektorPunkter(punkt, ballPos);
 			var v0 = this.fart;
-			if (lengde(r) <= 75) {
+			if (lengde(r) <= 60) {
 				if (!this.kollisjonsPunkter.kollidert[i]) {
 					var vVinkel = retning(v0);
 					var v = vektor(0.92 * lengde(v0), (Math.PI + 2*retning(r) - retning(v0)) % (Math.PI * 2));
 					//console.log(vVinkel);
 					this.fart = v;
+					this.vinkelfart = lengde(this.fart) * Math.sin(retning(this.fart)-retning(r)) / this.radius;
 					this.kollisjonsPunkter.kollidert[i] = true;
 				}
 			} else {
