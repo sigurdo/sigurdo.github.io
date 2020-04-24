@@ -43,6 +43,7 @@
 		<script type="text/javascript" src="js/gamemodes/StreakGame.js"></script>
 		<script type="text/javascript" src="js/gamemodes/CountPointsGame.js"></script>
 		<script type="text/javascript" src="js/gamemodes/BestOfNGame.js"></script>
+		<script type="text/javascript" src="js/gamemodes/Sandbox.js"></script>
 		<script type="text/javascript" src="js/MouseTracker.js"></script>
 		<script type="text/javascript" src="js/TouchTracker.js"></script>
 		<script type="text/javascript" src="js/CanvasDrawer.js"></script>
@@ -63,7 +64,7 @@
 			canvas.height = window.innerHeight;
 			canvas.style.height = (window.innerHeight)+'px';
 
-			let game = new CountPointsGame ({
+			let game = new Sandbox({
 				canvasTag: '#flyBoks'
 			});
 

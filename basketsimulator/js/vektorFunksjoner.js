@@ -51,3 +51,9 @@ function vektor(lengde, vinkel) {
 	}
 	return vektor;
 }
+
+function snurr(vektor, radianer) {
+	if (!radianer) radianer = 0;
+	return [vektor[0] * Math.cos(radianer) - vektor[1] * Math.sin(radianer),
+		    vektor[0] * Math.sin(radianer) + vektor[1] * Math.cos(radianer)];
+}

@@ -113,6 +113,13 @@ class CanvasDrawer {
 		this.ctx.lineTo(pos[0] + width, pos[1]);
 		this.ctx.closePath();
 		this.ctx.stroke();
+
+		this.ctx.beginPath();
+		this.ctx.moveTo(pos[0], pos[1]);
+		this.ctx.arc(pos[0], pos[1], 10, 0, 2 * Math.PI);
+		this.ctx.closePath();
+		this.ctx.fillStyle = 'grey';
+		this.ctx.fill();
 	}
 
 	drawPointsBasket(options) {//Tegner ut poeng over en kurv

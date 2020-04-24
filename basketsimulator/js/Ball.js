@@ -12,6 +12,8 @@ Kall Ball.tegn() for å tegne opp ballen i det globale canvaset, men denne bør 
 	Eller, hmmmm, kanskje ikke... Når man kan sende ctx referanse som argument til tegn er det litt aktuelt å ta vare på den faktisk
 	Jo, Ball-klassen skal være en såpass generell abstraksjon av et beveglig objekt at det bare blir rotete med grafikk-rammeverk-spesifikke tegnemetoder
 */
+let annenhverTyngdeaksellerasjon = true;
+
 class Ball {
 	constructor (options) {
 		let defaultOptions = {
@@ -62,9 +64,20 @@ class Ball {
 		ctx.closePath();
 	}
 
+	planKollisjon(retning, lengde) {
+		if (!lengde) lengde = this.radius;
+		let fart = snurr(this.fart, retning);
+		fart[0] = 1 * Math.abs(fart[0]);
+		let v0x = fart[1];
+		let w0 = this.vinkelfart;
+		let r = lengde;
+		fart[1] = (5/7) * (v0x + (2/5) * w0 * r);
+		this.vinkelfart = fart[1] / r;
+		this.fart = snurr(fart, -retning);
+	}
+
 	//x-flytt-metode
 	flytt() {
-		let annenhverTyngdeaksellerasjon = true;
 		if (annenhverTyngdeaksellerasjon) {
 			this.fart[1] += 1.16;
 		}
@@ -82,8 +95,7 @@ class Ball {
 		//Sjekker om ballen kolliderer med veggene
 		if ((this.kollisjonsVegger[3] && this.x <= 0 + 18) || (this.kollisjonsVegger[1] && this.x >= canvas.width - 18)) {
 			if (!this.kollidertVegg) {
-				this.fart[0] = -0.92 * this.fart[0];
-				this.vinkelfart = this.fart[1] / this.radius;
+				this.planKollisjon(this.x < 100 ? 0 : Math.PI);
 				this.kollidertVegg = true;
 			}
 		} else  {
@@ -93,7 +105,7 @@ class Ball {
 		//Sjekker om ballen kolliderer med tak/gulv
 		if ((this.kollisjonsVegger[0] && this.y <= 0 + 18) || (this.kollisjonsVegger[2] && this.y >= canvas.height - 18)) {
 			if (!this.kollidertTakGulv) {
-				this.fart[1] = -0.92 * this.fart[1];
+				this.planKollisjon(this.y < 100 ? 3 * Math.PI / 2 : 1 * Math.PI / 2);
 				this.kollidertTakGulv = true;
 			}
 		} else  {
@@ -107,14 +119,15 @@ class Ball {
 			var ballPos = [this.x, this.y];
 			var r = vektorPunkter(punkt, ballPos);
 			var v0 = this.fart;
-			if (lengde(r) <= 60) {
-				if (!this.kollisjonsPunkter.kollidert[i]) {
-					var vVinkel = retning(v0);
+			if (lengde(r) <= this.radius + 10) {
+				if (true || !this.kollisjonsPunkter.kollidert[i]) {
+					this.planKollisjon(retning(r), lengde(r));
+					/* var vVinkel = retning(v0);
 					var v = vektor(0.92 * lengde(v0), (Math.PI + 2*retning(r) - retning(v0)) % (Math.PI * 2));
 					//console.log(vVinkel);
 					this.fart = v;
 					this.vinkelfart = lengde(this.fart) * Math.sin(retning(this.fart)-retning(r)) / this.radius;
-					this.kollisjonsPunkter.kollidert[i] = true;
+					this.kollisjonsPunkter.kollidert[i] = true;*/
 				}
 			} else {
 				this.kollisjonsPunkter.kollidert[i] = false;
