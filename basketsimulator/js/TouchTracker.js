@@ -20,18 +20,32 @@ class TouchTracker {
     onPanStart(e) {
         this.pos[0] = e.srcEvent.clientX;
         this.pos[1] = e.srcEvent.clientY;
+        if (window.innerHeight < 400) {
+            this.pos[0] *= 2;
+            this.pos[1] *= 2;
+        }
         this.pressed = true;
     }
 
     onPanMove(e) {
         this.pos[0] = e.srcEvent.clientX;
         this.pos[1] = e.srcEvent.clientY;
+        if (window.innerHeight < 400) {
+            this.pos[0] *= 2;
+            this.pos[1] *= 2;
+        }
     }
 
     onPanEnd(e) {
         this.pressed = false;
-        this.slipp([e.srcEvent.clientX, e.srcEvent.clientY],
-            [e.velocityX * 50/3, e.velocityY * 50/3]);
+        if (window.innerHeight < 400) {
+            this.slipp([2*e.srcEvent.clientX, 2*e.srcEvent.clientY],
+                [e.velocityX * 50/3, e.velocityY * 50/3]);
+        }
+        else {
+            this.slipp([e.srcEvent.clientX, e.srcEvent.clientY],
+                [e.velocityX * 50/3, e.velocityY * 50/3]);
+        }
     }
 
     slipp(pos, speed) {

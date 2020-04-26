@@ -21,7 +21,16 @@
 
 		<script type="text/javascript">
 			if ('serviceWorker' in navigator) {
-				navigator.serviceWorker.register('sw.js');
+				navigator.serviceWorker.register('sw.js').then(reg => {
+					reg.onupdatefound = () => {
+						const installingWorker = reg.installing;
+						installingWorker.onstatechange = () => {
+							if (installingWorker.state === 'installed') {
+								location.reload(); // Må reloade nå fordi jeg har en jalla service-worker som bruker real-time caching til precachingsformål
+							}
+						}
+					}
+				});
 			}
 		</script>
 	</head>
@@ -109,6 +118,11 @@
 			canvas.width = window.innerWidth;
 			canvas.height = window.innerHeight;
 			canvas.style.height = (window.innerHeight)+'px';
+			if (window.innerHeight < 400) {
+				canvas.width *= 2;
+				canvas.height *= 2;
+				// canvas.style.height = canvas.height + 'px';
+			}
 
 			let game = new Sandbox({
 				canvasTag: '#flyBoks'
