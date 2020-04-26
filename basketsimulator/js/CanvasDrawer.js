@@ -147,7 +147,7 @@ class CanvasDrawer {
 		//Skriver ut poeng
 		this.ctx.fillStyle = options.color;
 		this.ctx.font = options.fontSize+'px '+options.fontFamily;
-		if (options.points < 10) {this.ctx.fillText('0'+options.points, pos[0] + 20, pos[1] - 50);}
-		else {this.ctx.fillText(options.points, pos[0] + 20, pos[1] - 50);}
+		if (options.points < 10) {this.ctx.fillText('0'+options.points, pos[0], pos[1] - 50);}
+		else {this.ctx.fillText(options.points, pos[0], pos[1] - 50);}
 	}
 }

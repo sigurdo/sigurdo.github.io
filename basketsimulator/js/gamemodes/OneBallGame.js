@@ -19,6 +19,8 @@ class OneBallGame extends Game {
             basket: this.basket,
             treff: () => this.treff()
         }));
+
+        this.deleted = true;
     }
 
     createNewBall(pos, speed) {
@@ -27,13 +29,17 @@ class OneBallGame extends Game {
         this.throws[0].setBallPos(pos);
         this.throws[0].setBallFart(speed);
         this.throws[0].setBallVinkel(0);
-        this.throws[0].setBallVinkelfart(0);
+        this.throws[0].setBallVinkelfart(0); // speed[1] / this.throws[0].getBallRadius()
         this.throws[0].resetStatus();
+        this.deleted = false;
         this.onThrow(0);
     }
 
     deleteBalls() {
         // Sletter ikke baller. Bare gjenbruker isteden.
-        if (this.throws[0].ball.getPos()[1] > this.canvasEl.height) this.onDelete(0);
+        if (!this.deleted && this.throws[0].ball.getPos()[1] > this.canvasEl.height) {
+            this.deleted = true;
+            this.onDelete(0);
+        }
     }
 }

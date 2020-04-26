@@ -27,14 +27,6 @@
 	</head>
 
 	<body>
-		<img src="media/basketball.png" style="display: none;">
-		<canvas id="flyBoks" style="background-color: darkblue;"></canvas>
-		<p style="display: none;">
-			tid: <t id="tidsViser"> </t> frames <br>
-			poeng: <t id="poengViser"> </t> poeng <br>
-			rekord: <t id="rekordViser"> </t> poeng <br>
-			baller: <t id="ballerViser"> </t> baller
-		</p>
 		<script type="text/javascript" src="js/Ball.js"></script> <!--Inkluderer klassen Ball-->
 		<script type="text/javascript" src="js/LookaheadBallContainer.js"></script>
 		<script type="text/javascript" src="js/Basket.js"></script>
@@ -45,15 +37,68 @@
 		<script type="text/javascript" src="js/gamemodes/CountPointsGame.js"></script>
 		<script type="text/javascript" src="js/gamemodes/BestOfNGame.js"></script>
 		<script type="text/javascript" src="js/gamemodes/Sandbox.js"></script>
+		<script type="text/javascript" src="js/gamemodes/index.js"></script>
 		<script type="text/javascript" src="js/MouseTracker.js"></script>
 		<script type="text/javascript" src="js/TouchTracker.js"></script>
 		<script type="text/javascript" src="js/CanvasDrawer.js"></script>
 		<script type="text/javascript" src="js/FpsCounter.js"></script>
+		<script type="text/javascript" src="js/Menu.js"></script>
 		<script type="text/javascript" src="js/vektorFunksjoner.js"></script> <!--Inkluderer en haug med generelle vektorfunksjoner-->
 		<script type="text/javascript" src="js/diverseFunksjoner.js"></script> <!--Inkluderer noen diverse andre funksjoner-->
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+		<script src="https://kit.fontawesome.com/abcb570a78.js" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js" crossorigin="anonymous"></script>
 
-		
+		<!-- Firebase-ting
+			<!-- The core Firebase JS SDK is always required and must be listed first - ->
+			<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+
+			 <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics - ->
+	  		<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-analytics.js"></script>
+
+			<!-- TODO: Add SDKs for Firebase products that you want to use
+			     https://firebase.google.com/docs/web/setup#available-libraries - ->
+			<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-analytics.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
+
+			<script>
+			  // Your web app's Firebase configuration
+			  var firebaseConfig = {
+			    apiKey: "AIzaSyAYN2Ube4t6rvuuAbPsz3ERCKa3pti_xkI",
+			    authDomain: "basketsimulator-ec335.firebaseapp.com",
+			    databaseURL: "https://basketsimulator-ec335.firebaseio.com",
+			    projectId: "basketsimulator-ec335",
+			    storageBucket: "basketsimulator-ec335.appspot.com",
+			    messagingSenderId: "305696747330",
+			    appId: "1:305696747330:web:d140afcc8c75c8fd3a62db",
+			    measurementId: "G-RXBXW3V6X2"
+			  };
+			  // Initialize Firebase
+			  firebase.initializeApp(firebaseConfig);
+			  firebase.analytics();
+			</script>
+
+			<script>
+				let db = firebase.database();
+				db.ref('scores/abcde').set({
+					name: 'sigurd',
+					score: 4
+				});
+			</script>
+		-->
+
+		<img src="media/basketball.png" style="display: none;">
+		<canvas id="flyBoks" style="background-color: darkblue;"></canvas>
+		<div id="meny" style="display: none;"> yoyoyoy </div>
+		<div id="apneMeny"> <i class="fas fa-bars"></i> </div>
+		<p style="display: none;">
+			tid: <t id="tidsViser"> </t> frames <br>
+			poeng: <t id="poengViser"> </t> poeng <br>
+			rekord: <t id="rekordViser"> </t> poeng <br>
+			baller: <t id="ballerViser"> </t> baller
+		</p>
 
 		<script>
 			//Bruker strict for klasser
@@ -65,8 +110,13 @@
 			canvas.height = window.innerHeight;
 			canvas.style.height = (window.innerHeight)+'px';
 
-			let game = new StreakGame({
+			let game = new Sandbox({
 				canvasTag: '#flyBoks'
+			});
+			game.createNewBall([50, -250], [50, 0]);
+
+			let menu = new Menu({
+				gamemodes: allGamemodes,
 			});
 
 			let ctx = canvas.getContext('2d')
@@ -79,5 +129,32 @@
 
 			requestAnimationFrame(animer);
 		</script>
+
+		<div style="display: none;" id="menyMaler">
+			<div class="main">
+				<h1> HALLA bALLA </h1>
+				yo
+				<button class="start"> Start spill </button>
+			</div>
+
+			<div class="start">
+				<h2> Start spill </h2>
+				{{#each gamemodes}}
+					<button data-id="{{id}}"> {{name}} </button>
+				{{/each}}
+			</div>
+
+			<div class="gameOver">
+				<p>
+					Gratulerer, du fikk {{points}} poeng!
+				</p>
+
+				<button class="replay"> Spill igjen </button>
+
+				<button class="otherGamemode"> Annen gamemode </button>
+
+				<button class="mainMeny"> Hovedmeny </button>
+			</div>
+		</div>
 	</body>
 </html>

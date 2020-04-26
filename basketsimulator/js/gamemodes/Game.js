@@ -6,7 +6,9 @@ Et helt basic Game teller ingen poeng.
 class Game {
 	constructor(options) {
 		let defaultOptions = {
-			canvasTag: "canvas"
+			canvasTag: "canvas",
+			onGameOver: points => console.log('Game over:', points, 'poeng'),
+			onSelfRestart: () => console.log('Restarter selv')
 		}
 
 		for (let index in defaultOptions) {
@@ -18,6 +20,8 @@ class Game {
 		this.canvasTag = options.canvasTag;
 		this.canvasEl = document.querySelector(this.canvasTag);
 		this.drawer = new CanvasDrawer(this.canvasTag);
+		this.onGameOver = options.onGameOver;
+		this.onSelfRestart = options.onSelfRestart;
 
 		this.touchTracker = new TouchTracker(this.canvasTag);
 		this.touchTracker.slipp = (pos, speed) => this.createNewBall(pos, speed);

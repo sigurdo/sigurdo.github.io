@@ -87,4 +87,8 @@ class Throw {
 	resetStatus() {
 		this.status = 'none';
 	}
+
+	getBallRadius() {
+		return this.ball.getRadius();
+	}
 }

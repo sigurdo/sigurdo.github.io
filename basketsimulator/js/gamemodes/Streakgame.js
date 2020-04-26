@@ -13,14 +13,23 @@ class StreakGame extends OneBallGame {
 		super(options);
 
 		this.poeng = 0;
+		this.gameOver = false;
 	}
 
 	treff() {
+		if (this.gameOver) {
+			this.gameOver = false;
+			this.onSelfRestart();
+		}
 		this.poeng++;
 	}
 
 	onDelete(index) {
 		if (this.throws[index].status == 'none') {
+			if (this.poeng > 0 && !this.gameOver) {
+				this.gameOver = true;
+				this.onGameOver(this.poeng);
+			}
 			this.poeng = 0;
 		}
 	}

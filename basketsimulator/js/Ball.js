@@ -109,7 +109,7 @@ class Ball {
 		//Sjekker om ballen kolliderer med tak/gulv
 		if ((this.kollisjonsVegger[0] && this.y <= 0 + 18) || (this.kollisjonsVegger[2] && this.y >= canvas.height - 18)) {
 			if (!this.kollidertTakGulv) {
-				this.planKollisjon(this.y < 100 ? 3 * Math.PI / 2 : 1 * Math.PI / 2);
+				this.planKollisjon(this.y < 100 ? Math.PI / 2 : 3 * Math.PI / 2);
 				this.kollidertTakGulv = true;
 			}
 		} else  {

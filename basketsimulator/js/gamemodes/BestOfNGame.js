@@ -18,13 +18,14 @@ class BestOfNGame extends Game {
 	onThrow() {
 		this.attemptsLeft--;
 		if (this.attemptsLeft <= 0) {
-			this.newBall = function() {};
+			this.createNewBall = function() {};
 		}
 	}
 
 	onDelete() {
 		if (this.attemptsLeft == 0 && this.throws.length == 1) {
-			console.log('Game over, du fikk', this.points, 'poeng');
+			// console.log('Game over, du fikk', this.points, 'poeng');
+			this.onGameOver(this.points);
 		}
 	}
 
