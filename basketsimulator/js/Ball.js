@@ -24,12 +24,16 @@ class Ball {
 			vinkelfart: 0,
 			fps: 60,
 			mpf: 1,
+			tyngdeaksellerasjon: 1.16, // px/frame**2
+			elastisitetNormalt: 1,
+			elastisitetParallelt: 0, // Ikke i bruk enda
 			farge: "white",
 			kollisjonsVegger: [false, false, false, false],
-			kollisjonsPunkter: []
+			kollisjonsPunkter: [],
+			kollisjonsSirkler: []
 		}
 		for (let index in defaultOptions) {
-			if (!options[index]) {
+			if (options[index] === undefined) {
 				options[index] = defaultOptions[index];
 			}
 		}
@@ -43,12 +47,15 @@ class Ball {
 		this.vinkelfart = options.vinkelfart;
 		this.fps = options.fps;
 		this.mpf = options.mpf;
+		this.elastisitetNormalt = options.elastisitetNormalt;
+		this.elastisitetParallelt = options.elastisitetParallelt;
 		this.farge = options.farge;
 		this.kollisjonsVegger = options.kollisjonsVegger;
 		this.kollisjonsPunkter = {
 			punkter: options.kollisjonsPunkter,
 			kollidert: new Array(options.kollisjonsPunkter.length).fill(false) //Om ballen kolliderte med punktet med gitt index forrige frame
 		};
+		this.kollisjonsSirkler = options.kollisjonsSirkler;
 		this.truffet = false;
 		this.kollidertVegg = false; //Om ballen koliderte med veggen forrige frame
 		this.kollidertTakGulv = false; //Om ballen koliderte med tak/gulv forrige frame
@@ -68,10 +75,11 @@ class Ball {
 		ctx.closePath();
 	}
 
-	planKollisjon(retning, lengde) {
+	planKollisjon(retning, lengde, normalsprettFaktor) {
 		if (!lengde) lengde = this.radius;
+		if (normalsprettFaktor === undefined) normalsprettFaktor = 1;
 		let fart = snurr(this.fart, -retning);
-		fart[0] = 0.85 * Math.abs(fart[0]);
+		fart[0] = normalsprettFaktor * this.elastisitetNormalt * Math.abs(fart[0]);
 		let v0x = fart[1];
 		let w0 = this.vinkelfart;
 		let r = lengde;
@@ -122,19 +130,25 @@ class Ball {
 			let punkt = this.kollisjonsPunkter.punkter[i];
 			var ballPos = [this.x, this.y];
 			var r = vektorPunkter(punkt, ballPos);
-			var v0 = this.fart;
 			if (lengde(r) <= this.radius + 5) {
 				if (true || !this.kollisjonsPunkter.kollidert[i]) {
 					this.planKollisjon(retning(r), lengde(r));
-					/* var vVinkel = retning(v0);
-					var v = vektor(0.92 * lengde(v0), (Math.PI + 2*retning(r) - retning(v0)) % (Math.PI * 2));
-					//console.log(vVinkel);
-					this.fart = v;
-					this.vinkelfart = lengde(this.fart) * Math.sin(retning(this.fart)-retning(r)) / this.radius;
-					this.kollisjonsPunkter.kollidert[i] = true;*/
 				}
 			} else {
 				this.kollisjonsPunkter.kollidert[i] = false;
+			}
+		}
+
+		// Sjekker om ballen kolliderer med kollisjonssirkler:
+		for (let i = 0; i < this.kollisjonsSirkler.length; i++) {
+			const r = vektorPunkter(this.kollisjonsSirkler[i].center, [this.x, this.y]);
+			if (lengde(r) <= this.radius + this.kollisjonsSirkler[i].radius) {
+				if (!this.kollisjonsSirkler[i].kollidert){
+					this.planKollisjon(retning(r), lengde(r), this.kollisjonsSirkler[i].normalBounce);
+					this.kollisjonsSirkler[i].kollidert = true;
+				}
+			} else {
+				this.kollisjonsSirkler[i].kollidert = false;
 			}
 		}
 

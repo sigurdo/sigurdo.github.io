@@ -28,8 +28,8 @@ class Game {
 		this.rodStrekPos = this.canvasEl.width - 600;
 
 		this.basket = new Basket({
-			pos: [this.canvasEl.width - 150, 300],
-			width: 150,
+			pos: [this.canvasEl.width - 140, 300],
+			width: 140,
 			height: 35,
 		});
 
@@ -61,6 +61,7 @@ class Game {
 			ballRadius: 50,
 			ballFart: speed,
 			ballVinkelfart: 0,
+			ballElastisitetNormalt: 0.94,
 			ballFarge: 'orange',
 			kollisjonsVegger: [false, true, false, true],
 			basket: this.basket,

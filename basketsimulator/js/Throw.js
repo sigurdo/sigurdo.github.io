@@ -11,6 +11,7 @@ class Throw {
 			ballFart: [0, 0],
 			ballVinkel: 0,
 			ballVinkelfart: 0,
+			ballElastisitetNormalt: 1,
 			ballFarge: "white",
 			kollisjonsVegger: [false, true, false, true],
 			basket: undefined,
@@ -36,9 +37,19 @@ class Throw {
 			vinkel: options.ballVinkel,
 			vinkelfart: options.ballVinkelfart,
 			fps: 60,
+			elastisitetNormalt: options.ballElastisitetNormalt,
 			farge: options.ballFarge,
 			kollisjonsVegger: options.kollisjonsVegger,
-			kollisjonsPunkter: [this.kurvPos, [this.kurvPos[0] + this.kurvWidth, this.kurvPos[1]]]
+			// kollisjonsPunkter: [this.kurvPos, [this.kurvPos[0] + this.kurvWidth, this.kurvPos[1]]]
+			kollisjonsSirkler: [{
+				center: this.kurvPos,
+				radius: 5,
+				normalBounce: 0.8
+			}, {
+				center: [this.kurvPos[0] + this.kurvWidth, this.kurvPos[1]],
+				radius: 5,
+				normalBounce: 0.8
+			}]
 		});
 		this.treff = options.treff;
 		this.status = "none"; //Status er "none" hvis den ikke har truffet kurven, og "hit" hvis den har truffet kurven

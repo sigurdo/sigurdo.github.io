@@ -34,6 +34,7 @@ class Sandbox {
             radius: 50,
             fart: speed,
             vinkelfart: 0,
+            elastisitetNormalt: 0.94,
             farge: 'orange',
             kollisjonsVegger: [true, true, true, true],
         }));
