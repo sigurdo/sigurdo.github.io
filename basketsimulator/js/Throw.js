@@ -9,6 +9,8 @@ class Throw {
 			ballPos: [0, 0],
 			ballRadius: 30,
 			ballFart: [0, 0],
+			ballVinkel: 0,
+			ballVinkelfart: 0,
 			ballFarge: "white",
 			kollisjonsVegger: [false, true, false, true],
 			basket: undefined,
@@ -27,10 +29,13 @@ class Throw {
 		this.kurvPos = this.basket.getPos();
 		this.kurvWidth = this.basket.getWidth();
 		this.kurvHeight = this.basket.getHeight();
-		this.ball = new Ball({
+		this.ball = new LookaheadBallContainer({
 			pos: options.ballPos,
 			radius: options.ballRadius,
 			fart: options.ballFart,
+			vinkel: options.ballVinkel,
+			vinkelfart: options.ballVinkelfart,
+			fps: 60,
 			farge: options.ballFarge,
 			kollisjonsVegger: options.kollisjonsVegger,
 			kollisjonsPunkter: [this.kurvPos, [this.kurvPos[0] + this.kurvWidth, this.kurvPos[1]]]
@@ -44,9 +49,9 @@ class Throw {
 
 		//Sjekk scoring...
 		//Lang if-setning sjekker om det er scoring. Denne er ikke perfekt men ganske god, nesten alle reelle treff vil registreres mens noen få ikke reelle treff vil registreres
-		let x = this.ball.x;
-		let y = this.ball.y;
-		let fart = this.ball.fart;
+		let x = this.ball.getX();
+		let y = this.ball.getY();
+		let fart = this.ball.getSpeed();
 		if (x > this.kurvPos[0]
 		 && x < this.kurvPos[0] + this.kurvWidth
 		 && y > this.kurvPos[1]
@@ -60,13 +65,19 @@ class Throw {
 	}
 
 	setBallPos(pos) {
-		this.ball.x = pos[0];
-		this.ball.y = pos[1];
-		this.ball.pos = pos;
+		this.ball.setPos(pos);
 	}
 
 	setBallFart(fart) {
-		this.ball.fart = fart;
+		this.ball.setSpeed(fart);
+	}
+
+	setBallVinkel(vinkel) {
+		this.ball.setAngle(vinkel);
+	}
+
+	setBallVinkelfart(vinkelfart) {
+		this.ball.setAnglespeed(vinkelfart);
 	}
 
 	setStatus(status) {

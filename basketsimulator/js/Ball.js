@@ -22,6 +22,8 @@ class Ball {
 			fart: [0, 0],
 			vinkel: 0,
 			vinkelfart: 0,
+			fps: 60,
+			mpf: 1,
 			farge: "white",
 			kollisjonsVegger: [false, false, false, false],
 			kollisjonsPunkter: []
@@ -36,9 +38,11 @@ class Ball {
 		this.x = options.pos[0];
 		this.y = options.pos[1];
 		this.radius = options.radius;
-		this.fart = options.fart;
+		this.fart = [options.fart[0] * 60 / options.fps, options.fart[1] * 60 / options.fps];
 		this.vinkel = options.vinkel;
 		this.vinkelfart = options.vinkelfart;
+		this.fps = options.fps;
+		this.mpf = options.mpf;
 		this.farge = options.farge;
 		this.kollisjonsVegger = options.kollisjonsVegger;
 		this.kollisjonsPunkter = {
@@ -66,20 +70,20 @@ class Ball {
 
 	planKollisjon(retning, lengde) {
 		if (!lengde) lengde = this.radius;
-		let fart = snurr(this.fart, retning);
-		fart[0] = 1 * Math.abs(fart[0]);
+		let fart = snurr(this.fart, -retning);
+		fart[0] = 0.85 * Math.abs(fart[0]);
 		let v0x = fart[1];
 		let w0 = this.vinkelfart;
 		let r = lengde;
 		fart[1] = (5/7) * (v0x + (2/5) * w0 * r);
 		this.vinkelfart = fart[1] / r;
-		this.fart = snurr(fart, -retning);
+		this.fart = snurr(fart, retning);
 	}
 
 	//x-flytt-metode
 	flytt() {
 		if (annenhverTyngdeaksellerasjon) {
-			this.fart[1] += 1.16;
+			this.fart[1] += 1.16 * 60 / (this.fps*this.mpf);
 		}
 		
 		this.x += this.fart[0];
@@ -87,7 +91,7 @@ class Ball {
 		this.vinkel += this.vinkelfart;
 
 		if (!annenhverTyngdeaksellerasjon) {
-			this.fart[1] += 1.16;
+			this.fart[1] += 1.16 * 60 / (this.fps*this.mpf);
 		}
 
 		annenhverTyngdeaksellerasjon = !annenhverTyngdeaksellerasjon;
@@ -119,7 +123,7 @@ class Ball {
 			var ballPos = [this.x, this.y];
 			var r = vektorPunkter(punkt, ballPos);
 			var v0 = this.fart;
-			if (lengde(r) <= this.radius + 10) {
+			if (lengde(r) <= this.radius + 5) {
 				if (true || !this.kollisjonsPunkter.kollidert[i]) {
 					this.planKollisjon(retning(r), lengde(r));
 					/* var vVinkel = retning(v0);
@@ -149,11 +153,37 @@ class Ball {
 		return this.pos[1];
 	}
 
+	getSpeed() {
+		return [this.fart[0], this.fart[1]];
+	}
+
+	getAngle() {
+		return this.vinkel;
+	}
+
 	getRadius() {
 		return this.radius;
 	}
 
 	getColor() {
 		return this.farge;
+	}
+
+	setPos(pos) {
+		this.x = pos[0];
+		this.y = pos[1];
+		this.pos = [this.x, this.y];
+	}
+
+	setSpeed(speed) {
+		this.fart = [speed[0], speed[1]];
+	}
+
+	setAngle(angle) {
+		this.vinkel = angle;
+	}
+
+	setAnglespeed(anglespeed) {
+		this.vinkelfart = anglespeed;
 	}
 }

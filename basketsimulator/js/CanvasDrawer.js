@@ -64,7 +64,7 @@ class CanvasDrawer {
 		let r = options.ball.getRadius();
 		let x = options.ball.getPos()[0];//-options.ball.getRadius();
 		let y = options.ball.getPos()[1]//;-options.ball.getRadius();
-		let t = options.ball.vinkel;
+		let t = options.ball.getAngle();
 		this.ctx.translate(x, y)
 		this.ctx.rotate(t);
 		this.ctx.drawImage(img, -r, -r);
@@ -79,7 +79,7 @@ class CanvasDrawer {
 				width: 100,
 				height: 50
 			}),
-			thickness: 16,
+			thickness: 10,
 			color: 'grey'
 		}
 		for (let i in defaultOptions) {
@@ -116,7 +116,7 @@ class CanvasDrawer {
 
 		this.ctx.beginPath();
 		this.ctx.moveTo(pos[0], pos[1]);
-		this.ctx.arc(pos[0], pos[1], 10, 0, 2 * Math.PI);
+		this.ctx.arc(pos[0], pos[1], 5, 0, 2 * Math.PI);
 		this.ctx.closePath();
 		this.ctx.fillStyle = 'grey';
 		this.ctx.fill();

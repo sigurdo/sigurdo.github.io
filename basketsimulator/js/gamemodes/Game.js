@@ -24,9 +24,9 @@ class Game {
 		this.rodStrekPos = this.canvasEl.width - 600;
 
 		this.basket = new Basket({
-			pos: [this.canvasEl.width - 175, 300],
-			width: 175,
-			height: 35
+			pos: [this.canvasEl.width - 150, 300],
+			width: 150,
+			height: 35,
 		});
 
 		this.throws = [];
@@ -51,11 +51,12 @@ class Game {
 	}
 
 	createNewBall(pos, speed) {
-		if (pos[0] > this.rodStrekPos && pos[1] < 300) return;
+		// if (pos[0] > this.rodStrekPos && pos[1] < 300) return;
 		this.throws.push(new Throw({
 			ballPos: pos,
 			ballRadius: 50,
 			ballFart: speed,
+			ballVinkelfart: 0,
 			ballFarge: 'orange',
 			kollisjonsVegger: [false, true, false, true],
 			basket: this.basket,

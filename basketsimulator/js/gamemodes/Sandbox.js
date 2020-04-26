@@ -29,7 +29,7 @@ class Sandbox {
     }
 
     createNewBall(pos, speed) {
-        this.balls.push(new Ball({
+        this.balls.push(new LookaheadBallContainer({
             pos: pos,
             radius: 50,
             fart: speed,

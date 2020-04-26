@@ -26,6 +26,8 @@ class OneBallGame extends Game {
         this.onDelete(0);
         this.throws[0].setBallPos(pos);
         this.throws[0].setBallFart(speed);
+        this.throws[0].setBallVinkel(0);
+        this.throws[0].setBallVinkelfart(0);
         this.throws[0].resetStatus();
         this.onThrow(0);
     }

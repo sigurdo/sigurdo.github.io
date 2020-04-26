@@ -36,6 +36,7 @@
 			baller: <t id="ballerViser"> </t> baller
 		</p>
 		<script type="text/javascript" src="js/Ball.js"></script> <!--Inkluderer klassen Ball-->
+		<script type="text/javascript" src="js/LookaheadBallContainer.js"></script>
 		<script type="text/javascript" src="js/Basket.js"></script>
 		<script type="text/javascript" src="js/Throw.js"></script> <!--Inkluderer klassen Throw-->
 		<script type="text/javascript" src="js/gamemodes/Game.js"></script>
@@ -64,7 +65,7 @@
 			canvas.height = window.innerHeight;
 			canvas.style.height = (window.innerHeight)+'px';
 
-			let game = new Sandbox({
+			let game = new StreakGame({
 				canvasTag: '#flyBoks'
 			});
 
